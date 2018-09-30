@@ -88,7 +88,9 @@ class Lux01OverViewFragment : Fragment()
         val view = inflater.inflate(R.layout.fragment_lux01_over_view, container, false)
 
         // 照度の強さを表示するサーフェスビュー
-        overView = view.findViewById(R.id.overView)
+        overView = view.findViewById(R.id.overView01)
+        overView.holder.setFormat(PixelFormat.TRANSLUCENT)
+        overView.setZOrderOnTop(false)
         overView.holder.addCallback(this)
 
         // 照度の数値を表示するビュー
@@ -203,6 +205,7 @@ class Lux01OverViewFragment : Fragment()
         // バックグラウンドを塗りつぶす
         val frame = Rect( 0, 0, ow.toInt(), oh.toInt())
         canvas.drawRect(frame, paintBackground)
+        //canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
 
         // 枠を描画
         canvas.drawRect(frame, paintFrame)
@@ -233,19 +236,6 @@ class Lux01OverViewFragment : Fragment()
         // ---------------------------------------------------------------------------
         val bmpSun = BitmapFactory.decodeResource(resources, R.drawable.a_sun)
         drawImage(canvas,bmpSun,4,fh)
-        /*
-        // 描画元の矩形イメージ
-        val srcSun = Rect(0,0,bmpSun.width,bmpSun.height)
-        // 描画先の矩形イメージ
-        //val dstSun = Rect( (ow-fh).toInt(), 0, ow.toInt(), fh.toInt())
-        val dstSun = if ( (luxSeg[4]+fh).toInt() < ow.toInt() ) {
-            Rect(luxSeg[4].toInt(), 0, (luxSeg[4] + fh).toInt(), fh.toInt())
-        }
-        else {
-            Rect( (ow-fh).toInt(), 0, ow.toInt(), fh.toInt())
-        }
-        canvas.drawBitmap(bmpSun, srcSun, dstSun, paintBackground)
-        */
 
         // ---------------------------------------------------------------------------
         // 日の出を描画(セグメント３)
@@ -254,20 +244,6 @@ class Lux01OverViewFragment : Fragment()
         // ---------------------------------------------------------------------------
         val bmpSunRise = BitmapFactory.decodeResource(resources, R.drawable.a_sunrise)
         drawImage(canvas,bmpSunRise,3,fh)
-        /*
-        // 描画元の矩形イメージ
-        val srcSunrise = Rect(0,0,bmpSunRise.width,bmpSunRise.height)
-        // 描画先の矩形イメージ
-        //val dstSunrise = Rect( (ow-fh).toInt(), 0, ow.toInt(), fh.toInt())
-        val dstSunrise = if ( (luxSeg[3]+fh).toInt() < ow.toInt() ) {
-            Rect(luxSeg[3].toInt(), 0, (luxSeg[3] + fh).toInt(), fh.toInt())
-        }
-        else {
-            Rect( (ow-fh).toInt(), 0, ow.toInt(), fh.toInt())
-        }
-        canvas.translate( 0f, fh )
-        canvas.drawBitmap(bmpSunRise, srcSunrise, dstSunrise, paintBackground)
-        */
 
         // ---------------------------------------------------------------------------
         // 雲を描画(セグメント２)
@@ -276,19 +252,6 @@ class Lux01OverViewFragment : Fragment()
         // ---------------------------------------------------------------------------
         val bmpCloudy = BitmapFactory.decodeResource(resources, R.drawable.a_cloudy)
         drawImage(canvas,bmpCloudy,2,fh)
-        /*
-        // 描画元の矩形イメージ
-        val srcCloudy = Rect(0,0,bmpCloudy.width,bmpCloudy.height)
-        // 描画先の矩形イメージ
-        val dstCloudy = Rect((luxSeg[2]%ow).toInt(), 0, ((luxSeg[2]%ow) + fh).toInt(), fh.toInt())
-        canvas.translate( 0f, fh )
-        canvas.drawBitmap(bmpCloudy, srcCloudy, dstCloudy, paintBackground)
-        // 右端にきたら、左端から出てくるようにする
-        if ( (luxSeg[2]%ow+fh).toInt() > ow.toInt() ) {
-            val dstCloudy2 = Rect(((luxSeg[2]+fh)%ow-fh).toInt(), 0, ((luxSeg[2]+fh)%ow).toInt(), fh.toInt())
-            canvas.drawBitmap(bmpCloudy, srcCloudy, dstCloudy2, paintBackground)
-        }
-        */
 
         // ---------------------------------------------------------------------------
         // 月を描画(セグメント１)
@@ -298,20 +261,6 @@ class Lux01OverViewFragment : Fragment()
         // ---------------------------------------------------------------------------
         val bmpMoon = BitmapFactory.decodeResource(resources, R.drawable.a_moon)
         drawImage(canvas,bmpMoon,1,fh)
-        /*
-        // 描画元の矩形イメージ
-        val srcMoon = Rect(0,0,bmpMoon.width,bmpMoon.height)
-        // 描画先の矩形イメージ
-        //val dstMoon = Rect( (ow-fh).toInt(), 0, ow.toInt(), fh.toInt())
-        val dstMoon = if ( (luxSeg[1]+fh).toInt() < ow.toInt() ) {
-            Rect(luxSeg[1].toInt(), 0, (luxSeg[1] + fh).toInt(), fh.toInt())
-        }
-        else {
-            Rect( (ow-fh).toInt(), 0, ow.toInt(), fh.toInt())
-        }
-        canvas.translate( 0f, fh )
-        canvas.drawBitmap(bmpMoon, srcMoon, dstMoon, paintBackground)
-        */
 
         // ---------------------------------------------------------------------------
         // 星を描画(セグメント０)
@@ -320,20 +269,6 @@ class Lux01OverViewFragment : Fragment()
         // ---------------------------------------------------------------------------
         val bmpStar = BitmapFactory.decodeResource(resources, R.drawable.a_star)
         drawImage(canvas,bmpStar,0,fh)
-        /*
-        // 描画元の矩形イメージ
-        val srcStar = Rect(0,0,bmpStar.width,bmpStar.height)
-        // 描画先の矩形イメージ
-        //val dstStar = Rect( (ow-fh).toInt(), 0, ow.toInt(), fh.toInt())
-        val dstStar = if ( (luxSeg[0]+fh).toInt() < ow.toInt() ) {
-            Rect(luxSeg[0].toInt(), 0, (luxSeg[0] + fh).toInt(), fh.toInt())
-        }
-        else {
-            Rect( (ow-fh).toInt(), 0, ow.toInt(), fh.toInt())
-        }
-        canvas.translate( 0f, fh )
-        canvas.drawBitmap(bmpStar, srcStar, dstStar, paintBackground)
-        */
 
         // 座標位置を初期値に戻す
         canvas.restore()

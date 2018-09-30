@@ -1,8 +1,17 @@
 <resources>
-    <string name="app_name">Milux</string>
+    <string name="app_name" translatable="false">Milux</string>
     <string name="action_settings">Settings</string>
     <string name="action_reset">Reset</string>
+    <string name="action_about">About Me</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_release_date">2018.10.01</string>
+    <string name="level4"><![CDATA[>= 10000 lx]]></string>
+    <string name="level3"><![CDATA[>=  1000 lx]]></string>
+    <string name="level2"><![CDATA[>=   100 lx]]></string>
+    <string name="level1"><![CDATA[>=    10 lx]]></string>
+    <string name="level0"><![CDATA[>=     1 lx]]></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>

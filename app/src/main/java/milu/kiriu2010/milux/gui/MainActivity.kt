@@ -8,6 +8,7 @@ import android.hardware.SensorManager
 import android.support.v7.app.AppCompatActivity
 
 import android.os.Bundle
+import android.support.v4.view.ViewPager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -17,6 +18,7 @@ import milu.kiriu2010.milux.LuxApplication
 import milu.kiriu2010.milux.R
 import milu.kiriu2010.milux.conf.AppConf
 import milu.kiriu2010.milux.entity.LuxData
+import milu.kiriu2010.milux.id.FragmentID
 import milu.kiriu2010.util.LimitedArrayList
 import java.util.Date
 
@@ -29,15 +31,11 @@ class MainActivity : AppCompatActivity()
     // アプリ設定
     private lateinit var appConf: AppConf
 
-    /**
-     * The [android.support.v4.view.PagerAdapter] that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * [android.support.v4.app.FragmentStatePagerAdapter].
-     */
+    // スワイプする表示されるページを格納したアダプタ
     private var luxPagerAdapter: LuxPagerAdapter? = null
+
+    // 現在表示対象としているページ番号
+    private var currentPagePos = 0
 
     // 照度センサの値
     private var luxData = LuxData()
@@ -70,7 +68,6 @@ class MainActivity : AppCompatActivity()
         container.adapter = luxPagerAdapter
 
         // アクティブなフラグメントが切り替わったら呼び出される
-        /*
         container.addOnPageChangeListener( object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
             }
@@ -79,15 +76,18 @@ class MainActivity : AppCompatActivity()
             }
 
             override fun onPageSelected(pos: Int) {
+                // 現在表示中のページ番号を取得
+                currentPagePos = pos
+                /*
                 val fragment = luxPagerAdapter?.getItem(pos) ?: return
                 // 画面の方向を表示する内容によって変更する
                 if ( fragment is OrientationListener ) {
                     requestedOrientation = fragment.onActivityOrientation()
                 }
+                */
             }
 
         })
-        */
 
 
         // 1秒ごとに照度値をバッファに蓄える
@@ -152,6 +152,11 @@ class MainActivity : AppCompatActivity()
             val fragment = luxPagerAdapter?.getItem(i) as? NewVal01Listener
                     ?: continue
 
+            /* 現在選択しているページだけ更新
+            if ( i == currentPagePos ) {
+                fragment.onUpdate(lux)
+            }
+            */
             fragment.onUpdate(lux)
             if ( tick == true ) {
                 fragment.onUpdate(luxLst)
@@ -193,6 +198,11 @@ class MainActivity : AppCompatActivity()
         when (item.itemId) {
             // リセットボタン
             R.id.action_reset -> OnReset()
+            // "About"フラグメントを表示
+            R.id.action_about -> {
+                val dialog = AboutFragment.newInstance()
+                dialog.show(supportFragmentManager, FragmentID.ID_ABOUT.id)
+            }
         }
 
         return super.onOptionsItemSelected(item)

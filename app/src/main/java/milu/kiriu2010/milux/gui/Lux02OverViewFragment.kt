@@ -104,7 +104,9 @@ class Lux02OverViewFragment : Fragment()
         val view = inflater.inflate(R.layout.fragment_lux02_over_view, container, false)
 
         // 照度の強さを表示するサーフェスビュー
-        overView = view.findViewById(R.id.overView)
+        overView = view.findViewById(R.id.overView02)
+        overView.holder.setFormat(PixelFormat.TRANSLUCENT)
+        overView.setZOrderOnTop(false)
         overView.holder.addCallback(this)
 
         /*

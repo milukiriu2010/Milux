@@ -23,7 +23,7 @@
         tools:text="12000 lx" />
 
     <SurfaceView
-        android:id="@+id/overView"
+        android:id="@+id/overView01"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="4dp"
