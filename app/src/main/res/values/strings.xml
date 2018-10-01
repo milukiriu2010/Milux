@@ -5,13 +5,14 @@
     <string name="action_about">About Me</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="app_release_date">2018.10.01</string>
-    <string name="level4"><![CDATA[>= 10000 lx]]></string>
-    <string name="level3"><![CDATA[>=  1000 lx]]></string>
-    <string name="level2"><![CDATA[>=   100 lx]]></string>
-    <string name="level1"><![CDATA[>=    10 lx]]></string>
-    <string name="level0"><![CDATA[>=     1 lx]]></string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="app_release_date" translatable="false">2018.10.01</string>
+    <string name="level4" translatable="false"><![CDATA[>= 10000 lx]]></string>
+    <string name="level3" translatable="false"><![CDATA[>=  1000 lx]]></string>
+    <string name="level2" translatable="false"><![CDATA[>=   100 lx]]></string>
+    <string name="level1" translatable="false"><![CDATA[>=    10 lx]]></string>
+    <string name="level0" translatable="false"><![CDATA[>=     1 lx]]></string>
+    <string name="msg_sorry">sorry, you don\'t have a light sensor.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

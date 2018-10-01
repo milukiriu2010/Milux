@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 
 import kotlinx.android.synthetic.main.activity_main.*
 import milu.kiriu2010.milux.LuxApplication
@@ -116,6 +117,10 @@ class MainActivity : AppCompatActivity()
         // 照度センサなし
         else {
             // アラート画面
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.frameErrMsg, NoSensorFragment.newInstance())
+                    .commit()
+            container.visibility = View.GONE
         }
     }
 
@@ -198,7 +203,7 @@ class MainActivity : AppCompatActivity()
         when (item.itemId) {
             // リセットボタン
             R.id.action_reset -> OnReset()
-            // "About"フラグメントを表示
+            // "About Me"フラグメントを表示
             R.id.action_about -> {
                 val dialog = AboutFragment.newInstance()
                 dialog.show(supportFragmentManager, FragmentID.ID_ABOUT.id)
