@@ -176,7 +176,9 @@ class Lux04OverViewFragment : Fragment()
                 else -> it
             }
         } ?: 0f
-        Log.d( javaClass.simpleName, "onUpdate:max[$luxMax]min[$luxMin]size[${luxLst.size}]")
+        // 照度差分(最大値ー最小値)
+        luxDif = luxMax - luxMin
+        Log.d( javaClass.simpleName, "onUpdate:max[$luxMax]min[$luxMin]dif[$luxDif]size[${luxLst.size}]")
 
         // 照度の強さ⇔時刻をグラフ化
         if (this::overView.isInitialized) {
@@ -203,7 +205,70 @@ class Lux04OverViewFragment : Fragment()
             it - 1
         } ?: 10
 
+        // 照度DIFF値からグラフ表示に使うDIFF値を計算
+        //   luxMin      luxMax     luxDif
+        // -------------------------------------
+        //      253         254          1
+        //      250         260         10
+        // -------------------------------------
+        //      211         258         47
+        //      210         260         50
+        // -------------------------------------
+        //      209         251         42
+        //      200         260         60
+        // -------------------------------------
+        //       81         111         30
+        //       80         120         40
+        // -------------------------------------
+        //       81        2112        2031
+        //       80        2200        2120
+        // -------------------------------------
+        //      111        2112        2001
+        //       80        2200        2120
+        // -------------------------------------
+        val luxDifLog10 = if ( luxDif == 0f ) {
+            0
+        }
+        else {
+            log10(luxDif).toInt()
+        }
+        var gdif = if ( luxDif == 0f ) {
+            0f
+        }
+        else {
+            ((luxDif / 10f.pow(luxDifLog10)).toInt()+2)*10f.pow(luxDifLog10)
+        }
+        // 最低でも10間をあける
+        if ( gdif < 10f ) {
+            gdif = 10f
+        }
+        Log.d( javaClass.simpleName, "gdif[$gdif]luxDifLog10[$luxDifLog10]luxDif[$luxDif]")
+
+        /*
+        val luxMinLog10 = if ( luxMin == 0f ) {
+            0
+        }
+        else {
+            log10(luxMin).toInt()
+        }
+        val gmin = if ( luxMin == 0f ) {
+            0f
+        }
+        else {
+            ((luxMin / 10f.pow(luxMinLog10)).toInt())*10f.pow(luxMinLog10)
+        }
+        */
+        val luxGdifLog10 = log10(gdif).toInt()
+        val gmin = if ( luxMin == 0f ) {
+            0f
+        }
+        else {
+            ((luxMin / 10f.pow(luxGdifLog10)).toInt())*10f.pow(luxGdifLog10)
+        }
+        Log.d( javaClass.simpleName, "gmin[$gmin]luxGdifLog10[$luxGdifLog10]luxMin[$luxMin]")
+
         // 照度MAX値からグラフ表示に使うMAX値を計算
+        /*
         val luxMaxLog10 = log10(luxMax).toInt()
         // -------------------------------------------
         // luxMax => gmax
@@ -214,6 +279,15 @@ class Lux04OverViewFragment : Fragment()
         // -------------------------------------------
         val gmax = ((luxMax / 10f.pow(luxMaxLog10)).toInt()+1)*10f.pow(luxMaxLog10)
         Log.d( javaClass.simpleName, "gmax[$gmax]luxMaxLog10[$luxMaxLog10]luxMax[$luxMax]")
+        */
+        //val gmax = gmin + gdif
+        val gmax = if ( luxMax == 0f ) {
+            0f
+        }
+        else {
+            ((luxMax / 10f.pow(luxGdifLog10)).toInt()+1)*10f.pow(luxGdifLog10)
+        }
+        Log.d( javaClass.simpleName, "gmax[$gmax]luxGdifLog10[$luxGdifLog10]luxMin[$luxMax]")
 
         // バックグラウンドを塗りつぶす
         val background = Rect( 0, 0, ow.toInt(), oh.toInt())
@@ -267,6 +341,7 @@ class Lux04OverViewFragment : Fragment()
         // 照度スケールのダッシュ線を描画
         // ------------------------------------------------------------------------
         // 一番上に単位を描画
+        /*
         canvas.drawText( "(x ${(10f.pow(luxMaxLog10)).toInt()})", mw, mh/2, paintTime )
         val luxScaleLine = Path()
         luxScaleLine.moveTo( mw, 0f)
@@ -280,6 +355,26 @@ class Lux04OverViewFragment : Fragment()
             val strLux = i.toFloat()/(10f.pow(luxMaxLog10))
             canvas.drawText( strLux.toString(), 10f, 0f, paintTime)
             if ( i != 0 ) {
+                canvas.translate(0f, (frame.height() / divY).toFloat())
+            }
+        }
+        // 一番下に単位を描画
+        //canvas.drawText( "(x ${(10f.pow(luxMaxLog10)).toInt()})", 10f, mh/2, paintTime )
+        */
+        val luxGmaxLog10 = log10(gmax).toInt()
+        canvas.drawText( "(x ${(10f.pow(luxGmaxLog10)).toInt()})", mw, mh/2, paintTime )
+        val luxScaleLine = Path()
+        luxScaleLine.moveTo( mw, 0f)
+        luxScaleLine.lineTo( ow-mw, 0f)
+        // Y軸を上マージン分移動
+        canvas.translate( 0f, mh )
+        // Y軸を5分割し、横にダッシュ線を描く
+        val divY = 5
+        for ( i in gmax.toInt() downTo gmin.toInt() step ((gmax-gmin)/5).toInt() ) {
+            canvas.drawPath(luxScaleLine, paintLineBase)
+            val strLux = i.toFloat()/(10f.pow(luxGmaxLog10))
+            canvas.drawText( strLux.toString(), 10f, 0f, paintTime)
+            if ( i > gmin.toInt() ) {
                 canvas.translate(0f, (frame.height() / divY).toFloat())
             }
         }
@@ -306,10 +401,10 @@ class Lux04OverViewFragment : Fragment()
         for ( i in 0 until luxLst.size ) {
             val luxData = luxLst[i]
             if ( i == 0 ) {
-                luxPath.moveTo( ow-mw, (oh-mh)-luxData.lux/gmax*(oh-2*mh) )
+                luxPath.moveTo( ow-mw, (oh-mh)-(luxData.lux-gmin)/(gmax-gmin)*(oh-2*mh) )
             }
             else {
-                luxPath.lineTo( (ow-mw)-(ow-2*mw)*i/limit, (oh-mh)-luxData.lux/gmax*(oh-2*mh) )
+                luxPath.lineTo( (ow-mw)-(ow-2*mw)*i/limit, (oh-mh)-(luxData.lux-gmin)/(gmax-gmin)*(oh-2*mh) )
             }
         }
         // closeすると、始点と結ばれるらしい
