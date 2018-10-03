@@ -4,6 +4,7 @@ package milu.kiriu2010.milux.gui
 import android.content.pm.ActivityInfo
 import android.graphics.*
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.*
@@ -27,7 +28,8 @@ class Lux04OverViewFragment : Fragment()
         , SurfaceHolder.Callback
         , NewVal01Listener
         , OrientationListener
-        , ResetListener {
+        , ResetListener
+        , SelectedListener {
 
     // 現在の照度
     private var lux: Float = 0f
@@ -91,13 +93,23 @@ class Lux04OverViewFragment : Fragment()
         timeZone = TimeZone.getDefault()
     }
 
-    // タイマーで呼び出されるハンドラー
-    //private val handler = Handler()
+    // 描画時に呼び出されるハンドラー
+    private val handler = Handler()
+    // 描画時に呼び出されるスレッド
+    private lateinit var runnable: Runnable
+
+    // このフラグメントが選択されたかどうか
+    private var selected = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(runnable)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -109,15 +121,8 @@ class Lux04OverViewFragment : Fragment()
         overView = view.findViewById(R.id.overView04)
         overView.holder.setFormat(PixelFormat.TRANSLUCENT)
         overView.setZOrderOnTop(false)
+        overView.setZOrderMediaOverlay(false)
         overView.holder.addCallback(this)
-
-        /*
-        timer( period = 1000) {
-            handler.post {
-                drawCanvas()
-            }
-        }
-        */
 
         // 照度の数値を表示するビュー
         dataLux = view.findViewById(R.id.dataLux)
@@ -178,15 +183,22 @@ class Lux04OverViewFragment : Fragment()
         } ?: 0f
         // 照度差分(最大値ー最小値)
         luxDif = luxMax - luxMin
-        Log.d( javaClass.simpleName, "onUpdate:max[$luxMax]min[$luxMin]dif[$luxDif]size[${luxLst.size}]")
+        //Log.d( javaClass.simpleName, "onUpdate:max[$luxMax]min[$luxMin]dif[$luxDif]size[${luxLst.size}]")
 
         // 照度の強さ⇔時刻をグラフ化
         if (this::overView.isInitialized) {
-            drawCanvas(luxLst)
+            //drawCanvas(luxLst)
+            // 描画時に呼び出されるスレッド
+            runnable = Runnable {
+                drawCanvas(luxLst)
+            }
+            handler.post(runnable)
         }
     }
 
     private fun drawCanvas( luxLst: LimitedArrayList<LuxData> ) {
+        //if ( selected == false ) return
+
         //Log.d( javaClass.simpleName, "drawCanvas:w[$ow]h[$oh]")
         val canvas = overView.holder.lockCanvas()
         if (canvas == null) {
@@ -242,22 +254,12 @@ class Lux04OverViewFragment : Fragment()
         if ( gdif < 10f ) {
             gdif = 10f
         }
-        Log.d( javaClass.simpleName, "gdif[$gdif]luxDifLog10[$luxDifLog10]luxDif[$luxDif]")
+        //Log.d( javaClass.simpleName, "gdif[$gdif]luxDifLog10[$luxDifLog10]luxDif[$luxDif]")
 
-        /*
-        val luxMinLog10 = if ( luxMin == 0f ) {
-            0
-        }
-        else {
-            log10(luxMin).toInt()
-        }
-        val gmin = if ( luxMin == 0f ) {
-            0f
-        }
-        else {
-            ((luxMin / 10f.pow(luxMinLog10)).toInt())*10f.pow(luxMinLog10)
-        }
-        */
+        // ----------------------------------------------------
+        // 差分の桁数で割り算・再び掛け算をすることにより、
+        // 有効桁数以下を切り落として、MIN値を求める
+        // ----------------------------------------------------
         val luxGdifLog10 = log10(gdif).toInt()
         val gmin = if ( luxMin == 0f ) {
             0f
@@ -265,29 +267,19 @@ class Lux04OverViewFragment : Fragment()
         else {
             ((luxMin / 10f.pow(luxGdifLog10)).toInt())*10f.pow(luxGdifLog10)
         }
-        Log.d( javaClass.simpleName, "gmin[$gmin]luxGdifLog10[$luxGdifLog10]luxMin[$luxMin]")
+        //Log.d( javaClass.simpleName, "gmin[$gmin]luxGdifLog10[$luxGdifLog10]luxMin[$luxMin]")
 
-        // 照度MAX値からグラフ表示に使うMAX値を計算
-        /*
-        val luxMaxLog10 = log10(luxMax).toInt()
-        // -------------------------------------------
-        // luxMax => gmax
-        // 11     => 20
-        // 21     => 30
-        // 110    => 200
-        // 8631.6 => 9000
-        // -------------------------------------------
-        val gmax = ((luxMax / 10f.pow(luxMaxLog10)).toInt()+1)*10f.pow(luxMaxLog10)
-        Log.d( javaClass.simpleName, "gmax[$gmax]luxMaxLog10[$luxMaxLog10]luxMax[$luxMax]")
-        */
-        //val gmax = gmin + gdif
+        // ----------------------------------------------------------------
+        // 差分の桁数で "割り算＋1したもの" に再び掛け算をすることにより、
+        // 有効桁数以下を切り落として、MIN値を求める
+        // ----------------------------------------------------------------
         val gmax = if ( luxMax == 0f ) {
             0f
         }
         else {
             ((luxMax / 10f.pow(luxGdifLog10)).toInt()+1)*10f.pow(luxGdifLog10)
         }
-        Log.d( javaClass.simpleName, "gmax[$gmax]luxGdifLog10[$luxGdifLog10]luxMin[$luxMax]")
+        //Log.d( javaClass.simpleName, "gmax[$gmax]luxGdifLog10[$luxGdifLog10]luxMin[$luxMax]")
 
         // バックグラウンドを塗りつぶす
         val background = Rect( 0, 0, ow.toInt(), oh.toInt())
@@ -341,26 +333,6 @@ class Lux04OverViewFragment : Fragment()
         // 照度スケールのダッシュ線を描画
         // ------------------------------------------------------------------------
         // 一番上に単位を描画
-        /*
-        canvas.drawText( "(x ${(10f.pow(luxMaxLog10)).toInt()})", mw, mh/2, paintTime )
-        val luxScaleLine = Path()
-        luxScaleLine.moveTo( mw, 0f)
-        luxScaleLine.lineTo( ow-mw, 0f)
-        // Y軸を上マージン分移動
-        canvas.translate( 0f, mh )
-        // Y軸を5分割し、横にダッシュ線を描く
-        val divY = 5
-        for ( i in gmax.toInt() downTo 0 step (gmax/5).toInt() ) {
-            canvas.drawPath(luxScaleLine, paintLineBase)
-            val strLux = i.toFloat()/(10f.pow(luxMaxLog10))
-            canvas.drawText( strLux.toString(), 10f, 0f, paintTime)
-            if ( i != 0 ) {
-                canvas.translate(0f, (frame.height() / divY).toFloat())
-            }
-        }
-        // 一番下に単位を描画
-        //canvas.drawText( "(x ${(10f.pow(luxMaxLog10)).toInt()})", 10f, mh/2, paintTime )
-        */
         val luxGmaxLog10 = log10(gmax).toInt()
         canvas.drawText( "(x ${(10f.pow(luxGmaxLog10)).toInt()})", mw, mh/2, paintTime )
         val luxScaleLine = Path()
@@ -373,13 +345,13 @@ class Lux04OverViewFragment : Fragment()
         for ( i in gmax.toInt() downTo gmin.toInt() step ((gmax-gmin)/5).toInt() ) {
             canvas.drawPath(luxScaleLine, paintLineBase)
             val strLux = i.toFloat()/(10f.pow(luxGmaxLog10))
-            canvas.drawText( strLux.toString(), 10f, 0f, paintTime)
+            //canvas.drawText( strLux.toString(), 10f, 0f, paintTime)]
+            // 照度を表す文字を小数点下2桁まで表示
+            canvas.drawText( "%1$.2f".format(strLux), 10f, 0f, paintTime)
             if ( i > gmin.toInt() ) {
                 canvas.translate(0f, (frame.height() / divY).toFloat())
             }
         }
-        // 一番下に単位を描画
-        //canvas.drawText( "(x ${(10f.pow(luxMaxLog10)).toInt()})", 10f, mh/2, paintTime )
 
         // 座標位置を初期値に戻す
         canvas.restore()
@@ -430,6 +402,19 @@ class Lux04OverViewFragment : Fragment()
         luxMax = 10f
         // 照度MIN値
         luxMin = 0f
+    }
+
+    // SelectedListener
+    override fun onSelected(selected: Boolean) {
+        this.selected = selected
+        if (this::overView.isInitialized) {
+            overView.visibility = if (selected == true) {
+                View.VISIBLE
+            } else {
+                View.INVISIBLE
+            }
+        }
+        Log.d(javaClass.simpleName, "onSelected:${selected}")
     }
 
     companion object {

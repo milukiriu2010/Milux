@@ -24,25 +24,25 @@ class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
                 }
                 return lux01OverViewFragment
             }
+            /*
             1 -> {
                 if ( !this::lux02OverViewFragment.isInitialized ) {
                     lux02OverViewFragment = Lux02OverViewFragment()
                 }
                 return lux02OverViewFragment
             }
-            /*
+            */
+            1 -> {
+                if ( !this::lux04OverViewFragment.isInitialized ) {
+                    lux04OverViewFragment = Lux04OverViewFragment()
+                }
+                return lux04OverViewFragment
+            }
             2 -> {
                 if ( !this::lux03OverViewFragment.isInitialized ) {
                     lux03OverViewFragment = Lux03OverViewFragment()
                 }
                 return lux03OverViewFragment
-            }
-            */
-            2 -> {
-                if ( !this::lux04OverViewFragment.isInitialized ) {
-                    lux04OverViewFragment = Lux04OverViewFragment()
-                }
-                return lux04OverViewFragment
             }
             else -> {
                 if ( !this::lux01OverViewFragment.isInitialized ) {

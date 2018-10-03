@@ -4,6 +4,7 @@ package milu.kiriu2010.milux.gui
 import android.content.pm.ActivityInfo
 import android.graphics.*
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.*
@@ -27,7 +28,8 @@ class Lux02OverViewFragment : Fragment()
         , SurfaceHolder.Callback
         , NewVal01Listener
         , OrientationListener
-        , ResetListener {
+        , ResetListener
+        , SelectedListener {
 
     // 現在の照度
     private var lux: Float = 0f
@@ -90,12 +92,22 @@ class Lux02OverViewFragment : Fragment()
     }
 
     // タイマーで呼び出されるハンドラー
-    //private val handler = Handler()
+    private val handler = Handler()
+    // 描画時に呼び出されるスレッド
+    private lateinit var runnable: Runnable
+
+    // このフラグメントが選択されたかどうか
+    private var selected = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(runnable)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -107,15 +119,8 @@ class Lux02OverViewFragment : Fragment()
         overView = view.findViewById(R.id.overView02)
         overView.holder.setFormat(PixelFormat.TRANSLUCENT)
         overView.setZOrderOnTop(false)
+        overView.setZOrderMediaOverlay(false)
         overView.holder.addCallback(this)
-
-        /*
-        timer( period = 1000) {
-            handler.post {
-                drawCanvas()
-            }
-        }
-        */
 
         // 照度の数値を表示するビュー
         dataLux = view.findViewById(R.id.dataLux)
@@ -169,15 +174,22 @@ class Lux02OverViewFragment : Fragment()
         } ?: 10f
         // 照度最低値は0とする
         luxMin = luxLst.minBy { it.lux }?.lux ?: 0f
-        Log.d( javaClass.simpleName, "onUpdate:max[$luxMax]min[$luxMin]size[${luxLst.size}]")
+        //Log.d( javaClass.simpleName, "onUpdate:max[$luxMax]min[$luxMin]size[${luxLst.size}]")
 
         // 照度の強さ⇔時刻をグラフ化
         if (this::overView.isInitialized) {
-            drawCanvas(luxLst)
+            //drawCanvas(luxLst)
+            // 描画時に呼び出されるスレッド
+            runnable = Runnable {
+                drawCanvas(luxLst)
+            }
+            handler.post(runnable)
         }
     }
 
     private fun drawCanvas( luxLst: LimitedArrayList<LuxData> ) {
+        //if ( selected == false ) return
+
         //Log.d( javaClass.simpleName, "drawCanvas:w[$ow]h[$oh]")
         val canvas = overView.holder.lockCanvas()
         if (canvas == null) {
@@ -206,7 +218,7 @@ class Lux02OverViewFragment : Fragment()
         // 8631.6 => 9000
         // -------------------------------------------
         val gmax = ((luxMax / 10f.pow(luxMaxLog10)).toInt()+1)*10f.pow(luxMaxLog10)
-        Log.d( javaClass.simpleName, "gmax[$gmax]luxMaxLog10[$luxMaxLog10]luxMax[$luxMax]")
+        //Log.d( javaClass.simpleName, "gmax[$gmax]luxMaxLog10[$luxMaxLog10]luxMax[$luxMax]")
 
         // バックグラウンドを塗りつぶす
         val background = Rect( 0, 0, ow.toInt(), oh.toInt())
@@ -328,6 +340,19 @@ class Lux02OverViewFragment : Fragment()
         luxMax = 10f
         // 照度MIN値
         luxMin = 0f
+    }
+
+    // SelectedListener
+    override fun onSelected(selected: Boolean) {
+        this.selected = selected
+        if (this::overView.isInitialized) {
+            overView.visibility = if (selected == true) {
+                View.VISIBLE
+            } else {
+                View.INVISIBLE
+            }
+        }
+        Log.d(javaClass.simpleName, "onSelected:${selected}")
     }
 
     companion object {

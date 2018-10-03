@@ -4,6 +4,7 @@ package milu.kiriu2010.milux.gui
 import android.content.pm.ActivityInfo
 import android.graphics.*
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.*
@@ -23,7 +24,8 @@ class Lux01OverViewFragment : Fragment()
         , SurfaceHolder.Callback
         , NewVal01Listener
         , OrientationListener
-        , ResetListener {
+        , ResetListener
+        , SelectedListener{
 
     // 照度
     private var lux: Float = 0f
@@ -70,6 +72,14 @@ class Lux01OverViewFragment : Fragment()
         style = Paint.Style.STROKE
     }
 
+    // 描画時に呼び出されるハンドラー
+    private val handler = Handler()
+    // 描画時に呼び出されるスレッド
+    private lateinit var runnable: Runnable
+
+    // このフラグメントが選択されたかどうか
+    private var selected = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -78,6 +88,11 @@ class Lux01OverViewFragment : Fragment()
             param2 = it.getString(ARG_PARAM2)
             */
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(runnable)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -91,6 +106,7 @@ class Lux01OverViewFragment : Fragment()
         overView = view.findViewById(R.id.overView01)
         overView.holder.setFormat(PixelFormat.TRANSLUCENT)
         overView.setZOrderOnTop(false)
+        overView.setZOrderMediaOverlay(false)
         overView.holder.addCallback(this)
 
         // 照度の数値を表示するビュー
@@ -133,7 +149,12 @@ class Lux01OverViewFragment : Fragment()
 
         // 照度の強さを表示
         if (this::overView.isInitialized) {
-            drawCanvas()
+            //drawCanvas()
+            // 描画時に呼び出されるスレッド
+            runnable = Runnable {
+                drawCanvas()
+            }
+            handler.post(runnable)
         }
 
     }
@@ -159,6 +180,9 @@ class Lux01OverViewFragment : Fragment()
 
     // 照度の強さを描画
     private fun drawCanvas() {
+        // ページが選択されていなければ描画しない
+        //if ( selected == false ) return
+
         val canvas = overView.holder.lockCanvas()
         if (canvas == null) {
             Log.d( javaClass.simpleName, "canvas is null")
@@ -312,6 +336,19 @@ class Lux01OverViewFragment : Fragment()
         for ( i in 0 until luxSeg.size ) {
             luxSeg[i] = 0
         }
+    }
+
+    // SelectedListener
+    override fun onSelected(selected: Boolean) {
+        this.selected = selected
+        if (this::overView.isInitialized) {
+            overView.visibility = if (selected == true) {
+                View.VISIBLE
+            } else {
+                View.INVISIBLE
+            }
+        }
+        Log.d(javaClass.simpleName, "onSelected:${selected}")
     }
 
     companion object {

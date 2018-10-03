@@ -70,15 +70,38 @@ class MainActivity : AppCompatActivity()
 
         // アクティブなフラグメントが切り替わったら呼び出される
         container.addOnPageChangeListener( object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(p0: Int) {
+            override fun onPageScrollStateChanged(state: Int) {
+                // スクロールが完了したら
+                // ページが選択されたこと・選択から外れたことを通知する
+                if ( state == ViewPager.SCROLL_STATE_IDLE ) {
+                    selectOnOff()
+                }
             }
 
             override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
             }
 
             override fun onPageSelected(pos: Int) {
+                Log.d(javaClass.simpleName, "onPageSelected[{$pos}]")
+
                 // 現在表示中のページ番号を取得
                 currentPagePos = pos
+
+                // ページが選択されたこと・選択から外れたことを通知する
+                //selectOnOff()
+                /*
+                for ( i in 0..luxPagerAdapter!!.count!! ) {
+                    val fragment = luxPagerAdapter?.getItem(i) as? SelectedListener ?: continue
+
+                    if ( i == pos ) {
+                        fragment.onSelected(true)
+                    }
+                    else {
+                        fragment.onSelected(false)
+                    }
+                }
+                */
+
                 /*
                 val fragment = luxPagerAdapter?.getItem(pos) ?: return
                 // 画面の方向を表示する内容によって変更する
@@ -211,5 +234,21 @@ class MainActivity : AppCompatActivity()
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun selectOnOff() {
+        // ページが選択されたこと・選択から外れたことを通知する
+        for ( i in 0 until luxPagerAdapter!!.count!! ) {
+            val fragment = luxPagerAdapter?.getItem(i) as? SelectedListener ?: continue
+
+            Log.d(javaClass.simpleName, "selectOnOff[{$i}{$currentPagePos}]")
+
+            if ( i == currentPagePos ) {
+                fragment.onSelected(true)
+            }
+            else {
+                fragment.onSelected(false)
+            }
+        }
     }
 }
