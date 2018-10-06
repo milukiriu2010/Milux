@@ -3,5 +3,5 @@
     <string name="action_settings">設定</string>
     <string name="action_reset">リセット</string>
     <string name="action_about">アプリについて</string>
-    <string name="msg_sorry">ごめんなさい。だって、光センサーないんだもん。</string>
+    <string name="msg_sorry">ごめんなさい。\nだって、光センサーないんだもん。</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_reset">Restablecer</string>
-    <string name="msg_sorry">Lo siento, no tienes un sensor de luz.</string>
+    <string name="msg_sorry">Lo siento\n No tiene un sensor de luz.</string>
     <string name="action_about">Sobre mi</string>
     <string name="action_settings">Ajustes</string>
 </resources>

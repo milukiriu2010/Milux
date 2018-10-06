@@ -145,6 +145,13 @@ class MainActivity : AppCompatActivity()
                     .commit()
             container.visibility = View.GONE
         }
+        /*
+        // アラート画面
+        supportFragmentManager.beginTransaction()
+                .add(R.id.frameErrMsg, NoSensorFragment.newInstance())
+                .commit()
+        container.visibility = View.GONE
+        */
     }
 
     // センサーの監視を終了する

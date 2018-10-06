@@ -4,6 +4,8 @@ import android.app.Application
 import android.util.Log
 import milu.kiriu2010.milux.conf.AppConf
 import milu.kiriu2010.milux.entity.Facility
+import milu.kiriu2010.milux.entity.FacilityArea
+import milu.kiriu2010.util.MyTool
 import org.json.JSONObject
 import java.util.*
 
@@ -25,23 +27,18 @@ class LuxApplication: Application() {
 
         // 施設リストをロードする
         loadJSONFacility()
+
+        // 施設エリアリストをロードする
+        loadJSONFacilityArea()
     }
 
     // 施設リストをロードする
     private fun loadJSONFacility() {
         // JSONファイルをロードする
-        val sb = StringBuffer()
-        val istream = resources.openRawResource(R.raw.facility)
-        val reader = istream.bufferedReader()
-        val iterator = reader.lineSequence().iterator()
-        while ( iterator.hasNext() ) {
-            sb.append( iterator.next() )
-        }
-        reader.close()
-        istream.close()
+        val str = MyTool.loadRawFile(resources,R.raw.facility)
 
         // JSONの内容を解析し施設リストを作成する
-        val objJSON = JSONObject(sb.toString())
+        val objJSON = JSONObject(str)
         // 現在の言語設定でJSONファイルを解析
         var facilities = objJSON.getJSONArray(locale.language)
         // 現在の言語設定でのデータがなければ英語を採用する
@@ -52,10 +49,49 @@ class LuxApplication: Application() {
         // 施設リストに解析したデータを追加する
         for ( i in 0 until facilities.length() ) {
             val facilityJSON = facilities.getJSONObject(i)
-            appConf.facilityLst.add( Facility( facilityJSON.getInt("fid"), facilityJSON.getString("fname") ) )
+            appConf.facilityLst.add(
+                    Facility(
+                            facilityJSON.getInt("fid"),
+                            facilityJSON.getString("fname")
+                    )
+            )
         }
 
         // なぜか出力されない
         Log.d(javaClass.simpleName, "facilityLst:[${appConf.facilityLst.size}]")
+    }
+
+
+    // 施設エリアリストをロードする
+    private fun loadJSONFacilityArea() {
+        // JSONファイルをロードする
+        val str = MyTool.loadRawFile(resources,R.raw.facility_area)
+
+        // JSONの内容を解析し施設リストを作成する
+        val objJSON = JSONObject(str)
+        // 現在の言語設定でJSONファイルを解析
+        var facilitieAreas = objJSON.getJSONArray(locale.language)
+        // 現在の言語設定でのデータがなければ英語を採用する
+        if ( facilitieAreas.length() == 0 ) {
+            facilitieAreas = objJSON.getJSONArray("en")
+        }
+
+        // 施設エリアリストに解析したデータを追加する
+        for ( i in 0 until facilitieAreas.length() ) {
+            val facilityAreaJSON = facilitieAreas.getJSONObject(i)
+            val jsonArrayAnameLst = facilityAreaJSON.getJSONArray("anameLst")
+            val anameLst = mutableListOf<String>()
+            for ( j in 0 until jsonArrayAnameLst.length() ) {
+                anameLst.add( jsonArrayAnameLst.getString(j) )
+            }
+
+            appConf.facilityAreaLst.add(
+                    FacilityArea(
+                            facilityAreaJSON.getInt("fid"),
+                            anameLst,
+                            facilityAreaJSON.getInt("lux")
+                    )
+            )
+        }
     }
 }

@@ -13,6 +13,8 @@ import android.widget.TextView
 import milu.kiriu2010.milux.LuxApplication
 
 import milu.kiriu2010.milux.R
+import milu.kiriu2010.milux.conf.AppConf
+import milu.kiriu2010.milux.entity.FacilityArea
 import milu.kiriu2010.milux.entity.LuxData
 import milu.kiriu2010.util.LimitedArrayList
 import java.util.*
@@ -39,6 +41,19 @@ class Lux05FacilityFragment : Fragment()
     // 施設エリアを表示するためのアダプタ
     private lateinit var adapter: FacAreaRecyclerAdapter
 
+    // アプリ設定
+    private lateinit var appConf: AppConf
+
+    // 表示対象の施設
+    // "8:house"を選択
+    private var fid = 8
+
+    // 照度リスト
+    private val luxArray = arrayOf(1000,900,800,700,600,500,400,300,200,150,100,75,20,0)
+
+    // 施設エリアのリストを構築
+    //private lateinit var facilityAreaLst: MutableList<FacilityArea>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -57,9 +72,17 @@ class Lux05FacilityFragment : Fragment()
 
         // 施設リスト
         val appl = context?.applicationContext as? LuxApplication
-        if ( appl != null ) {
-            Log.d(javaClass.simpleName, "facilityLst:[${appl.appConf.facilityLst.size}]")
-        }
+        appConf = appl?.appConf ?: AppConf()
+
+
+
+        // 施設エリアのリストを構築
+        val facilityAreaLst = createFacAreaLst(fid)
+
+
+
+
+
 
         // 施設エリアのリストを表示するビュー
         recyclerViewFacArea = view.findViewById(R.id.recyclerViewFacArea)
@@ -68,10 +91,75 @@ class Lux05FacilityFragment : Fragment()
         recyclerViewFacArea.layoutManager = LinearLayoutManager( context, LinearLayoutManager.VERTICAL, false)
 
         // 施設エリアを表示するためのアダプタ
-        adapter = FacAreaRecyclerAdapter(context!!)
+        adapter = FacAreaRecyclerAdapter(context!!,facilityAreaLst)
         recyclerViewFacArea.adapter = adapter
 
         return view
+    }
+
+    // 施設エリアリストのテンプレートを構築
+    //   fid: 施設ID
+    private fun createFacAreaLst( fid: Int ): MutableList<FacilityArea> {
+        // JSONに格納されている施設エリアリスト
+        val facAreaLst = appConf.facilityAreaLst.filter { it.fid == fid }
+
+
+        val facAreaOrgLst = mutableListOf<FacilityArea>()
+        for ( lux in luxArray ) {
+            val facArea = facAreaLst.filter { it.lux == lux }.firstOrNull()
+                    ?: FacilityArea( fid, mutableListOf(), lux )
+            facAreaOrgLst.add(facArea)
+        }
+
+        return facAreaOrgLst
+    }
+
+    private fun updateAdapterMinMax() {
+        if (this::adapter.isInitialized == false) return
+
+        var luxMin = adapter.luxMin
+
+        var highLightPos = -1
+        for ( i in 0 until  luxArray.size ) {
+            if ( lux > luxArray[i] ) {
+                Log.d(javaClass.simpleName, "adapter:lux[${lux}]i[$i]luxArray[${luxArray[i]}]")
+                adapter.luxMin = luxArray[i].toFloat()
+                adapter.luxMax = when ( i ) {
+                    0 -> adapter.luxMin+100f
+                    else -> luxArray[i-1].toFloat()
+                }
+                highLightPos = i
+                break
+            }
+        }
+        Log.d(javaClass.simpleName, "adapter:lux[${lux}]min[${adapter.luxMin}]max[${adapter.luxMax}]")
+
+        /**/
+        // ハイライト位置が変わる場合、
+        // アダプタに更新をかける
+        if ( luxMin != adapter.luxMin ) {
+            // うまく動かない
+            //adapter.notifyDataSetChanged()
+            // 前回のハイライトを消去
+            if ( adapter.highLightPos != -1 ) {
+                adapter.notifyItemChanged(adapter.highLightPos)
+            }
+            // 今回のハイライトを設定
+            if ( highLightPos != -1 ) {
+                adapter.notifyItemChanged(highLightPos)
+            }
+        }
+        /**/
+        /*
+        if ( luxMin != 800f ) {
+            adapter.luxMax = 900f
+            adapter.luxMin = 800f
+            luxMin = 800f
+            adapter.notifyItemChanged(1)
+            adapter.notifyItemChanged(2)
+            adapter.notifyItemChanged(10)
+        }
+        */
     }
 
     // NewVal01Listener
@@ -84,7 +172,7 @@ class Lux05FacilityFragment : Fragment()
             dataLux.text = "%.1f lx".format(this.lux)
         }
 
-
+        updateAdapterMinMax()
     }
 
     // NewVal01Listener

@@ -6,13 +6,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="app_release_date" translatable="false">2018.10.01</string>
+    <string name="app_release_date" translatable="false">2018.10.06</string>
     <string name="level4" translatable="false"><![CDATA[>= 10000 lx]]></string>
     <string name="level3" translatable="false"><![CDATA[>=  1000 lx]]></string>
     <string name="level2" translatable="false"><![CDATA[>=   100 lx]]></string>
     <string name="level1" translatable="false"><![CDATA[>=    10 lx]]></string>
     <string name="level0" translatable="false"><![CDATA[>=     1 lx]]></string>
-    <string name="msg_sorry">sorry, you don\'t have a light sensor.</string>
+    <string name="msg_sorry">Sorry\n You don\'t have a light sensor.</string>
+    <string name="action_ok" translatable="false">OK</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

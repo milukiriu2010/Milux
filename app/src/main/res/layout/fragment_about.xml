@@ -63,6 +63,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/frame_square"
+        android:contentDescription="@string/level4"
         android:src="@drawable/a_sun"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewVer" />
@@ -87,6 +88,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/frame_square"
+        android:contentDescription="@string/level3"
         android:src="@drawable/a_sunrise"
         app:layout_constraintEnd_toEndOf="@+id/imageViewLevel4"
         app:layout_constraintStart_toStartOf="@+id/imageViewLevel4"
@@ -114,6 +116,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/frame_square"
+        android:contentDescription="@string/level2"
         android:src="@drawable/a_cloudy"
         app:layout_constraintEnd_toEndOf="@+id/imageViewLevel3"
         app:layout_constraintStart_toStartOf="@+id/imageViewLevel3"
@@ -140,6 +143,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/frame_square"
+        android:contentDescription="@string/level1"
         android:src="@drawable/a_moon"
         app:layout_constraintEnd_toEndOf="@+id/imageViewLevel2"
         app:layout_constraintStart_toStartOf="@+id/imageViewLevel2"
@@ -165,10 +169,9 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/frame_square"
+        android:contentDescription="@string/level0"
         android:src="@drawable/a_star"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageViewLevel1"
         app:layout_constraintStart_toStartOf="@+id/imageViewLevel1"
         app:layout_constraintTop_toBottomOf="@+id/imageViewLevel1" />
@@ -187,5 +190,17 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageViewLevel0"
         app:layout_constraintTop_toTopOf="@+id/imageViewLevel0" />
+
+    <Button
+        android:id="@+id/btnOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/action_ok"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLevel0" />
 
 </android.support.constraint.ConstraintLayout>

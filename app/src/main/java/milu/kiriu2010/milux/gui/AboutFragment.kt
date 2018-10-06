@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 
@@ -47,6 +48,12 @@ class AboutFragment : DialogFragment() {
         val textViewVer = view.findViewById<TextView>(R.id.textViewVer)
         val packageInfo = context?.packageManager?.getPackageInfo(context?.packageName, 0)
         textViewVer.text = "ver %s".format(packageInfo?.versionName)
+
+        // OKボタン
+        val btnOK = view.findViewById<Button>(R.id.btnOK)
+        btnOK.setOnClickListener {
+            dismiss()
+        }
 
         return view
     }

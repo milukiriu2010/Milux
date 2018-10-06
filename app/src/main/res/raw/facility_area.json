@@ -1,0 +1,106 @@
+{
+  "en": [
+    {
+      "fid": 8,
+      "anameLst": [ "sewing" ],
+      "lux": 1000
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "study", "reading" ],
+      "lux": 700
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "study", "reading" ],
+      "lux": 600
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "study", "reading" ],
+      "lux": 500
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "kitchen", "makeup" ],
+      "lux": 300
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "play", "living room" ],
+      "lux": 200
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "living room" ],
+      "lux": 150
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "front door" ],
+      "lux": 100
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "toilet" ],
+      "lux": 75
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "bed room" ],
+      "lux": 20
+    }
+  ],
+  "ja": [
+    {
+      "fid": 8,
+      "anameLst": [ "裁縫" ],
+      "lux": 1000
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "勉強", "読書" ],
+      "lux": 700
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "勉強", "読書" ],
+      "lux": 600
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "勉強", "読書" ],
+      "lux": 500
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "台所", "化粧" ],
+      "lux": 300
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "遊び", "居間" ],
+      "lux": 200
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "居間" ],
+      "lux": 150
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "玄関" ],
+      "lux": 100
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "トイレ" ],
+      "lux": 75
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "寝室" ],
+      "lux": 20
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_reset">Réinitialiser</string>
-    <string name="msg_sorry">Désolé, vous n\'avez pas de capteur de lumière.</string>
+    <string name="msg_sorry">Désolé\n Vous n\'avez pas de capteur de lumière.</string>
     <string name="action_about">À propos de moi</string>
     <string name="action_settings">Paramètres</string>
 </resources>

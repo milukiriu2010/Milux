@@ -185,7 +185,7 @@ class Lux01OverViewFragment : Fragment()
 
         val canvas = overView.holder.lockCanvas()
         if (canvas == null) {
-            Log.d( javaClass.simpleName, "canvas is null")
+            //Log.d( javaClass.simpleName, "canvas is null")
             //overView.holder.unlockCanvasAndPost(canvas)
             return
         }

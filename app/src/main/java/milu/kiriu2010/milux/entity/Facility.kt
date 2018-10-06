@@ -20,7 +20,7 @@ data class FacilityArea(
     // 施設ID
     val fid: Int,
     // エリア名
-    val aname: String,
+    val anameLst: MutableList<String>,
     // エリアの適正照度
     val lux: Int
 ) {
