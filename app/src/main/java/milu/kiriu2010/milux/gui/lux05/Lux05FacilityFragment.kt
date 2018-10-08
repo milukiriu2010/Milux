@@ -52,10 +52,6 @@ class Lux05FacilityFragment : Fragment()
     // アプリ設定
     private lateinit var appConf: AppConf
 
-    // 表示対象の施設
-    // "8:house"を選択
-    //private var fid = 8
-
     // 照度リスト
     private val luxArray = arrayOf(1000,900,800,700,600,500,400,300,200,150,100,75,20,0)
 
@@ -95,6 +91,7 @@ class Lux05FacilityFragment : Fragment()
         // 施設を選択するスピンのデフォルト選択を設定する
         val fac = facLst.filter { it.fid == appConf.fid }.first()
         spinFacility.setSelection(facLst.indexOf(fac))
+        //Log.d(javaClass.simpleName, "fac:index:[${facLst.indexOf(fac)}]")
 
         // 施設スピンを選択
         spinFacility.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -109,6 +106,7 @@ class Lux05FacilityFragment : Fragment()
                 createFacAreaLst(selectedFac.fid).forEach {
                     adapterFacArea.facAreaLst.add(it)
                 }
+                adapterFacArea.notifyDataSetChanged()
             }
 
         }
@@ -171,7 +169,7 @@ class Lux05FacilityFragment : Fragment()
         var highLightPos = -1
         for ( i in 0 until luxArray.size ) {
             if ( lux > luxArray[i] ) {
-                Log.d(javaClass.simpleName, "adapter:lux[${lux}]i[$i]luxArray[${luxArray[i]}]")
+                //Log.d(javaClass.simpleName, "adapter:lux[${lux}]i[$i]luxArray[${luxArray[i]}]")
                 adapterFacArea.luxMin = luxArray[i].toFloat()
                 adapterFacArea.luxMax = when ( i ) {
                     0 -> adapterFacArea.luxMin+100f
@@ -181,7 +179,7 @@ class Lux05FacilityFragment : Fragment()
                 break
             }
         }
-        Log.d(javaClass.simpleName, "adapter:lux[${lux}]min[${adapterFacArea.luxMin}]max[${adapterFacArea.luxMax}]")
+        //Log.d(javaClass.simpleName, "adapter:lux[${lux}]min[${adapterFacArea.luxMin}]max[${adapterFacArea.luxMax}]")
 
         /**/
         // ハイライト位置が変わる場合、
