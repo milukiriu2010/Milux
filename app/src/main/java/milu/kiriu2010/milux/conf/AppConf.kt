@@ -7,6 +7,9 @@ import milu.kiriu2010.milux.entity.FacilityArea
 class AppConf(
         // 照度値をためるバッファのサイズ
         var limit: Int = 101,
+        // 施設ビューで表示対象の施設
+        // 8:住宅
+        val fid: Int = 8,
         // 施設リスト
         val facilityLst: MutableList<Facility> = mutableListOf(),
         // 施設エリアリスト

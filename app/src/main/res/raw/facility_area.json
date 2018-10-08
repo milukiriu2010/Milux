@@ -1,6 +1,21 @@
 {
   "en": [
     {
+      "fid": 3,
+      "anameLst": [ "laboratory", "library", "studio" ],
+      "lux": 500
+    },
+    {
+      "fid": 3,
+      "anameLst": [ "classroom", "teachers' room", "gymnastic hall" ],
+      "lux": 300
+    },
+    {
+      "fid": 3,
+      "anameLst": [ "auditorium" ],
+      "lux": 200
+    },
+    {
       "fid": 8,
       "anameLst": [ "sewing" ],
       "lux": 1000
@@ -52,6 +67,21 @@
     }
   ],
   "ja": [
+    {
+      "fid": 3,
+      "anameLst": [ "実験室", "図書室", "放送室" ],
+      "lux": 500
+    },
+    {
+      "fid": 3,
+      "anameLst": [ "教室", "職員室", "体育館" ],
+      "lux": 300
+    },
+    {
+      "fid": 3,
+      "anameLst": [ "講堂" ],
+      "lux": 200
+    },
     {
       "fid": 8,
       "anameLst": [ "裁縫" ],

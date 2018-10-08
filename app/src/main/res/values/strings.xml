@@ -14,6 +14,7 @@
     <string name="level0" translatable="false"><![CDATA[>=     1 lx]]></string>
     <string name="msg_sorry">Sorry\n You don\'t have a light sensor.</string>
     <string name="action_ok" translatable="false">OK</string>
+    <string name="action_rate_me">Rate Me</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

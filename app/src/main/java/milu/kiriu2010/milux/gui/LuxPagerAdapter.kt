@@ -3,6 +3,7 @@ package milu.kiriu2010.milux.gui
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
+import milu.kiriu2010.milux.gui.lux05.Lux05FacilityFragment
 
 //class LuxPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
 class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {

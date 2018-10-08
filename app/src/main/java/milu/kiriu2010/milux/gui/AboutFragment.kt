@@ -12,6 +12,9 @@ import android.widget.ImageButton
 import android.widget.TextView
 
 import milu.kiriu2010.milux.R
+import android.content.Intent
+import android.net.Uri
+
 
 /**
  * A simple [Fragment] subclass.
@@ -44,10 +47,24 @@ class AboutFragment : DialogFragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_about, container, false)
 
+        val ctx = context ?: return view
+
         // バージョンを表示
         val textViewVer = view.findViewById<TextView>(R.id.textViewVer)
-        val packageInfo = context?.packageManager?.getPackageInfo(context?.packageName, 0)
+        val packageInfo = ctx.packageManager?.getPackageInfo(context?.packageName, 0)
         textViewVer.text = "ver %s".format(packageInfo?.versionName)
+
+        // "Rate Me"ボタン
+        val btnRateMe = view.findViewById<Button>(R.id.btnRateMe)
+        btnRateMe.setOnClickListener {
+            try {
+                startActivity(Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=" + ctx.packageName)))
+            } catch (e: android.content.ActivityNotFoundException) {
+                startActivity(Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://play.google.com/store/apps/details?id=" + ctx.packageName )))
+            }
+        }
 
         // OKボタン
         val btnOK = view.findViewById<Button>(R.id.btnOK)

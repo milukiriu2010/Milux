@@ -1,4 +1,4 @@
-package milu.kiriu2010.milux.gui
+package milu.kiriu2010.milux.gui.lux05
 
 
 import android.os.Bundle
@@ -9,15 +9,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.TextView
 import milu.kiriu2010.milux.LuxApplication
 
 import milu.kiriu2010.milux.R
 import milu.kiriu2010.milux.conf.AppConf
+import milu.kiriu2010.milux.entity.Facility
 import milu.kiriu2010.milux.entity.FacilityArea
 import milu.kiriu2010.milux.entity.LuxData
+import milu.kiriu2010.milux.gui.NewVal01Listener
+import milu.kiriu2010.milux.gui.ResetListener
 import milu.kiriu2010.util.LimitedArrayList
-import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -35,18 +40,21 @@ class Lux05FacilityFragment : Fragment()
     // 照度の数値を表示するビュー
     private lateinit var dataLux: TextView
 
+    // 表示する施設を選択するスピン
+    private lateinit var spinFacility: Spinner
+
     // 施設エリアのリストを表示するビュー
     private lateinit var recyclerViewFacArea: RecyclerView
 
     // 施設エリアを表示するためのアダプタ
-    private lateinit var adapter: FacAreaRecyclerAdapter
+    private lateinit var adapterFacArea: FacAreaRecyclerAdapter
 
     // アプリ設定
     private lateinit var appConf: AppConf
 
     // 表示対象の施設
     // "8:house"を選択
-    private var fid = 8
+    //private var fid = 8
 
     // 照度リスト
     private val luxArray = arrayOf(1000,900,800,700,600,500,400,300,200,150,100,75,20,0)
@@ -65,7 +73,7 @@ class Lux05FacilityFragment : Fragment()
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_lux05_facility, container, false)
 
-        if ( context == null ) return view
+        val ctx = context ?: return view
 
         // 照度の数値を表示するビュー
         dataLux = view.findViewById(R.id.dataLux)
@@ -74,27 +82,68 @@ class Lux05FacilityFragment : Fragment()
         val appl = context?.applicationContext as? LuxApplication
         appConf = appl?.appConf ?: AppConf()
 
+        // 表示する施設を選択するスピン
+        val spinFacility = view.findViewById<Spinner>(R.id.spinFacility)
+
+        // 施設リストのテンプレートを構築
+        val facLst = createFacLst()
+
+        // 施設を選択するスピンにアダプタを設定する
+        val adapterFac = FacSpinAdapter(ctx,facLst)
+        spinFacility.adapter = adapterFac
+
+        // 施設を選択するスピンのデフォルト選択を設定する
+        val fac = facLst.filter { it.fid == appConf.fid }.first()
+        spinFacility.setSelection(facLst.indexOf(fac))
+
+        // 施設スピンを選択
+        spinFacility.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // 選択された施設
+                val selectedFac = parent?.selectedItem as Facility
+                // 施設のエリアを表示するビューを更新
+                adapterFacArea.facAreaLst.clear()
+                createFacAreaLst(selectedFac.fid).forEach {
+                    adapterFacArea.facAreaLst.add(it)
+                }
+            }
+
+        }
 
 
         // 施設エリアのリストを構築
-        val facilityAreaLst = createFacAreaLst(fid)
-
-
-
-
-
+        val facilityAreaLst = createFacAreaLst(appConf.fid)
 
         // 施設エリアのリストを表示するビュー
         recyclerViewFacArea = view.findViewById(R.id.recyclerViewFacArea)
 
         // 施設エリアのリストを縦に並べる
-        recyclerViewFacArea.layoutManager = LinearLayoutManager( context, LinearLayoutManager.VERTICAL, false)
+        recyclerViewFacArea.layoutManager = LinearLayoutManager( ctx, LinearLayoutManager.VERTICAL, false)
 
         // 施設エリアを表示するためのアダプタ
-        adapter = FacAreaRecyclerAdapter(context!!,facilityAreaLst)
-        recyclerViewFacArea.adapter = adapter
+        adapterFacArea = FacAreaRecyclerAdapter(ctx, facilityAreaLst)
+        recyclerViewFacArea.adapter = adapterFacArea
 
         return view
+    }
+
+    // 施設リストのテンプレートを構築
+    private fun createFacLst(): List<Facility> {
+        Log.d( javaClass.simpleName, "createFacLst")
+        // 施設エリアのリストからfidを抽出する。
+        // fidは重複しているため、重複を除く
+        val fidLst = appConf.facilityAreaLst.map { it -> it.fid }.distinct()
+
+        // 上で取得されたfidのリストから
+        // 施設リストを抽出する
+        val facLst = appConf.facilityLst.filter {
+            fidLst.contains(it.fid)
+        }
+
+        return facLst
     }
 
     // 施設エリアリストのテンプレートを構築
@@ -102,7 +151,6 @@ class Lux05FacilityFragment : Fragment()
     private fun createFacAreaLst( fid: Int ): MutableList<FacilityArea> {
         // JSONに格納されている施設エリアリスト
         val facAreaLst = appConf.facilityAreaLst.filter { it.fid == fid }
-
 
         val facAreaOrgLst = mutableListOf<FacilityArea>()
         for ( lux in luxArray ) {
@@ -114,39 +162,40 @@ class Lux05FacilityFragment : Fragment()
         return facAreaOrgLst
     }
 
-    private fun updateAdapterMinMax() {
-        if (this::adapter.isInitialized == false) return
+    // アダプタのハイライト位置を更新する
+    private fun updateAdapterHighlight() {
+        if (this::adapterFacArea.isInitialized == false) return
 
-        var luxMin = adapter.luxMin
+        var luxMin = adapterFacArea.luxMin
 
         var highLightPos = -1
-        for ( i in 0 until  luxArray.size ) {
+        for ( i in 0 until luxArray.size ) {
             if ( lux > luxArray[i] ) {
                 Log.d(javaClass.simpleName, "adapter:lux[${lux}]i[$i]luxArray[${luxArray[i]}]")
-                adapter.luxMin = luxArray[i].toFloat()
-                adapter.luxMax = when ( i ) {
-                    0 -> adapter.luxMin+100f
+                adapterFacArea.luxMin = luxArray[i].toFloat()
+                adapterFacArea.luxMax = when ( i ) {
+                    0 -> adapterFacArea.luxMin+100f
                     else -> luxArray[i-1].toFloat()
                 }
                 highLightPos = i
                 break
             }
         }
-        Log.d(javaClass.simpleName, "adapter:lux[${lux}]min[${adapter.luxMin}]max[${adapter.luxMax}]")
+        Log.d(javaClass.simpleName, "adapter:lux[${lux}]min[${adapterFacArea.luxMin}]max[${adapterFacArea.luxMax}]")
 
         /**/
         // ハイライト位置が変わる場合、
         // アダプタに更新をかける
-        if ( luxMin != adapter.luxMin ) {
+        if ( luxMin != adapterFacArea.luxMin ) {
             // うまく動かない
             //adapter.notifyDataSetChanged()
             // 前回のハイライトを消去
-            if ( adapter.highLightPos != -1 ) {
-                adapter.notifyItemChanged(adapter.highLightPos)
+            if ( adapterFacArea.highLightPos != -1 ) {
+                adapterFacArea.notifyItemChanged(adapterFacArea.highLightPos)
             }
             // 今回のハイライトを設定
             if ( highLightPos != -1 ) {
-                adapter.notifyItemChanged(highLightPos)
+                adapterFacArea.notifyItemChanged(highLightPos)
             }
         }
         /**/
@@ -164,6 +213,7 @@ class Lux05FacilityFragment : Fragment()
 
     // NewVal01Listener
     override fun onUpdate(lux: Float) {
+        //Log.d( javaClass.simpleName, "onUpdate[$lux]")
         this.lux = lux
 
         // 照度の数値を表示
@@ -172,7 +222,8 @@ class Lux05FacilityFragment : Fragment()
             dataLux.text = "%.1f lx".format(this.lux)
         }
 
-        updateAdapterMinMax()
+        // アダプタのハイライト位置を更新する
+        updateAdapterHighlight()
     }
 
     // NewVal01Listener
