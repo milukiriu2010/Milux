@@ -233,6 +233,11 @@ class MainActivity : AppCompatActivity()
         when (item.itemId) {
             // リセットボタン
             R.id.action_reset -> OnReset()
+            // "設定"フラグメントを表示
+            R.id.action_settings -> {
+                val dialog = ConfFragment.newInstance()
+                dialog.show(supportFragmentManager, FragmentID.ID_SETTINGS.id)
+            }
             // "About Me"フラグメントを表示
             R.id.action_about -> {
                 val dialog = AboutFragment.newInstance()

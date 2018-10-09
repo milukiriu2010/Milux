@@ -1,4 +1,4 @@
-package milu.kiriu2010.milux.gui
+package milu.kiriu2010.milux.gui.lux03
 
 
 import android.os.Bundle
@@ -12,15 +12,17 @@ import milu.kiriu2010.milux.LuxApplication
 
 import milu.kiriu2010.milux.R
 import milu.kiriu2010.milux.entity.LuxData
+import milu.kiriu2010.milux.gui.NewVal01Listener
+import milu.kiriu2010.milux.gui.ResetListener
 import milu.kiriu2010.util.LimitedArrayList
 
 /**
  * A simple [Fragment] subclass.
- * Use the [Lux03OverViewFragment.newInstance] factory method to
+ * Use the [Lux03HistoryViewFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class Lux03OverViewFragment : Fragment()
+class Lux03HistoryViewFragment : Fragment()
         , NewVal01Listener
         , ResetListener {
 
@@ -39,7 +41,7 @@ class Lux03OverViewFragment : Fragment()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_lux03_over_view, container, false)
+        val view = inflater.inflate(R.layout.fragment_lux03_history_view, container, false)
 
         if ( context == null ) return view
 
@@ -109,12 +111,12 @@ class Lux03OverViewFragment : Fragment()
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @return A new instance of fragment Lux03OverViewFragment.
+         * @return A new instance of fragment Lux03HistoryViewFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
-                Lux03OverViewFragment().apply {
+                Lux03HistoryViewFragment().apply {
                     arguments = Bundle().apply {
                         /*
                         putString(ARG_PARAM1, param1)

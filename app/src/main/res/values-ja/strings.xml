@@ -4,4 +4,7 @@
     <string name="action_reset">リセット</string>
     <string name="action_about">アプリについて</string>
     <string name="msg_sorry">ごめんなさい。\nだって、光センサーないんだもん。</string>
+    <string name="action_rate_me">アプリを評価</string>
+    <string name="label_sampling_number">サンプリング数</string>
+    <string name="label_facility">施設</string>
 </resources>

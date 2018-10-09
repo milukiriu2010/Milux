@@ -5,7 +5,7 @@ import milu.kiriu2010.milux.entity.FacilityArea
 
 // アプリ設定
 class AppConf(
-        // 照度値をためるバッファのサイズ
+        // 照度値のサンプリング数
         var limit: Int = 101,
         // 施設ビューで表示対象の施設
         // 8:住宅

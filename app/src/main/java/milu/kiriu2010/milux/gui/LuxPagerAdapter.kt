@@ -3,6 +3,7 @@ package milu.kiriu2010.milux.gui
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
+import milu.kiriu2010.milux.gui.lux03.Lux03HistoryViewFragment
 import milu.kiriu2010.milux.gui.lux05.Lux05FacilityFragment
 
 //class LuxPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
@@ -10,7 +11,7 @@ class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
 
     private lateinit var lux01OverViewFragment: Lux01OverViewFragment
     private lateinit var lux02OverViewFragment: Lux02OverViewFragment
-    private lateinit var lux03OverViewFragment: Lux03OverViewFragment
+    private lateinit var lux03HistoryViewFragment: Lux03HistoryViewFragment
     private lateinit var lux04OverViewFragment: Lux04OverViewFragment
     private lateinit var lux05FacilityFragment: Lux05FacilityFragment
 
@@ -47,10 +48,10 @@ class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
                 return lux04OverViewFragment
             }
             3 -> {
-                if ( !this::lux03OverViewFragment.isInitialized ) {
-                    lux03OverViewFragment = Lux03OverViewFragment.newInstance()
+                if ( !this::lux03HistoryViewFragment.isInitialized ) {
+                    lux03HistoryViewFragment = Lux03HistoryViewFragment.newInstance()
                 }
-                return lux03OverViewFragment
+                return lux03HistoryViewFragment
             }
             else -> {
                 if ( !this::lux01OverViewFragment.isInitialized ) {

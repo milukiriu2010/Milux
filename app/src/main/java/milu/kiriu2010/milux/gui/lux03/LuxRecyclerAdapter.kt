@@ -1,4 +1,4 @@
-package milu.kiriu2010.milux.gui
+package milu.kiriu2010.milux.gui.lux03
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import kotlinx.android.synthetic.main.list_row_luxdata.view.*
 import milu.kiriu2010.milux.R
 import milu.kiriu2010.milux.entity.LuxData
 import java.text.SimpleDateFormat
@@ -21,7 +20,7 @@ class LuxRecyclerAdapter(
 
     private val inflater = LayoutInflater.from(context)
 
-    override fun onCreateViewHolder( parent: ViewGroup, viewType: Int): LuxRecyclerAdapter.LuxDataViewHolder {
+    override fun onCreateViewHolder( parent: ViewGroup, viewType: Int): LuxDataViewHolder {
         val view = inflater.inflate(R.layout.list_row_luxdata, parent, false )
         val viewHolder = LuxDataViewHolder(view)
         return viewHolder

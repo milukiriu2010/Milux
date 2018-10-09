@@ -15,6 +15,9 @@
     <string name="msg_sorry">Sorry\n You don\'t have a light sensor.</string>
     <string name="action_ok" translatable="false">OK</string>
     <string name="action_rate_me">Rate Me</string>
+    <string name="label_sampling_number">Sampling Number</string>
+    <string name="label_facility" >Facility</string>
+    <string name="action_default">Default</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
