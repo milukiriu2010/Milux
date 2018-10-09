@@ -22,7 +22,7 @@
     },
     {
       "fid": 6,
-      "fname": "musium"
+      "fname": "museum"
     },
     {
       "fid": 7,
@@ -38,7 +38,7 @@
     },
     {
       "fid": 10,
-      "fname": "parking"
+      "fname": "parking lot"
     }
   ],
   "ja": [
@@ -81,6 +81,132 @@
     {
       "fid": 10,
       "fname": "駐車場"
+    }
+  ],
+  "fr": [
+    {
+      "fid": 1,
+      "fname": "bureau"
+    },
+    {
+      "fid": 2,
+      "fname": "usine"
+    },
+    {
+      "fid": 3,
+      "fname": "école"
+    },
+    {
+      "fid": 4,
+      "fname": "hôpital"
+    },
+    {
+      "fid": 5,
+      "fname": "magasin"
+    },
+    {
+      "fid": 6,
+      "fname": "musée"
+    },
+    {
+      "fid": 7,
+      "fname": "hôtel"
+    },
+    {
+      "fid": 8,
+      "fname": "maison"
+    },
+    {
+      "fid": 9,
+      "fname": "gare"
+    },
+    {
+      "fid": 10,
+      "fname": "stationnement"
+    }
+  ],
+  "es": [
+    {
+      "fid": 1,
+      "fname": "oficina"
+    },
+    {
+      "fid": 2,
+      "fname": "fábrica"
+    },
+    {
+      "fid": 3,
+      "fname": "escuela"
+    },
+    {
+      "fid": 4,
+      "fname": "hospital"
+    },
+    {
+      "fid": 5,
+      "fname": "tienda"
+    },
+    {
+      "fid": 6,
+      "fname": "museo"
+    },
+    {
+      "fid": 7,
+      "fname": "hotel"
+    },
+    {
+      "fid": 8,
+      "fname": "casa"
+    },
+    {
+      "fid": 9,
+      "fname": "estación"
+    },
+    {
+      "fid": 10,
+      "fname": "estacionamiento"
+    }
+  ],
+  "zh": [
+    {
+      "fid": 1,
+      "fname": "办公室"
+    },
+    {
+      "fid": 2,
+      "fname": "工厂"
+    },
+    {
+      "fid": 3,
+      "fname": "学校"
+    },
+    {
+      "fid": 4,
+      "fname": "医院"
+    },
+    {
+      "fid": 5,
+      "fname": "商店"
+    },
+    {
+      "fid": 6,
+      "fname": "博物馆"
+    },
+    {
+      "fid": 7,
+      "fname": "饭店"
+    },
+    {
+      "fid": 8,
+      "fname": "住宅"
+    },
+    {
+      "fid": 9,
+      "fname": "站"
+    },
+    {
+      "fid": 10,
+      "fname": "停车场"
     }
   ]
 }

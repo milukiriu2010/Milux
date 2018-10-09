@@ -62,7 +62,7 @@
     },
     {
       "fid": 8,
-      "anameLst": [ "bed room" ],
+      "anameLst": [ "bedroom" ],
       "lux": 20
     }
   ],
@@ -130,6 +130,207 @@
     {
       "fid": 8,
       "anameLst": [ "寝室" ],
+      "lux": 20
+    }
+  ],
+  "fr": [
+    {
+      "fid": 3,
+      "anameLst": [ "laboratoire", "bibliothèque", "studio" ],
+      "lux": 500
+    },
+    {
+      "fid": 3,
+      "anameLst": [ "classe", "salle des professeurs", "salle de gymnastique" ],
+      "lux": 300
+    },
+    {
+      "fid": 3,
+      "anameLst": [ "auditorium" ],
+      "lux": 200
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "couture" ],
+      "lux": 1000
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "étudier", "lire" ],
+      "lux": 700
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "étudier", "lire" ],
+      "lux": 600
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "étudier", "lire" ],
+      "lux": 500
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "cuisine", "maquillage" ],
+      "lux": 300
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "jouer", "salon" ],
+      "lux": 200
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "salon" ],
+      "lux": 150
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "porte d'entrée" ],
+      "lux": 100
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "toilette" ],
+      "lux": 75
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "chambre à coucher" ],
+      "lux": 20
+    }
+  ],
+  "es": [
+    {
+      "fid": 3,
+      "anameLst": [ "laboratorio", "biblioteca", "estudio" ],
+      "lux": 500
+    },
+    {
+      "fid": 3,
+      "anameLst": [ "aula", "sala de profesores", "sala de gimnasia" ],
+      "lux": 300
+    },
+    {
+      "fid": 3,
+      "anameLst": [ "auditorio" ],
+      "lux": 200
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "costula" ],
+      "lux": 1000
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "estudiar", "leer" ],
+      "lux": 700
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "estudiar", "leer" ],
+      "lux": 600
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "estudiar", "leer" ],
+      "lux": 500
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "cosina", "maquillaje" ],
+      "lux": 300
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "jugar", "sala" ],
+      "lux": 200
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "sala" ],
+      "lux": 150
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "puerta principal" ],
+      "lux": 100
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "baño" ],
+      "lux": 75
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "cuarto" ],
+      "lux": 20
+    }
+  ],
+  "zh": [
+    {
+      "fid": 3,
+      "anameLst": [ "实验室", "图书馆", "广播室" ],
+      "lux": 500
+    },
+    {
+      "fid": 3,
+      "anameLst": [ "教室", "教师办公室", "体操馆" ],
+      "lux": 300
+    },
+    {
+      "fid": 3,
+      "anameLst": [ "礼堂" ],
+      "lux": 200
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "针线活" ],
+      "lux": 1000
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "学习", "阅读" ],
+      "lux": 700
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "学习", "阅读" ],
+      "lux": 600
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "学习", "阅读" ],
+      "lux": 500
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "厨房", "化妆" ],
+      "lux": 300
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "玩ㄦ", "客厅" ],
+      "lux": 200
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "客厅" ],
+      "lux": 150
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "前门" ],
+      "lux": 100
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "厕所" ],
+      "lux": 75
+    },
+    {
+      "fid": 8,
+      "anameLst": [ "卧室" ],
       "lux": 20
     }
   ]
