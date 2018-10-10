@@ -68,6 +68,7 @@ class LuxActivity : AppCompatActivity()
 
         // 時刻ごとの照度値リスト
         luxLst = LimitedArrayList<LuxData>(appConf.limit, appConf.limit)
+        //luxLst.limit = appConf.limit
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.

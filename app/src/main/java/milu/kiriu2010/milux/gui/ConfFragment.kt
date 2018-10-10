@@ -1,18 +1,22 @@
 package milu.kiriu2010.milux.gui
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import milu.kiriu2010.milux.LuxApplication
 
 import milu.kiriu2010.milux.R
+import milu.kiriu2010.milux.entity.Facility
+import milu.kiriu2010.milux.gui.lux05.FacSpinAdapter
 
 /**
  * A simple [Fragment] subclass.
@@ -34,10 +38,32 @@ class ConfFragment : DialogFragment() {
     // OKボタン
     private lateinit var btnOK: Button
 
+    // OKボタンを押下したことを通知するために用いるリスナー
+    private lateinit var listener: OnUpdateConfListener
+
+    // OKボタンを押下したことを通知するために用いるリスナー
+    interface OnUpdateConfListener {
+        fun updateConf()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (context is OnUpdateConfListener) {
+            listener = context
+        }
+        else {
+            throw RuntimeException(context.toString() + " must implement OnUpdateConf")
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -61,18 +87,49 @@ class ConfFragment : DialogFragment() {
         // 施設を選択するスピン
         spinFacility = view.findViewById(R.id.spinFacility)
 
+        // 施設リストのテンプレートを構築
+        val facLst = appConf.createFacLst()
+
+        // 施設を選択するスピンにアダプタを設定する
+        val adapterFac = FacSpinAdapter(ctx,facLst)
+        spinFacility.adapter = adapterFac
+
+        // 施設を選択するスピンのデフォルト選択を設定する
+        val fac = facLst.filter { it.fid == appConf.fid }.first()
+        spinFacility.setSelection(facLst.indexOf(fac))
+
         // デフォルトボタン
         btnDefault = view.findViewById(R.id.btnDefault)
 
         // OKボタン
         btnOK = view.findViewById(R.id.btnOK)
         btnOK.setOnClickListener {
+            // サンプリング数を更新
+            appConf.limit = (spinSamplingNum.selectedItem as Int) + 1
+
+            // 表示対象の施設を更新
+            appConf.fid = (spinFacility.selectedItem as Facility).fid
+
+            // 設定の更新を通知する
+            listener.updateConf()
             dismiss()
         }
 
-
-
         return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        // WindowManager.LayoutParams
+        val lp = dialog.window.attributes
+
+        // DisplayMetrics
+        val metrics = resources.displayMetrics
+
+        // ダイアログの幅だけ端末の幅まで広げる
+        lp.width = metrics.widthPixels
+        //lp.height = metrics.heightPixels
     }
 
 

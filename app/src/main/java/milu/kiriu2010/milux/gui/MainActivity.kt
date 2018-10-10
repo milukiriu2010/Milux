@@ -27,7 +27,8 @@ import java.util.Date
 // RecyclerViewをつけると"02スクリーン"の上に"01スクリーン"がなぜか表示される
 class MainActivity : AppCompatActivity()
         , SensorEventListener
-        , ResetListener {
+        , ResetListener
+        , ConfFragment.OnUpdateConfListener {
 
     // アプリ設定
     private lateinit var appConf: AppConf
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity()
 
         // 時刻ごとの照度値リスト
         luxLst = LimitedArrayList<LuxData>(appConf.limit, appConf.limit)
+        //luxLst.limit = appConf.limit
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -219,6 +221,25 @@ class MainActivity : AppCompatActivity()
             fragment.OnReset()
         }
     }
+
+    // ConfFragment.OnUpdateConfListener
+    // 設定が更新されると呼び出される
+    override fun updateConf() {
+        val appl = application as? LuxApplication ?: return
+        val appConf = appl.appConf
+
+        // 照度値リストのリミットを更新
+        luxLst.limit = appConf.limit
+
+        // 登録されている表示ビュー全てをリセット
+        for ( i in 0 until luxPagerAdapter!!.count ) {
+            val fragment = luxPagerAdapter?.getItem(i) as? ConfFragment.OnUpdateConfListener
+                    ?: continue
+
+            fragment.updateConf()
+        }
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

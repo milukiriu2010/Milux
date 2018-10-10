@@ -20,6 +20,7 @@ import milu.kiriu2010.milux.conf.AppConf
 import milu.kiriu2010.milux.entity.Facility
 import milu.kiriu2010.milux.entity.FacilityArea
 import milu.kiriu2010.milux.entity.LuxData
+import milu.kiriu2010.milux.gui.ConfFragment
 import milu.kiriu2010.milux.gui.NewVal01Listener
 import milu.kiriu2010.milux.gui.ResetListener
 import milu.kiriu2010.util.LimitedArrayList
@@ -32,7 +33,8 @@ import milu.kiriu2010.util.LimitedArrayList
  */
 class Lux05FacilityFragment : Fragment()
         , NewVal01Listener
-        , ResetListener {
+        , ResetListener
+        , ConfFragment.OnUpdateConfListener {
 
     // 照度
     private var lux: Float = 0f
@@ -79,10 +81,11 @@ class Lux05FacilityFragment : Fragment()
         appConf = appl?.appConf ?: AppConf()
 
         // 表示する施設を選択するスピン
-        val spinFacility = view.findViewById<Spinner>(R.id.spinFacility)
+        spinFacility = view.findViewById<Spinner>(R.id.spinFacility)
 
         // 施設リストのテンプレートを構築
-        val facLst = createFacLst()
+        //val facLst = createFacLst()
+        val facLst = appConf.createFacLst()
 
         // 施設を選択するスピンにアダプタを設定する
         val adapterFac = FacSpinAdapter(ctx,facLst)
@@ -128,6 +131,7 @@ class Lux05FacilityFragment : Fragment()
         return view
     }
 
+    /*
     // 施設リストのテンプレートを構築
     private fun createFacLst(): List<Facility> {
         Log.d( javaClass.simpleName, "createFacLst")
@@ -143,6 +147,7 @@ class Lux05FacilityFragment : Fragment()
 
         return facLst
     }
+    */
 
     // 施設エリアリストのテンプレートを構築
     //   fid: 施設ID
@@ -232,6 +237,24 @@ class Lux05FacilityFragment : Fragment()
     // ResetListener
     override fun OnReset() {
 
+    }
+
+    // ConfFragment.OnUpdateConfListener
+    // 設定が更新されると呼び出される
+    override fun updateConf() {
+        // 施設リスト
+        val appl = context?.applicationContext as? LuxApplication
+        appConf = appl?.appConf ?: AppConf()
+
+        // 施設リストのテンプレートを構築
+        //val facLst = createFacLst()
+        val facLst = appConf.createFacLst()
+
+        if (this::spinFacility.isInitialized == false) return
+
+        // 施設を選択するスピンのデフォルト選択を設定する
+        val fac = facLst.filter { it.fid == appConf.fid }.first()
+        spinFacility.setSelection(facLst.indexOf(fac))
     }
 
     companion object {
