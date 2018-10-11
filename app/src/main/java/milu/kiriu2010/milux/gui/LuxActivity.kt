@@ -17,6 +17,7 @@ import milu.kiriu2010.milux.LuxApplication
 import milu.kiriu2010.milux.R
 import milu.kiriu2010.milux.conf.AppConf
 import milu.kiriu2010.milux.entity.LuxData
+import milu.kiriu2010.milux.gui.misc.MenuFragment
 import milu.kiriu2010.milux.id.FragmentID
 import milu.kiriu2010.util.LimitedArrayList
 import java.util.*

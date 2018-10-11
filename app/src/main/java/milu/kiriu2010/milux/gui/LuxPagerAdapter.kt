@@ -3,6 +3,8 @@ package milu.kiriu2010.milux.gui
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
+import milu.kiriu2010.milux.gui.graph.Lux02GraphViewFragment
+import milu.kiriu2010.milux.gui.graph.Lux04GraphViewFragment
 import milu.kiriu2010.milux.gui.lux03.Lux03HistoryViewFragment
 import milu.kiriu2010.milux.gui.lux05.Lux05FacilityFragment
 
@@ -10,9 +12,9 @@ import milu.kiriu2010.milux.gui.lux05.Lux05FacilityFragment
 class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
 
     private lateinit var lux01OverViewFragment: Lux01OverViewFragment
-    private lateinit var lux02OverViewFragment: Lux02OverViewFragment
+    private lateinit var lux02GraphViewFragment: Lux02GraphViewFragment
     private lateinit var lux03HistoryViewFragment: Lux03HistoryViewFragment
-    private lateinit var lux04OverViewFragment: Lux04OverViewFragment
+    private lateinit var lux04GraphViewFragment: Lux04GraphViewFragment
     private lateinit var lux05FacilityFragment: Lux05FacilityFragment
 
     // ページ数
@@ -29,10 +31,10 @@ class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
             }
             /*
             1 -> {
-                if ( !this::lux02OverViewFragment.isInitialized ) {
-                    lux02OverViewFragment = Lux02OverViewFragment.newInstance()
+                if ( !this::lux02GraphViewFragment.isInitialized ) {
+                    lux02GraphViewFragment = Lux02GraphViewFragment.newInstance()
                 }
-                return lux02OverViewFragment
+                return lux02GraphViewFragment
             }
             */
             1 -> {
@@ -42,10 +44,10 @@ class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
                 return lux05FacilityFragment
             }
             2 -> {
-                if ( !this::lux04OverViewFragment.isInitialized ) {
-                    lux04OverViewFragment = Lux04OverViewFragment.newInstance()
+                if ( !this::lux04GraphViewFragment.isInitialized ) {
+                    lux04GraphViewFragment = Lux04GraphViewFragment.newInstance()
                 }
-                return lux04OverViewFragment
+                return lux04GraphViewFragment
             }
             3 -> {
                 if ( !this::lux03HistoryViewFragment.isInitialized ) {

@@ -1,4 +1,4 @@
-package milu.kiriu2010.milux.gui
+package milu.kiriu2010.milux.gui.graph
 
 
 import android.content.pm.ActivityInfo
@@ -12,6 +12,10 @@ import android.widget.TextView
 import milu.kiriu2010.milux.LuxApplication
 import milu.kiriu2010.milux.R
 import milu.kiriu2010.milux.entity.LuxData
+import milu.kiriu2010.milux.gui.NewVal01Listener
+import milu.kiriu2010.milux.gui.OrientationListener
+import milu.kiriu2010.milux.gui.ResetListener
+import milu.kiriu2010.milux.gui.SelectedListener
 import milu.kiriu2010.util.LimitedArrayList
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,11 +24,11 @@ import kotlin.math.pow
 
 /**
  * A simple [Fragment] subclass.
- * Use the [Lux04OverViewFragment.newInstance] factory method to
+ * Use the [Lux04GraphViewFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class Lux04OverViewFragment : Fragment()
+class Lux04GraphViewFragment : Fragment()
         , SurfaceHolder.Callback
         , NewVal01Listener
         , OrientationListener
@@ -115,7 +119,7 @@ class Lux04OverViewFragment : Fragment()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_lux04_over_view, container, false)
+        val view = inflater.inflate(R.layout.fragment_lux04_graph_view, container, false)
 
         // 照度の強さを表示するサーフェスビュー
         overView = view.findViewById(R.id.overView04)
@@ -422,12 +426,12 @@ class Lux04OverViewFragment : Fragment()
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @return A new instance of fragment Lux02OverViewFragment.
+         * @return A new instance of fragment Lux02GraphViewFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
-                Lux04OverViewFragment().apply {
+                Lux04GraphViewFragment().apply {
                     arguments = Bundle().apply {
                         /*
                         putString(ARG_PARAM1, param1)

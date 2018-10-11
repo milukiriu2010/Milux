@@ -1,6 +1,8 @@
 package milu.kiriu2010.milux
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import milu.kiriu2010.milux.conf.AppConf
 import milu.kiriu2010.milux.entity.Facility
@@ -17,6 +19,12 @@ class LuxApplication: Application() {
     // ja
     val locale = Locale.getDefault()
 
+    private enum class SpKey(val id: String) {
+        NAME_APP_CONF("appConf"),
+        KEY_LIMIT("limit"),
+        KEY_FID("fid")
+    }
+
     // -------------------------------------
     // アプリケーションの起動時に呼び出される
     // -------------------------------------
@@ -25,12 +33,43 @@ class LuxApplication: Application() {
 
        //Log.d(javaClass.simpleName, "locale:{${locale.language}}")
 
+        // 共有設定をロードする
+        loadSharedPreferences()
+
         // 施設リストをロードする
         loadJSONFacility()
 
         // 施設エリアリストをロードする
         loadJSONFacilityArea()
     }
+
+    // 共有設定からアプリ設定をロードする
+    fun loadSharedPreferences() {
+        // 共有設定がない場合のデフォルト設定
+        val appConfDef = AppConf()
+
+        // 共有設定を取得
+        val sp = getSharedPreferences(SpKey.NAME_APP_CONF.id, Context.MODE_PRIVATE) as SharedPreferences
+        // 共有設定から"照度値のサンプリング数"を取得
+        appConf.limit = sp.getInt(SpKey.KEY_LIMIT.id,appConfDef.limit)
+        // 共有設定から"施設ビューで表示対象の施設"を取得
+        appConf.fid = sp.getInt(SpKey.KEY_FID.id,appConfDef.fid)
+    }
+
+    // 共有設定へアプリ設定を保存する
+    fun saveSharedPreferences() {
+        // 共有設定を取得
+        val sp = getSharedPreferences(SpKey.NAME_APP_CONF.id, Context.MODE_PRIVATE) as SharedPreferences
+
+        // 共有設定にアプリの設定を保存する
+        sp.edit()
+                // 共有設定へ"照度値のサンプリング数"を保存
+                .putInt(SpKey.KEY_LIMIT.id,appConf.limit)
+                // 共有設定へ"施設ビューで表示対象の施設"を保存
+                .putInt(SpKey.KEY_FID.id,appConf.fid)
+                .commit()
+    }
+
 
     // 施設リストをロードする
     private fun loadJSONFacility() {

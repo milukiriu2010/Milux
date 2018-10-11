@@ -5,4 +5,8 @@
     <string name="action_about">À propos de moi</string>
     <string name="action_settings">Paramètres</string>
     <string name="action_rate_me">Evalue moi</string>
+    <string name="label_sampling_number">Numéro d\'échantillonnage</string>
+    <string name="label_facility">Établissement</string>
+    <string name="action_default">Défaut</string>
+    <string name="action_cancel">Annuler</string>
 </resources>

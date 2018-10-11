@@ -18,6 +18,7 @@
     <string name="label_sampling_number">Sampling Number</string>
     <string name="label_facility" >Facility</string>
     <string name="action_default">Default</string>
+    <string name="action_cancel">Cancel</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

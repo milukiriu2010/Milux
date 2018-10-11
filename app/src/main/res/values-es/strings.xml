@@ -5,4 +5,8 @@
     <string name="action_about">Sobre mi</string>
     <string name="action_settings">Ajustes</string>
     <string name="action_rate_me">Calificame</string>
+    <string name="label_sampling_number">Número de Muestreo</string>
+    <string name="label_facility">Instalaciones</string>
+    <string name="action_default">Defecto</string>
+    <string name="action_cancel">Cancelar</string>
 </resources>

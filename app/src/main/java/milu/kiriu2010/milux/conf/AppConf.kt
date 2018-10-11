@@ -16,6 +16,14 @@ class AppConf(
         // 施設エリアリスト
         val facilityAreaLst: MutableList<FacilityArea> = mutableListOf()
 ) {
+    // デフォルト設定にする
+    fun goDefault() {
+        val appConfDef = AppConf()
+        // 照度値のサンプリング数
+        limit = appConfDef.limit
+        // 施設ビューで表示対象の施設
+        fid = appConfDef.fid
+    }
 
     // 施設リストのテンプレートを構築
     fun createFacLst(): List<Facility> {

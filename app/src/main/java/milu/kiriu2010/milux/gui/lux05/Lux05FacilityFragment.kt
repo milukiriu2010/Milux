@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import milu.kiriu2010.milux.LuxApplication
@@ -20,7 +18,7 @@ import milu.kiriu2010.milux.conf.AppConf
 import milu.kiriu2010.milux.entity.Facility
 import milu.kiriu2010.milux.entity.FacilityArea
 import milu.kiriu2010.milux.entity.LuxData
-import milu.kiriu2010.milux.gui.ConfFragment
+import milu.kiriu2010.milux.gui.misc.ConfFragment
 import milu.kiriu2010.milux.gui.NewVal01Listener
 import milu.kiriu2010.milux.gui.ResetListener
 import milu.kiriu2010.util.LimitedArrayList

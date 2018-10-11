@@ -11,7 +11,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 3
-        versionName "2018.10.13"
+        versionName "2018.10.11"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -20,6 +20,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            res.srcDirs += 'src/main/res'
+            file('src/main/res-screen')
+                    .listFiles()
+                    .each { res.srcDirs += it.path }
+        }
+    }
+
 }
 
 dependencies {

@@ -5,7 +5,7 @@
     android:id="@+id/layoutLux04"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gui.Lux02OverViewFragment">
+    tools:context=".gui.graph.Lux02GraphViewFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

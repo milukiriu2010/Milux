@@ -1,4 +1,4 @@
-package milu.kiriu2010.milux.gui
+package milu.kiriu2010.milux.gui.misc
 
 
 import android.content.Context
@@ -8,13 +8,13 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import milu.kiriu2010.milux.LuxApplication
 
 import milu.kiriu2010.milux.R
+import milu.kiriu2010.milux.conf.AppConf
 import milu.kiriu2010.milux.entity.Facility
 import milu.kiriu2010.milux.gui.lux05.FacSpinAdapter
 
@@ -37,6 +37,9 @@ class ConfFragment : DialogFragment() {
 
     // OKボタン
     private lateinit var btnOK: Button
+
+    // Cancelボタン
+    private lateinit var btnCancel: Button
 
     // OKボタンを押下したことを通知するために用いるリスナー
     private lateinit var listener: OnUpdateConfListener
@@ -79,13 +82,55 @@ class ConfFragment : DialogFragment() {
 
         // サンプリング数を選択するスピン
         spinSamplingNum = view.findViewById(R.id.spinSamplingNum)
+
+        // 施設を選択するスピン
+        spinFacility = view.findViewById(R.id.spinFacility)
+
+        // アプリ設定をビューへ反映
+        appConf2View(ctx,appConf)
+
+        // デフォルトボタン
+        btnDefault = view.findViewById(R.id.btnDefault)
+        btnDefault.setOnClickListener {
+            // デフォルト設定にする
+            appConf.goDefault()
+            // アプリ設定をビューへ反映
+            appConf2View(ctx,appConf)
+        }
+
+        // OKボタン
+        btnOK = view.findViewById(R.id.btnOK)
+        btnOK.setOnClickListener {
+            // サンプリング数を更新
+            appConf.limit = (spinSamplingNum.selectedItem as Int) + 1
+
+            // 表示対象の施設を更新
+            appConf.fid = (spinFacility.selectedItem as Facility).fid
+
+            // 共有設定へアプリ設定を保存する
+            appl.saveSharedPreferences()
+
+            // 設定の更新を通知する
+            listener.updateConf()
+            dismiss()
+        }
+
+        // Cancelボタン
+        btnCancel = view.findViewById(R.id.btnCancel)
+        btnCancel.setOnClickListener {
+            dismiss()
+        }
+
+        return view
+    }
+
+    // アプリ設定の値をビューに反映する
+    fun appConf2View(ctx: Context,appConf: AppConf) {
+        // サンプリング数を選択するスピン
         val samplingNumLst = (10..200 step 10).toMutableList()
         val adapterSamplingNum = ArrayAdapter<Int>(ctx, android.R.layout.simple_list_item_1, samplingNumLst )
         spinSamplingNum.adapter = adapterSamplingNum
         spinSamplingNum.setSelection(samplingNumLst.indexOf(appConf.limit-1))
-
-        // 施設を選択するスピン
-        spinFacility = view.findViewById(R.id.spinFacility)
 
         // 施設リストのテンプレートを構築
         val facLst = appConf.createFacLst()
@@ -97,25 +142,6 @@ class ConfFragment : DialogFragment() {
         // 施設を選択するスピンのデフォルト選択を設定する
         val fac = facLst.filter { it.fid == appConf.fid }.first()
         spinFacility.setSelection(facLst.indexOf(fac))
-
-        // デフォルトボタン
-        btnDefault = view.findViewById(R.id.btnDefault)
-
-        // OKボタン
-        btnOK = view.findViewById(R.id.btnOK)
-        btnOK.setOnClickListener {
-            // サンプリング数を更新
-            appConf.limit = (spinSamplingNum.selectedItem as Int) + 1
-
-            // 表示対象の施設を更新
-            appConf.fid = (spinFacility.selectedItem as Facility).fid
-
-            // 設定の更新を通知する
-            listener.updateConf()
-            dismiss()
-        }
-
-        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

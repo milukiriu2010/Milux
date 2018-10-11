@@ -1,14 +1,12 @@
-package milu.kiriu2010.milux.gui
+package milu.kiriu2010.milux.gui.misc
 
 
-import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 
 import milu.kiriu2010.milux.R

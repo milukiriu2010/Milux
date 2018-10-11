@@ -16,6 +16,26 @@
       "lux": 200
     },
     {
+      "fid": 7,
+      "anameLst": [ "reception" ],
+      "lux": 700
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "carriage porch" ],
+      "lux": 300
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "lobby","party hall" ],
+      "lux": 200
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "guest room","amusement hall","corridor" ],
+      "lux": 100
+    },
+    {
       "fid": 8,
       "anameLst": [ "sewing" ],
       "lux": 1000
@@ -81,6 +101,26 @@
       "fid": 3,
       "anameLst": [ "講堂" ],
       "lux": 200
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "レセプション" ],
+      "lux": 700
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "車寄せ" ],
+      "lux": 300
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "ロビー","宴会場" ],
+      "lux": 200
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "客室","娯楽室","廊下" ],
+      "lux": 100
     },
     {
       "fid": 8,
@@ -150,6 +190,26 @@
       "lux": 200
     },
     {
+      "fid": 7,
+      "anameLst": [ "réception" ],
+      "lux": 700
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "porche de transport" ],
+      "lux": 300
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "lobby","salle de fête" ],
+      "lux": 200
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "chambre d'amis","salle d'amusement","couloir" ],
+      "lux": 100
+    },
+    {
       "fid": 8,
       "anameLst": [ "couture" ],
       "lux": 1000
@@ -217,6 +277,26 @@
       "lux": 200
     },
     {
+      "fid": 7,
+      "anameLst": [ "recepción" ],
+      "lux": 700
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "porche de carro" ],
+      "lux": 300
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "lobby","salón de fiestas" ],
+      "lux": 200
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "habitación de huéspedes","salón de diversiones","corredor" ],
+      "lux": 100
+    },
+    {
       "fid": 8,
       "anameLst": [ "costula" ],
       "lux": 1000
@@ -282,6 +362,26 @@
       "fid": 3,
       "anameLst": [ "礼堂" ],
       "lux": 200
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "前台" ],
+      "lux": 700
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "马车门廊" ],
+      "lux": 300
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "前厅","宴会厅" ],
+      "lux": 200
+    },
+    {
+      "fid": 7,
+      "anameLst": [ "客房","娱乐大厅","走廊" ],
+      "lux": 100
     },
     {
       "fid": 8,

@@ -5,4 +5,8 @@
     <string name="action_about">关于我</string>
     <string name="action_settings">设置</string>
     <string name="action_rate_me">评价我</string>
+    <string name="label_sampling_number">抽样编号</string>
+    <string name="label_facility">设施</string>
+    <string name="action_default">默认</string>
+    <string name="action_cancel">取消</string>
 </resources>
