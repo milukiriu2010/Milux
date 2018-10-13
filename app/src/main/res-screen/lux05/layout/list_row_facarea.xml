@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<milu.kiriu2010.gui.decorate.Deco03ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/decoLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -23,7 +24,7 @@
         app:layout_constraintVertical_bias="0.0"
         tools:text="1000 lx" />
 
-    <milu.kiriu2010.gui.decorate.DecorateTextView
+    <TextView
         android:id="@+id/dataArea"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -46,4 +47,4 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_end="257dp" />
-</android.support.constraint.ConstraintLayout>
+</milu.kiriu2010.gui.decorate.Deco03ConstraintLayout>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import milu.kiriu2010.gui.decorate.Deco03ConstraintLayout
 import milu.kiriu2010.gui.decorate.DecorateTextView
 import milu.kiriu2010.milux.R
 import milu.kiriu2010.milux.entity.FacilityArea
@@ -39,9 +40,10 @@ class FacAreaRecyclerAdapter(
         //Log.d(javaClass.simpleName, "onBindViewHolder:pos[$pos]lux[${facArea.lux}]min[$luxMin]max[$luxMax]")
 
         // 照度
-        holder.dataLux.text = "%1d lx".format(facArea.lux )
+        holder.dataLux.text = "%1d lx".format(facArea.lux)
         // 施設内のエリア名
         holder.dataArea.text = facArea.anameLst.joinToString("\n")
+        /*
         // 照度がMIN-MAXの範囲にある場合、
         // 施設内のエリア名をアニメーションする
         holder.dataArea.animated = if ( (facArea.lux >= luxMax) or (facArea.lux < luxMin) ) {
@@ -55,12 +57,29 @@ class FacAreaRecyclerAdapter(
             holder.dataArea.kickRunnable()
             true
         }
+        */
+        // 照度がMIN-MAXの範囲にある場合、
+        // 親レイアウトをアニメーションする
+        holder.decoLayout.animated = if ( (facArea.lux >= luxMax) or (facArea.lux < luxMin) ) {
+            false
+        }
+        else {
+            //Log.d( javaClass.simpleName, "animate[$pos]")
+            // ハイライト位置を設定
+            highLightPos = pos
+            // アニメーションを開始
+            holder.decoLayout.kickRunnable()
+            true
+        }
     }
 
     class FacAreaViewHolder(view: View): RecyclerView.ViewHolder(view) {
+        // 親レイアウト
+        val decoLayout = view.findViewById<Deco03ConstraintLayout>(R.id.decoLayout)
         // 照度
         val dataLux = view.findViewById<TextView>(R.id.dataLux)
         // 施設内のエリア名
-        val dataArea = view.findViewById<DecorateTextView>(R.id.dataArea)
+        //val dataArea = view.findViewById<DecorateTextView>(R.id.dataArea)
+        val dataArea = view.findViewById<TextView>(R.id.dataArea)
     }
 }

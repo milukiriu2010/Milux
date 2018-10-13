@@ -46,6 +46,9 @@ class Lux01OverViewFragment : Fragment()
     // ５つある照度セグメントのカウント数
     private val luxSeg = intArrayOf(0,0,0,0,0)
 
+    // アニメーションする画像リスト
+    private lateinit var bmpLst: List<Bitmap>
+
     // バックグラウンドに使うペイント
     private val paintBackground = Paint().apply {
         color = Color.WHITE
@@ -111,6 +114,20 @@ class Lux01OverViewFragment : Fragment()
 
         // 照度の数値を表示するビュー
         dataLux = view.findViewById(R.id.dataLux)
+
+        // アニメーションする画像をロードする
+        bmpLst = listOf(
+                // 太陽を描画(セグメント４)
+                BitmapFactory.decodeResource(resources, R.drawable.a_sun),
+                // 日の出を描画(セグメント３)
+                BitmapFactory.decodeResource(resources, R.drawable.a_sunrise),
+                // 雲を描画(セグメント２)
+                BitmapFactory.decodeResource(resources, R.drawable.a_cloudy),
+                // 月を描画(セグメント１)
+                BitmapFactory.decodeResource(resources, R.drawable.a_moon),
+                // 星を描画(セグメント０)
+                BitmapFactory.decodeResource(resources, R.drawable.a_star)
+        )
 
         return view
     }
@@ -253,6 +270,12 @@ class Lux01OverViewFragment : Fragment()
         // 座標移動するため、初期位置を保存する
         canvas.save()
 
+        // 各セグメントの画像を描画する
+        bmpLst.forEachIndexed { index, bitmap ->
+            drawImage(canvas, bitmap, bmpLst.size-index-1,fh)
+        }
+
+        /*
         // ---------------------------------------------------------------------------
         // 太陽を描画(セグメント４)
         //   10000以上
@@ -293,6 +316,7 @@ class Lux01OverViewFragment : Fragment()
         // ---------------------------------------------------------------------------
         val bmpStar = BitmapFactory.decodeResource(resources, R.drawable.a_star)
         drawImage(canvas,bmpStar,0,fh)
+        */
 
         // 座標位置を初期値に戻す
         canvas.restore()
