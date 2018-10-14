@@ -16,6 +16,26 @@
       "lux": 200
     },
     {
+      "fid": 6,
+      "anameLst": [ "sculpture" ],
+      "lux": 1000
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "Western painting" ],
+      "lux": 500
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "Japanese-style painting","lounge" ],
+      "lux": 200
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "stuffed specimen","entrance hall" ],
+      "lux": 100
+    },
+    {
       "fid": 7,
       "anameLst": [ "reception" ],
       "lux": 700
@@ -101,6 +121,26 @@
       "fid": 3,
       "anameLst": [ "講堂" ],
       "lux": 200
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "造形物" ],
+      "lux": 1000
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "洋画" ],
+      "lux": 500
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "日本画","ラウンジ" ],
+      "lux": 200
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "剥製","入口ホール" ],
+      "lux": 100
     },
     {
       "fid": 7,
@@ -190,6 +230,26 @@
       "lux": 200
     },
     {
+      "fid": 6,
+      "anameLst": [ "sculpture" ],
+      "lux": 1000
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "peinture occidentale" ],
+      "lux": 500
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "peinture de style japonais","salle d'attente" ],
+      "lux": 200
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "spécimen en peluche","hall d'entrée" ],
+      "lux": 100
+    },
+    {
       "fid": 7,
       "anameLst": [ "réception" ],
       "lux": 700
@@ -277,6 +337,26 @@
       "lux": 200
     },
     {
+      "fid": 6,
+      "anameLst": [ "escultura" ],
+      "lux": 1000
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "pintura occidental" ],
+      "lux": 500
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "pintura de estilo japonés","sala" ],
+      "lux": 200
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "espécimen relleno","hall de entrada" ],
+      "lux": 100
+    },
+    {
       "fid": 7,
       "anameLst": [ "recepción" ],
       "lux": 700
@@ -362,6 +442,26 @@
       "fid": 3,
       "anameLst": [ "礼堂" ],
       "lux": 200
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "雕塑" ],
+      "lux": 1000
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "西方绘画" ],
+      "lux": 500
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "日式绘画","休息室" ],
+      "lux": 200
+    },
+    {
+      "fid": 6,
+      "anameLst": [ "填充标本","入口大厅" ],
+      "lux": 100
     },
     {
       "fid": 7,
