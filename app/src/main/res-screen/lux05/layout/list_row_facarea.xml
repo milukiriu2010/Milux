@@ -12,9 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:gravity="right"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:gravity="end"
         android:padding="2dp"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -46,5 +46,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="257dp" />
+        app:layout_constraintGuide_begin="127dp" />
 </milu.kiriu2010.gui.decorate.Deco03ConstraintLayout>

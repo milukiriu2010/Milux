@@ -16,6 +16,31 @@
       "lux": 200
     },
     {
+      "fid": 4,
+      "anameLst": [ "emergency room", "operating room" ],
+      "lux": 1000
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "consulting room", "recovery room", "mortuary" ],
+      "lux": 500
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "X-ray room" ],
+      "lux": 300
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "patient's bedroom" ],
+      "lux": 100
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "ophthalmology dark room" ],
+      "lux": 75
+    },
+    {
       "fid": 6,
       "anameLst": [ "sculpture" ],
       "lux": 1000
@@ -121,6 +146,31 @@
       "fid": 3,
       "anameLst": [ "講堂" ],
       "lux": 200
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "救急室", "手術室" ],
+      "lux": 1000
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "診察室", "回復室", "霊安室" ],
+      "lux": 500
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "X線室" ],
+      "lux": 300
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "病室" ],
+      "lux": 100
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "眼科暗室" ],
+      "lux": 75
     },
     {
       "fid": 6,
@@ -230,6 +280,31 @@
       "lux": 200
     },
     {
+      "fid": 4,
+      "anameLst": [ "chambre d'urgence", "salle d'opération" ],
+      "lux": 1000
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "salle de consultation", "salle de réveil", "mortuaire" ],
+      "lux": 500
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "Salle de radiographie" ],
+      "lux": 300
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "chambre du patient" ],
+      "lux": 100
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "chambre noire d'ophtalmologie" ],
+      "lux": 75
+    },
+    {
       "fid": 6,
       "anameLst": [ "sculpture" ],
       "lux": 1000
@@ -337,6 +412,31 @@
       "lux": 200
     },
     {
+      "fid": 4,
+      "anameLst": [ "sala de emergencias", "sala de operaciones" ],
+      "lux": 1000
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "consultorio", "cuarto de recuperación", "mortuorio" ],
+      "lux": 500
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "Sala de rayos X" ],
+      "lux": 300
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "dormitorio del paciente" ],
+      "lux": 100
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "oftalmología sala oscura" ],
+      "lux": 75
+    },
+    {
       "fid": 6,
       "anameLst": [ "escultura" ],
       "lux": 1000
@@ -442,6 +542,31 @@
       "fid": 3,
       "anameLst": [ "礼堂" ],
       "lux": 200
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "急救室", "手术室" ],
+      "lux": 1000
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "咨询室", "恢复室", "停尸间" ],
+      "lux": 500
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "X光室" ],
+      "lux": 300
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "病人的卧室" ],
+      "lux": 100
+    },
+    {
+      "fid": 4,
+      "anameLst": [ "眼科黑暗的房间" ],
+      "lux": 75
     },
     {
       "fid": 6,
