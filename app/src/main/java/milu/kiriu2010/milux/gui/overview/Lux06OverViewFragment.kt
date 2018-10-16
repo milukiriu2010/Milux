@@ -1,4 +1,4 @@
-package milu.kiriu2010.milux.gui
+package milu.kiriu2010.milux.gui.overview
 
 
 import android.content.pm.ActivityInfo
@@ -9,23 +9,28 @@ import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.*
 import android.widget.TextView
+import milu.kiriu2010.gui.move.AVector
 import milu.kiriu2010.milux.R
 import milu.kiriu2010.milux.entity.LuxData
+import milu.kiriu2010.milux.gui.NewVal01Listener
+import milu.kiriu2010.milux.gui.OrientationListener
+import milu.kiriu2010.milux.gui.ResetListener
+import milu.kiriu2010.milux.gui.SelectedListener
 import milu.kiriu2010.util.LimitedArrayList
 import kotlin.math.log
 
 /**
  * A simple [Fragment] subclass.
- * Use the [Lux01OverViewFragment.newInstance] factory method to
+ * Use the [Lux06OverViewFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class Lux01OverViewFragment : Fragment()
+class Lux06OverViewFragment : Fragment()
         , SurfaceHolder.Callback
         , NewVal01Listener
         , OrientationListener
         , ResetListener
-        , SelectedListener{
+        , SelectedListener {
 
     // 照度
     private var lux: Float = 0f
@@ -36,8 +41,7 @@ class Lux01OverViewFragment : Fragment()
     private lateinit var overView: SurfaceView
 
     // 照度の強さを表示するビューの幅・高さ
-    private var ow = 0f
-    private var oh = 0f
+    private var wh = AVector()
 
     // 照度値をlog10したときのMAX値
     // LIGHT_SUNLIGHT_MAX 120000.0
@@ -86,10 +90,6 @@ class Lux01OverViewFragment : Fragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            /*
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-            */
         }
     }
 
@@ -101,7 +101,6 @@ class Lux01OverViewFragment : Fragment()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        //Log.d( javaClass.simpleName, "onCreateView" )
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_lux01_over_view, container, false)
 
@@ -139,8 +138,8 @@ class Lux01OverViewFragment : Fragment()
         // 1080 x 1769(24sp) huawei p20 lite
 
         Log.d( javaClass.simpleName, "surfaceChanged:w[$width]h[$height]")
-        ow = width.toFloat()
-        oh = height.toFloat()
+        wh.x = width.toFloat()
+        wh.y = height.toFloat()
     }
 
     // SurfaceHolder.Callback
@@ -244,7 +243,7 @@ class Lux01OverViewFragment : Fragment()
         canvas.save()
 
         // バックグラウンドを塗りつぶす
-        val frame = Rect( 0, 0, ow.toInt(), oh.toInt())
+        val frame = RectF( 0f, 0f, wh.x, wh.y)
         canvas.drawRect(frame, paintBackground)
         //canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
 
@@ -252,11 +251,11 @@ class Lux01OverViewFragment : Fragment()
         canvas.drawRect(frame, paintFrame)
 
         // 各フレームの高さ
-        val fh = oh/luxLog10Max
+        val fh = wh.y/luxLog10Max
         // 各フレームを描画
         val baseLine = Path()
         baseLine.moveTo(0f, 0f)
-        baseLine.lineTo( ow, 0f)
+        baseLine.lineTo( wh.x, 0f)
         // 閉じると点線じゃなくなる？
         //baseLine.close()
         for ( i in 1 until luxLog10Max.toInt() ) {
@@ -275,71 +274,39 @@ class Lux01OverViewFragment : Fragment()
             drawImage(canvas, bitmap, bmpLst.size-index-1,fh)
         }
 
-        /*
-        // ---------------------------------------------------------------------------
-        // 太陽を描画(セグメント４)
-        //   10000以上
-        // https://illustimage.com/?id=1743
-        // ---------------------------------------------------------------------------
-        val bmpSun = BitmapFactory.decodeResource(resources, R.drawable.a_sun)
-        drawImage(canvas,bmpSun,4,fh)
-
-        // ---------------------------------------------------------------------------
-        // 日の出を描画(セグメント３)
-        //   1000以上
-        // https://icon-icons.com/ja/%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3/%E3%82%B5%E3%83%B3%E3%83%A9%E3%82%A4%E3%82%BA/98976
-        // ---------------------------------------------------------------------------
-        val bmpSunRise = BitmapFactory.decodeResource(resources, R.drawable.a_sunrise)
-        drawImage(canvas,bmpSunRise,3,fh)
-
-        // ---------------------------------------------------------------------------
-        // 雲を描画(セグメント２)
-        //   100以上
-        // http://illustrationfree.seesaa.net/article/208791337.html
-        // ---------------------------------------------------------------------------
-        val bmpCloudy = BitmapFactory.decodeResource(resources, R.drawable.a_cloudy)
-        drawImage(canvas,bmpCloudy,2,fh)
-
-        // ---------------------------------------------------------------------------
-        // 月を描画(セグメント１)
-        //   10以上
-        // http://freebies-db.com/free-illustration-tsuki-usagi.html
-        // https://illustrain.com/?p=21515
-        // ---------------------------------------------------------------------------
-        val bmpMoon = BitmapFactory.decodeResource(resources, R.drawable.a_moon)
-        drawImage(canvas,bmpMoon,1,fh)
-
-        // ---------------------------------------------------------------------------
-        // 星を描画(セグメント０)
-        //   1以上
-        // https://illustimage.com/?id=1744
-        // ---------------------------------------------------------------------------
-        val bmpStar = BitmapFactory.decodeResource(resources, R.drawable.a_star)
-        drawImage(canvas,bmpStar,0,fh)
-        */
-
         // 座標位置を初期値に戻す
         canvas.restore()
 
         // 照度の位置を描画
-        val luxH = oh * (luxLog10Max-luxC)/luxLog10Max
-        canvas.drawLine(0f, luxH, ow, luxH, paintLineLux )
+        val luxH = wh.y * (luxLog10Max-luxC)/luxLog10Max
+        canvas.drawLine(0f, luxH, wh.y, luxH, paintLineLux )
 
         overView.holder.unlockCanvasAndPost(canvas)
     }
 
+    // ---------------------------------------------------
+    // 照度に対応する画像を描画する
+    // ---------------------------------------------------
+    //   seg: セグメント
+    //        4:太陽
+    //        3:日の出
+    //        2:雲
+    //        1:月
+    //        0:星
+    //    fh: 各セグメントの幅
+    // ---------------------------------------------------
     private fun drawImage( canvas: Canvas, bmp: Bitmap, seg: Int, fh: Float ) {
-        val src = Rect(0,0,bmp.width, bmp.height)
+        val src = Rect(0,0, bmp.width, bmp.height)
         // 描画先の矩形イメージ
-        val dst = Rect((luxSeg[seg]%ow).toInt(), 0, ((luxSeg[seg]%ow) + fh).toInt(), fh.toInt())
+        val dst = Rect((luxSeg[seg]%wh.x).toInt(), 0, ((luxSeg[seg]%wh.x) + fh).toInt(), fh.toInt())
         // 座標を下に移動する
         if ( seg != 4 ) {
             canvas.translate(0f, fh)
         }
         canvas.drawBitmap(bmp, src, dst, paintBackground)
         // 右端にきたら、左端から出てくるようにする
-        if ( (luxSeg[seg]%ow+fh).toInt() > ow.toInt() ) {
-            val dst2 = Rect(((luxSeg[seg]+fh)%ow-fh).toInt(), 0, ((luxSeg[seg]+fh)%ow).toInt(), fh.toInt())
+        if ( (luxSeg[seg]%wh.x+fh).toInt() > wh.x.toInt() ) {
+            val dst2 = Rect(((luxSeg[seg]+fh)%wh.x-fh).toInt(), 0, ((luxSeg[seg]+fh)%wh.x).toInt(), fh.toInt())
             canvas.drawBitmap(bmp, src, dst2, paintBackground)
         }
     }
@@ -385,7 +352,7 @@ class Lux01OverViewFragment : Fragment()
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
-                Lux01OverViewFragment().apply {
+                Lux06OverViewFragment().apply {
                     arguments = Bundle().apply {
                         /*
                         putString(ARG_PARAM1, param1)

@@ -1,4 +1,4 @@
-package milu.kiriu2010.milux.gui.lux05
+package milu.kiriu2010.milux.gui.facility
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import milu.kiriu2010.gui.decorate.Deco03ConstraintLayout
-import milu.kiriu2010.gui.decorate.DecorateTextView
 import milu.kiriu2010.milux.R
 import milu.kiriu2010.milux.entity.FacilityArea
 

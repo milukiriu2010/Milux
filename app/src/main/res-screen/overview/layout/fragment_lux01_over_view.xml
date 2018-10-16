@@ -5,7 +5,7 @@
     android:id="@+id/layoutLux01"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gui.Lux01OverViewFragment">
+    tools:context=".gui.overview.Lux01OverViewFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

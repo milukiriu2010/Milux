@@ -1,4 +1,4 @@
-package milu.kiriu2010.milux.gui.lux05
+package milu.kiriu2010.milux.gui.facility
 
 
 import android.os.Bundle

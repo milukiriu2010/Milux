@@ -16,7 +16,7 @@ import milu.kiriu2010.milux.LuxApplication
 import milu.kiriu2010.milux.R
 import milu.kiriu2010.milux.conf.AppConf
 import milu.kiriu2010.milux.entity.Facility
-import milu.kiriu2010.milux.gui.lux05.FacSpinAdapter
+import milu.kiriu2010.milux.gui.facility.FacSpinAdapter
 
 /**
  * A simple [Fragment] subclass.
