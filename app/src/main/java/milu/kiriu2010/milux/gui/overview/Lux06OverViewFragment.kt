@@ -9,7 +9,7 @@ import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.*
 import android.widget.TextView
-import milu.kiriu2010.gui.move.AVector
+import milu.kiriu2010.gui.move.*
 import milu.kiriu2010.milux.R
 import milu.kiriu2010.milux.entity.LuxData
 import milu.kiriu2010.milux.gui.NewVal01Listener
@@ -34,6 +34,8 @@ class Lux06OverViewFragment : Fragment()
 
     // 照度
     private var lux: Float = 0f
+    // 照度をlog対数表示するため、補正した値
+    private var luxC: Float = 0f
 
     // 照度の数値を表示するビュー
     private lateinit var dataLux: TextView
@@ -48,7 +50,13 @@ class Lux06OverViewFragment : Fragment()
     private val luxLog10Max = 5f
 
     // ５つある照度セグメントのカウント数
-    private val luxSeg = intArrayOf(0,0,0,0,0)
+    //private val luxSeg = intArrayOf(0,0,0,0,0)
+    // ５つある照度セグメントの象徴画像
+    private val luxSegMover: MutableList<AMoverAbs> =
+            mutableListOf( AMoverRect(), AMoverRect(), AMoverRect(), AMoverRect(), AMoverRect() )
+
+    // 照明セグメント象徴画像の移動量
+    private val mv = 5f
 
     // アニメーションする画像リスト
     private lateinit var bmpLst: List<Bitmap>
@@ -168,6 +176,45 @@ class Lux06OverViewFragment : Fragment()
             //drawCanvas()
             // 描画時に呼び出されるスレッド
             runnable = Runnable {
+                // ----------------------------------------------------------------------
+                // http://seesaawiki.jp/w/moonlight_aska/d/%be%c8%c5%d9%a5%bb%a5%f3%a5%b5%a1%bc%a4%ce%c3%cd%a4%f2%bc%e8%c6%c0%a4%b9%a4%eb
+                // ----------------------------------------------------------------------
+                // 明るさの目安
+                // ----------------------------------------------------------------------
+                //   LIGHT_SUNLIGHT_MAX 120000.0       5.079
+                //   LIGHT_SUNLLIGHT    110000.0       5.041
+                //   LIGHT_SHADE         20000.0       4.301
+                //   LIGHT_OVERCAST      10000.0       4
+                //   LIGHT_SUNRISE         400.0       2.602
+                //   LIGHT_CLOUDY          100.0       2
+                //   LIGHT_FULLMOON          0.25     -0.602
+                //   LIGHT_NO_MOON           0.0010   -3
+                // ----------------------------------------------------------------------
+                // ただし、計測しても1未満は表示されることはない
+                // ----------------------------------------------------------------------
+                // 照度をlog対数表示するため、補正する
+                luxC = when {
+                    ( lux < 1f ) -> 0f
+                    ( log(lux,10f) > luxLog10Max ) -> luxLog10Max
+                    else -> log(lux,10f)
+                }
+
+                // 照度セグメントの象徴画像を右へ移動
+                // セグメント１・２・３
+                val seg = if ( luxC < 4) {
+                    //luxSeg[luxC.toInt()] += 5
+                    luxC.toInt()
+                }
+                // セグメント４・５
+                else {
+                    //luxSeg[4] += 5
+                    4
+                }
+
+                luxSegMover[seg].il.x += mv
+                val correctPos = ACorrectPosLR( AVector(), wh)
+                correctPos.doo(luxSegMover[seg])
+
                 drawCanvas()
             }
             handler.post(runnable)
@@ -208,36 +255,6 @@ class Lux06OverViewFragment : Fragment()
 
         //Log.d( javaClass.simpleName, "drawCanvas:w[$ow]h[$oh]")
 
-        // ----------------------------------------------------------------------
-        // http://seesaawiki.jp/w/moonlight_aska/d/%be%c8%c5%d9%a5%bb%a5%f3%a5%b5%a1%bc%a4%ce%c3%cd%a4%f2%bc%e8%c6%c0%a4%b9%a4%eb
-        // ----------------------------------------------------------------------
-        // 明るさの目安
-        // ----------------------------------------------------------------------
-        //   LIGHT_SUNLIGHT_MAX 120000.0       5.079
-        //   LIGHT_SUNLLIGHT    110000.0       5.041
-        //   LIGHT_SHADE         20000.0       4.301
-        //   LIGHT_OVERCAST      10000.0       4
-        //   LIGHT_SUNRISE         400.0       2.602
-        //   LIGHT_CLOUDY          100.0       2
-        //   LIGHT_FULLMOON          0.25     -0.602
-        //   LIGHT_NO_MOON           0.0010   -3
-        // ----------------------------------------------------------------------
-        // ただし、計測しても1未満は表示されることはない
-        // ----------------------------------------------------------------------
-        // 照度をlog対数表示するため、補正する
-        val luxC = when {
-            ( lux < 1f ) -> 0f
-            ( log(lux,10f) > luxLog10Max ) -> luxLog10Max
-            else -> log(lux,10f)
-        }
-
-        // 照度セグメントの値を１つ増やす
-        if ( luxC < 4) {
-            luxSeg[luxC.toInt()] += 5
-        }
-        else {
-            luxSeg[4] += 5
-        }
 
         // 座標移動するため、初期位置を保存する
         canvas.save()
@@ -296,6 +313,7 @@ class Lux06OverViewFragment : Fragment()
     //    fh: 各セグメントの幅
     // ---------------------------------------------------
     private fun drawImage( canvas: Canvas, bmp: Bitmap, seg: Int, fh: Float ) {
+        /*
         val src = Rect(0,0, bmp.width, bmp.height)
         // 描画先の矩形イメージ
         val dst = Rect((luxSeg[seg]%wh.x).toInt(), 0, ((luxSeg[seg]%wh.x) + fh).toInt(), fh.toInt())
@@ -307,6 +325,28 @@ class Lux06OverViewFragment : Fragment()
         // 右端にきたら、左端から出てくるようにする
         if ( (luxSeg[seg]%wh.x+fh).toInt() > wh.x.toInt() ) {
             val dst2 = Rect(((luxSeg[seg]+fh)%wh.x-fh).toInt(), 0, ((luxSeg[seg]+fh)%wh.x).toInt(), fh.toInt())
+            canvas.drawBitmap(bmp, src, dst2, paintBackground)
+        }
+        */
+        val src = Rect(0,0, bmp.width, bmp.height)
+        // 描画先の矩形イメージ
+        val dst1f = RectF(
+                luxSegMover[seg].il.x%wh.x,
+                0f,
+                luxSegMover[seg].il.x%wh.x + fh,
+                fh )
+        val dst1 = Rect()
+        dst1f.round(dst1)
+        // 座標を下に移動する
+        if ( seg != 4 ) {
+            canvas.translate(0f, fh)
+        }
+        canvas.drawBitmap(bmp, src, dst1, paintBackground)
+        // 右端にきたら、左端から出てくるようにする
+        if ( (luxSegMover[seg].il.x%wh.x+fh) > wh.x ) {
+            val dst2f = RectF((luxSegMover[seg].il.x+fh)%wh.x-fh, 0f, (luxSegMover[seg].il.x+fh)%wh.x, fh )
+            val dst2 = Rect()
+            dst2f.round(dst2)
             canvas.drawBitmap(bmp, src, dst2, paintBackground)
         }
     }
@@ -324,8 +364,13 @@ class Lux06OverViewFragment : Fragment()
         lux = 0f
         // ５つある照度セグメントのカウント数をクリアする
         //luxSeg.forEach { i -> 0 }
+        /*
         for ( i in 0 until luxSeg.size ) {
             luxSeg[i] = 0
+        }
+        */
+        luxSegMover.forEach {
+            it.il = AVector()
         }
     }
 
