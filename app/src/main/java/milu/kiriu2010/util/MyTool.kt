@@ -7,6 +7,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 // 2018.10.06  rawファイルの中身をString型に変換
 // 2018.09.25  今日の日付をYYYYMMDD形式で取得

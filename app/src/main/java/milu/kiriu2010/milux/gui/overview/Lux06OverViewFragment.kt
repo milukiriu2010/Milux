@@ -49,17 +49,20 @@ class Lux06OverViewFragment : Fragment()
     // LIGHT_SUNLIGHT_MAX 120000.0
     private val luxLog10Max = 5f
 
-    // ５つある照度セグメントのカウント数
-    //private val luxSeg = intArrayOf(0,0,0,0,0)
-    // ５つある照度セグメントの象徴画像
-    private val luxSegMover: MutableList<AMoverAbs> =
-            mutableListOf( AMoverRect(), AMoverRect(), AMoverRect(), AMoverRect(), AMoverRect() )
 
     // 照明セグメント象徴画像の移動量
     private val mv = 5f
-
-    // アニメーションする画像リスト
-    private lateinit var bmpLst: List<Bitmap>
+    // 照明セグメント象徴画像の回転角度(速度)
+    private val av = 10f
+    // ５つある照度セグメントの象徴画像
+    private val luxSegMover: MutableList<AMoverAbs> =
+            mutableListOf(
+                    AMoverRect(iv=AVector(x=mv)),
+                    AMoverRect(iv=AVector(x=mv)),
+                    AMoverRect(iv=AVector(x=mv)),
+                    AMoverRect(iv=AVector(x=mv)),
+                    AMoverRect(iv=AVector(x=mv))
+            )
 
     // バックグラウンドに使うペイント
     private val paintBackground = Paint().apply {
@@ -95,6 +98,18 @@ class Lux06OverViewFragment : Fragment()
     // このフラグメントが選択されたかどうか
     private var selected = true
 
+    init {
+        // ５つある照度セグメントの象徴画像
+        luxSegMover.forEach {
+            // 回転角度(位置)
+            it.al = AAngle(x=180f,y=180f)
+            // 回転角度(速度)
+            it.av = AAngle(y=av)
+            // 回転による射影位置を更新
+            it.updateByReflect()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -123,18 +138,16 @@ class Lux06OverViewFragment : Fragment()
         dataLux = view.findViewById(R.id.dataLux)
 
         // アニメーションする画像をロードする
-        bmpLst = listOf(
-                // 太陽を描画(セグメント４)
-                BitmapFactory.decodeResource(resources, R.drawable.a_sun),
-                // 日の出を描画(セグメント３)
-                BitmapFactory.decodeResource(resources, R.drawable.a_sunrise),
-                // 雲を描画(セグメント２)
-                BitmapFactory.decodeResource(resources, R.drawable.a_cloudy),
-                // 月を描画(セグメント１)
-                BitmapFactory.decodeResource(resources, R.drawable.a_moon),
-                // 星を描画(セグメント０)
-                BitmapFactory.decodeResource(resources, R.drawable.a_star)
-        )
+        // 太陽を描画(セグメント４)
+        luxSegMover[4].bmp = BitmapFactory.decodeResource(resources, R.drawable.a_sun)
+        // 日の出を描画(セグメント３)
+        luxSegMover[3].bmp = BitmapFactory.decodeResource(resources, R.drawable.a_sunrise)
+        // 雲を描画(セグメント２)
+        luxSegMover[2].bmp = BitmapFactory.decodeResource(resources, R.drawable.a_cloudy)
+        // 月を描画(セグメント１)
+        luxSegMover[1].bmp = BitmapFactory.decodeResource(resources, R.drawable.a_moon)
+        // 星を描画(セグメント０)
+        luxSegMover[0].bmp = BitmapFactory.decodeResource(resources, R.drawable.a_star)
 
         return view
     }
@@ -176,50 +189,63 @@ class Lux06OverViewFragment : Fragment()
             //drawCanvas()
             // 描画時に呼び出されるスレッド
             runnable = Runnable {
-                // ----------------------------------------------------------------------
-                // http://seesaawiki.jp/w/moonlight_aska/d/%be%c8%c5%d9%a5%bb%a5%f3%a5%b5%a1%bc%a4%ce%c3%cd%a4%f2%bc%e8%c6%c0%a4%b9%a4%eb
-                // ----------------------------------------------------------------------
-                // 明るさの目安
-                // ----------------------------------------------------------------------
-                //   LIGHT_SUNLIGHT_MAX 120000.0       5.079
-                //   LIGHT_SUNLLIGHT    110000.0       5.041
-                //   LIGHT_SHADE         20000.0       4.301
-                //   LIGHT_OVERCAST      10000.0       4
-                //   LIGHT_SUNRISE         400.0       2.602
-                //   LIGHT_CLOUDY          100.0       2
-                //   LIGHT_FULLMOON          0.25     -0.602
-                //   LIGHT_NO_MOON           0.0010   -3
-                // ----------------------------------------------------------------------
-                // ただし、計測しても1未満は表示されることはない
-                // ----------------------------------------------------------------------
-                // 照度をlog対数表示するため、補正する
-                luxC = when {
-                    ( lux < 1f ) -> 0f
-                    ( log(lux,10f) > luxLog10Max ) -> luxLog10Max
-                    else -> log(lux,10f)
-                }
-
-                // 照度セグメントの象徴画像を右へ移動
-                // セグメント１・２・３
-                val seg = if ( luxC < 4) {
-                    //luxSeg[luxC.toInt()] += 5
-                    luxC.toInt()
-                }
-                // セグメント４・５
-                else {
-                    //luxSeg[4] += 5
-                    4
-                }
-
-                luxSegMover[seg].il.x += mv
-                val correctPos = ACorrectPosLR( AVector(), wh)
-                correctPos.doo(luxSegMover[seg])
+                move();
 
                 drawCanvas()
             }
             handler.post(runnable)
         }
 
+    }
+
+    // 照度値に対応するセグメントの象徴画像を右へ移動
+    private fun move() {
+        // ----------------------------------------------------------------------
+        // http://seesaawiki.jp/w/moonlight_aska/d/%be%c8%c5%d9%a5%bb%a5%f3%a5%b5%a1%bc%a4%ce%c3%cd%a4%f2%bc%e8%c6%c0%a4%b9%a4%eb
+        // ----------------------------------------------------------------------
+        // 明るさの目安
+        // ----------------------------------------------------------------------
+        //   LIGHT_SUNLIGHT_MAX 120000.0       5.079
+        //   LIGHT_SUNLLIGHT    110000.0       5.041
+        //   LIGHT_SHADE         20000.0       4.301
+        //   LIGHT_OVERCAST      10000.0       4
+        //   LIGHT_SUNRISE         400.0       2.602
+        //   LIGHT_CLOUDY          100.0       2
+        //   LIGHT_FULLMOON          0.25     -0.602
+        //   LIGHT_NO_MOON           0.0010   -3
+        // ----------------------------------------------------------------------
+        // ただし、計測しても1未満は表示されることはない
+        // ----------------------------------------------------------------------
+        // 照度をlog対数表示するため、補正する
+        luxC = when {
+            ( lux < 1f ) -> 0f
+            ( log(lux,10f) > luxLog10Max ) -> luxLog10Max
+            else -> log(lux,10f)
+        }
+
+        // 照度セグメントの象徴画像を右へ移動
+        // セグメント１・２・３
+        val seg = if ( luxC < 4) {
+            luxC.toInt()
+        }
+        // セグメント４・５
+        else {
+            4
+        }
+
+        val luxSeg = luxSegMover[seg]
+
+        // 照度値に対応するセグメントを右に移動
+        luxSeg.il.x += luxSeg.iv.x
+        // 照度値に対応するセグメントを回転
+        luxSeg.rotateByCenter()
+        // 回転による射影位置を更新
+        luxSeg.updateByReflect()
+
+
+            // 右端に来た場合、左端へ位置補正する
+        val correctPos = ACorrectPosLR( AVector(), wh)
+        correctPos.doo(luxSeg)
     }
 
     // NewVal01Listener
@@ -287,8 +313,8 @@ class Lux06OverViewFragment : Fragment()
         canvas.save()
 
         // 各セグメントの画像を描画する
-        bmpLst.forEachIndexed { index, bitmap ->
-            drawImage(canvas, bitmap, bmpLst.size-index-1,fh)
+        ((luxSegMover.size-1) downTo 0).forEach { seg ->
+            drawImage( canvas, luxSegMover[seg].bmp, seg, fh )
         }
 
         // 座標位置を初期値に戻す
@@ -313,42 +339,75 @@ class Lux06OverViewFragment : Fragment()
     //    fh: 各セグメントの幅
     // ---------------------------------------------------
     private fun drawImage( canvas: Canvas, bmp: Bitmap, seg: Int, fh: Float ) {
-        /*
-        val src = Rect(0,0, bmp.width, bmp.height)
-        // 描画先の矩形イメージ
-        val dst = Rect((luxSeg[seg]%wh.x).toInt(), 0, ((luxSeg[seg]%wh.x) + fh).toInt(), fh.toInt())
+
         // 座標を下に移動する
-        if ( seg != 4 ) {
-            canvas.translate(0f, fh)
-        }
-        canvas.drawBitmap(bmp, src, dst, paintBackground)
-        // 右端にきたら、左端から出てくるようにする
-        if ( (luxSeg[seg]%wh.x+fh).toInt() > wh.x.toInt() ) {
-            val dst2 = Rect(((luxSeg[seg]+fh)%wh.x-fh).toInt(), 0, ((luxSeg[seg]+fh)%wh.x).toInt(), fh.toInt())
-            canvas.drawBitmap(bmp, src, dst2, paintBackground)
-        }
-        */
+        // "4:太陽セグメント"以外は、座標を移動する
+        if ( seg != 4 )  canvas.translate(0f, fh)
         val src = Rect(0,0, bmp.width, bmp.height)
+
+        val luxSeg = luxSegMover[seg]
+        val matrix = Matrix()
+        // 左右反転
+        if ( luxSeg.rs.x < 0 ) {
+            matrix.postScale(-1f,1f)
+        }
+
         // 描画先の矩形イメージ
         val dst1f = RectF(
-                luxSegMover[seg].il.x%wh.x,
+                luxSeg.il.x,
                 0f,
-                luxSegMover[seg].il.x%wh.x + fh,
+                luxSeg.il.x + fh,
                 fh )
         val dst1 = Rect()
         dst1f.round(dst1)
-        // 座標を下に移動する
-        if ( seg != 4 ) {
-            canvas.translate(0f, fh)
-        }
         canvas.drawBitmap(bmp, src, dst1, paintBackground)
         // 右端にきたら、左端から出てくるようにする
-        if ( (luxSegMover[seg].il.x%wh.x+fh) > wh.x ) {
-            val dst2f = RectF((luxSegMover[seg].il.x+fh)%wh.x-fh, 0f, (luxSegMover[seg].il.x+fh)%wh.x, fh )
+        if ( (luxSeg.il.x+fh) > wh.x ) {
+            val dst2f = RectF(luxSeg.il.x-wh.x, 0f, luxSeg.il.x-wh.x+fh, fh )
             val dst2 = Rect()
             dst2f.round(dst2)
             canvas.drawBitmap(bmp, src, dst2, paintBackground)
         }
+
+
+        /*
+        // 座標を下に移動する
+        // "4:太陽セグメント"以外は、座標を移動する
+        if ( seg != 4 )  canvas.translate(0f, fh)
+        val src = Rect(0,0, bmp.width, bmp.height)
+
+        val luxSeg = luxSegMover[seg]
+        Log.d(javaClass.simpleName, "seg[$seg]il.x[${luxSeg.il.x}]rl.x[${luxSeg.rl.x}]rs.x[${luxSeg.rs.x}]")
+
+        val matrix = Matrix()
+        // 左右反転
+        if ( luxSeg.rs.x < 0 ) {
+            matrix.postScale(-1f,1f)
+        }
+        else {
+            matrix.postScale(1f,1f)
+        }
+
+        // 描画先の矩形イメージ
+        val bmpt = Bitmap.createBitmap(bmp,0,0,bmp.width,bmp.height,matrix,false)
+        val dst1f = if ( luxSeg.rs.x >= 0 ) {
+            RectF(luxSeg.rl.x,0f,luxSeg.rl.x+luxSeg.rs.x,fh)
+        }
+        else {
+            RectF(luxSeg.rl.x+luxSeg.rs.x,0f,luxSeg.rl.x,fh)
+        }
+        canvas.drawBitmap(bmpt, null, dst1f, paintBackground)
+        // 右端にきたら、左端から出てくるようにする
+        if ( (luxSeg.il.x+fh) > wh.x ) {
+            val dst2f = if ( luxSeg.rs.x >= 0 ) {
+                RectF(luxSeg.rl.x - wh.x, 0f,luxSeg.rl.x-wh.x+luxSeg.rs.x, fh)
+            }
+            else {
+                RectF(luxSeg.rl.x - wh.x+luxSeg.rs.x, 0f,luxSeg.rl.x-wh.x, fh)
+            }
+            canvas.drawBitmap(bmpt, null, dst2f, paintBackground)
+        }
+        */
     }
 
     // OrientationListener
@@ -388,21 +447,10 @@ class Lux06OverViewFragment : Fragment()
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment Lux01OverViewFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
                 Lux06OverViewFragment().apply {
                     arguments = Bundle().apply {
-                        /*
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                        */
                     }
                 }
     }

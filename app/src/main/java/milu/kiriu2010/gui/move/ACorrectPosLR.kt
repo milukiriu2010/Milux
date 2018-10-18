@@ -20,7 +20,7 @@ data class ACorrectPosLR(
         // 可動範囲の左端に物体の右端を移動
         // ---------------------------------
         if ( mover.left() >= rrb.x ) {
-            mover.il.x = rlt.x - mover.radiusH()
+            mover.il.x = rlt.x - mover.wh.x
         }
         // ---------------------------------
         // 物体の右端が可動範囲の左端
@@ -28,7 +28,7 @@ data class ACorrectPosLR(
         // 可動範囲の右端に物体の左端を移動
         // ---------------------------------
         else if ( mover.right() <= rlt.x ) {
-            mover.il.x = rrb.x + mover.radiusH()
+            mover.il.x = rrb.x + mover.wh.x
         }
 
         // ---------------------------------
@@ -37,7 +37,7 @@ data class ACorrectPosLR(
         // 可動範囲の上端に物体の下端を移動
         // ---------------------------------
         if ( mover.top() >= rrb.y ) {
-            mover.il.y = rlt.y - mover.radiusV()
+            mover.il.y = rlt.y - mover.wh.y
         }
         // ---------------------------------
         // 物体の下端が可動範囲の上端
@@ -45,7 +45,7 @@ data class ACorrectPosLR(
         // 可動範囲の下端に物体の上端を移動
         // ---------------------------------
         else if ( mover.bottom() <= rlt.y ) {
-            mover.il.y = rlt.y + mover.radiusV()
+            mover.il.y = rlt.y + mover.wh.y
         }
     }
 }
