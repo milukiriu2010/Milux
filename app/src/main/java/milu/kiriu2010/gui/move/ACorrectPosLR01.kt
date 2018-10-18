@@ -6,7 +6,7 @@ package milu.kiriu2010.gui.move
 // 端を完全に超えていたら、
 // 反対側の端へ移動
 // --------------------------------
-data class ACorrectPosLR(
+data class ACorrectPosLR01(
         // 大きさ(可動範囲:左上)
         var rlt: AVector = AVector(),
         // 大きさ(可動範囲:右下)

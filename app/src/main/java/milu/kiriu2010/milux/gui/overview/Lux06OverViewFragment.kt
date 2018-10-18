@@ -102,7 +102,7 @@ class Lux06OverViewFragment : Fragment()
         // ５つある照度セグメントの象徴画像
         luxSegMover.forEach {
             // 回転角度(位置)
-            it.al = AAngle(x=180f,y=180f)
+            //it.al = AAngle(x=180f,y=180f)
             // 回転角度(速度)
             it.av = AAngle(y=av)
             // 回転による射影位置を更新
@@ -161,6 +161,14 @@ class Lux06OverViewFragment : Fragment()
         Log.d( javaClass.simpleName, "surfaceChanged:w[$width]h[$height]")
         wh.x = width.toFloat()
         wh.y = height.toFloat()
+
+        // 物体の大きさを再設定する
+        luxSegMover.forEach {
+            it.wh.x = wh.y/luxLog10Max
+            it.wh.y = wh.y/luxLog10Max
+            // 回転による射影位置を更新
+            it.updateByReflect()
+        }
     }
 
     // SurfaceHolder.Callback
@@ -200,6 +208,7 @@ class Lux06OverViewFragment : Fragment()
 
     // 照度値に対応するセグメントの象徴画像を右へ移動
     private fun move() {
+
         // ----------------------------------------------------------------------
         // http://seesaawiki.jp/w/moonlight_aska/d/%be%c8%c5%d9%a5%bb%a5%f3%a5%b5%a1%bc%a4%ce%c3%cd%a4%f2%bc%e8%c6%c0%a4%b9%a4%eb
         // ----------------------------------------------------------------------
@@ -243,8 +252,9 @@ class Lux06OverViewFragment : Fragment()
         luxSeg.updateByReflect()
 
 
-            // 右端に来た場合、左端へ位置補正する
-        val correctPos = ACorrectPosLR( AVector(), wh)
+        // 右端に来た場合、左端へ位置補正する
+        //val correctPos = ACorrectPosLR01( AVector(), wh)
+        val correctPos = ACorrectPosLR02( AVector(), wh)
         correctPos.doo(luxSeg)
     }
 
@@ -322,7 +332,7 @@ class Lux06OverViewFragment : Fragment()
 
         // 照度の位置を描画
         val luxH = wh.y * (luxLog10Max-luxC)/luxLog10Max
-        canvas.drawLine(0f, luxH, wh.y, luxH, paintLineLux )
+        canvas.drawLine(0f, luxH, wh.x, luxH, paintLineLux )
 
         overView.holder.unlockCanvasAndPost(canvas)
     }
@@ -339,7 +349,7 @@ class Lux06OverViewFragment : Fragment()
     //    fh: 各セグメントの幅
     // ---------------------------------------------------
     private fun drawImage( canvas: Canvas, bmp: Bitmap, seg: Int, fh: Float ) {
-
+        /*
         // 座標を下に移動する
         // "4:太陽セグメント"以外は、座標を移動する
         if ( seg != 4 )  canvas.translate(0f, fh)
@@ -368,16 +378,16 @@ class Lux06OverViewFragment : Fragment()
             dst2f.round(dst2)
             canvas.drawBitmap(bmp, src, dst2, paintBackground)
         }
+        */
 
 
-        /*
         // 座標を下に移動する
         // "4:太陽セグメント"以外は、座標を移動する
         if ( seg != 4 )  canvas.translate(0f, fh)
         val src = Rect(0,0, bmp.width, bmp.height)
 
         val luxSeg = luxSegMover[seg]
-        Log.d(javaClass.simpleName, "seg[$seg]il.x[${luxSeg.il.x}]rl.x[${luxSeg.rl.x}]rs.x[${luxSeg.rs.x}]")
+        //Log.d(javaClass.simpleName, "seg[$seg]il.x[${luxSeg.il.x}]rl.x[${luxSeg.rl.x}]rs.x[${luxSeg.rs.x}]")
 
         val matrix = Matrix()
         // 左右反転
@@ -407,7 +417,6 @@ class Lux06OverViewFragment : Fragment()
             }
             canvas.drawBitmap(bmpt, null, dst2f, paintBackground)
         }
-        */
     }
 
     // OrientationListener

@@ -21,7 +21,7 @@ class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
     private lateinit var lux03HistoryViewFragment: Lux03HistoryViewFragment
 
     // ページ数
-    private val pageCnt = 5
+    private val pageCnt = 4
 
     override fun getItem(pos: Int): Fragment {
         //return when (pos%pageCnt) {
@@ -57,10 +57,10 @@ class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
                 return lux01OverViewFragment
             }
             else -> {
-                if ( !this::lux01OverViewFragment.isInitialized ) {
-                    lux01OverViewFragment = Lux01OverViewFragment.newInstance()
+                if ( !this::lux06OverViewFragment.isInitialized ) {
+                    lux06OverViewFragment = Lux06OverViewFragment.newInstance()
                 }
-                return lux01OverViewFragment
+                return lux06OverViewFragment
             }
         }
     }

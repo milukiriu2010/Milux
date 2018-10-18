@@ -32,7 +32,7 @@ class AMoverRect(
     // 画像
     override lateinit var bmp: Bitmap
     // 回転角度(位置)
-    override var al: AAngle = AAngle()
+    override var al: AAngle = AAngle(180f,180f)
     // 回転角度(速度)
     override var av: AAngle = AAngle()
     // 回転による射影(位置)
