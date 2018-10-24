@@ -21,6 +21,8 @@ data class ACorrectPosLR02(
         // ---------------------------------
         if ( mover.left() >= rrb.x ) {
             mover.il.x = rlt.x
+            // 角度も初期位置に戻す
+            //mover.al = AAngle(x=180f,y=180f)
             //mover.il.x = mover.rl.x - (rrb.x-rlt.x)
         }
         // ---------------------------------

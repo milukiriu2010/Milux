@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    5:commercial facility
+    -->
+    <integer-array name="FacilityLuxPattern02">
+        <item>2000</item>
+        <item>1000</item>
+        <item>900</item>
+        <item>800</item>
+        <item>700</item>
+        <item>600</item>
+        <item>500</item>
+        <item>400</item>
+        <item>300</item>
+        <item>200</item>
+        <item>100</item>
+        <item>0</item>
+    </integer-array>
+</resources>

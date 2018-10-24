@@ -53,7 +53,7 @@ class Lux05FacilityFragment : Fragment()
     private lateinit var appConf: AppConf
 
     // 照度リスト
-    private val luxArray = arrayOf(1000,900,800,700,600,500,400,300,200,150,100,75,20,0)
+    private var luxArray = arrayOf(1000,900,800,700,600,500,400,300,200,150,100,75,20,0)
 
     // 施設エリアのリストを構築
     //private lateinit var facilityAreaLst: MutableList<FacilityArea>
@@ -94,7 +94,7 @@ class Lux05FacilityFragment : Fragment()
         spinFacility.setSelection(facLst.indexOf(fac))
         //Log.d(javaClass.simpleName, "fac:index:[${facLst.indexOf(fac)}]")
 
-        // 施設スピンを選択
+        // 施設スピンの選択を変更
         spinFacility.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
@@ -109,9 +109,7 @@ class Lux05FacilityFragment : Fragment()
                 }
                 adapterFacArea.notifyDataSetChanged()
             }
-
         }
-
 
         // 施設エリアのリストを構築
         val facilityAreaLst = createFacAreaLst(appConf.fid)
@@ -150,9 +148,21 @@ class Lux05FacilityFragment : Fragment()
     // 施設エリアリストのテンプレートを構築
     //   fid: 施設ID
     private fun createFacAreaLst( fid: Int ): MutableList<FacilityArea> {
+        // 照度リストを更新
+        luxArray = when (fid) {
+            // 5:commercial facility
+            5 ->  resources.getIntArray(R.array.FacilityLuxPattern02).toTypedArray()
+            // 2:factory
+            2 ->  resources.getIntArray(R.array.FacilityLuxPattern03).toTypedArray()
+            // 10:parking lot
+            10 ->  resources.getIntArray(R.array.FacilityLuxPattern04).toTypedArray()
+            else -> resources.getIntArray(R.array.FacilityLuxPattern01).toTypedArray()
+        }
+
         // JSONに格納されている施設エリアリスト
         val facAreaLst = appConf.facilityAreaLst.filter { it.fid == fid }
 
+        // 施設エリアリストのテンプレートを構築
         val facAreaOrgLst = mutableListOf<FacilityArea>()
         for ( lux in luxArray ) {
             val facArea = facAreaLst.filter { it.lux == lux }.firstOrNull()

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    1:office
+    3:school
+    4:hospital
+    6:museum
+    7:hotel
+    8:house
+    9:station
+    -->
+    <integer-array name="FacilityLuxPattern01">
+        <item>1000</item>
+        <item>900</item>
+        <item>800</item>
+        <item>700</item>
+        <item>600</item>
+        <item>500</item>
+        <item>400</item>
+        <item>300</item>
+        <item>200</item>
+        <item>150</item>
+        <item>100</item>
+        <item>75</item>
+        <item>20</item>
+        <item>0</item>
+    </integer-array>
+</resources>

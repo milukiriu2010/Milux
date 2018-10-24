@@ -102,7 +102,7 @@ class Lux06OverViewFragment : Fragment()
         // ５つある照度セグメントの象徴画像
         luxSegMover.forEach {
             // 回転角度(位置)
-            //it.al = AAngle(x=180f,y=180f)
+            it.al = AAngle(x=180f,y=180f)
             // 回転角度(速度)
             it.av = AAngle(y=av)
             // 回転による射影位置を更新
@@ -349,38 +349,6 @@ class Lux06OverViewFragment : Fragment()
     //    fh: 各セグメントの幅
     // ---------------------------------------------------
     private fun drawImage( canvas: Canvas, bmp: Bitmap, seg: Int, fh: Float ) {
-        /*
-        // 座標を下に移動する
-        // "4:太陽セグメント"以外は、座標を移動する
-        if ( seg != 4 )  canvas.translate(0f, fh)
-        val src = Rect(0,0, bmp.width, bmp.height)
-
-        val luxSeg = luxSegMover[seg]
-        val matrix = Matrix()
-        // 左右反転
-        if ( luxSeg.rs.x < 0 ) {
-            matrix.postScale(-1f,1f)
-        }
-
-        // 描画先の矩形イメージ
-        val dst1f = RectF(
-                luxSeg.il.x,
-                0f,
-                luxSeg.il.x + fh,
-                fh )
-        val dst1 = Rect()
-        dst1f.round(dst1)
-        canvas.drawBitmap(bmp, src, dst1, paintBackground)
-        // 右端にきたら、左端から出てくるようにする
-        if ( (luxSeg.il.x+fh) > wh.x ) {
-            val dst2f = RectF(luxSeg.il.x-wh.x, 0f, luxSeg.il.x-wh.x+fh, fh )
-            val dst2 = Rect()
-            dst2f.round(dst2)
-            canvas.drawBitmap(bmp, src, dst2, paintBackground)
-        }
-        */
-
-
         // 座標を下に移動する
         // "4:太陽セグメント"以外は、座標を移動する
         if ( seg != 4 )  canvas.translate(0f, fh)
@@ -430,15 +398,13 @@ class Lux06OverViewFragment : Fragment()
         //Log.d( javaClass.simpleName, "OnReset")
         // 照度
         lux = 0f
-        // ５つある照度セグメントのカウント数をクリアする
-        //luxSeg.forEach { i -> 0 }
-        /*
-        for ( i in 0 until luxSeg.size ) {
-            luxSeg[i] = 0
-        }
-        */
+
+        // 初期位置に更新
         luxSegMover.forEach {
+            // 位置
             it.il = AVector()
+            // 回転角度(位置)
+            it.al = AAngle(x=180f,y=180f)
         }
     }
 

@@ -1,6 +1,71 @@
 {
   "en": [
     {
+      "fid": 1,
+      "anameLst": [ "office","executive room","entrance hall" ],
+      "lux": 700
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "meeting room","control room" ],
+      "lux": 500
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "reception","powder room","EVホール" ],
+      "lux": 300
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "トイレ","dressing room","書庫" ],
+      "lux": 200
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "休憩室","玄関車寄せ" ],
+      "lux": 100
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "屋内非常階段" ],
+      "lux": 50
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "very precise work" ],
+      "lux": 1500
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "somewhat precise work" ],
+      "lux": 700
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "ordinary work" ],
+      "lux": 500
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "clerical work in the warehouse" ],
+      "lux": 300
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "rough work","electric room","air conditioning machine room" ],
+      "lux": 200
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "loading work","unloading work" ],
+      "lux": 150
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "warehouse" ],
+      "lux": 100
+    },
+    {
       "fid": 3,
       "anameLst": [ "laboratory", "library", "studio" ],
       "lux": 500
@@ -132,6 +197,71 @@
     }
   ],
   "ja": [
+    {
+      "fid": 1,
+      "anameLst": [ "事務室","役員室","玄関ホール" ],
+      "lux": 700
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "会議室","制御室" ],
+      "lux": 500
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "受付","化粧室","EVホール" ],
+      "lux": 300
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "トイレ","更衣室","書庫" ],
+      "lux": 200
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "休憩室","玄関車寄せ" ],
+      "lux": 100
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "屋内非常階段" ],
+      "lux": 50
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "非常に精密な視作業" ],
+      "lux": 1500
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "やや精密な視作業" ],
+      "lux": 700
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "普通の視作業" ],
+      "lux": 500
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "倉庫内の事務" ],
+      "lux": 300
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "粗い視作業","電気室","空調機械室" ],
+      "lux": 200
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "荷積み","荷降ろし" ],
+      "lux": 150
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "倉庫" ],
+      "lux": 100
+    },
     {
       "fid": 3,
       "anameLst": [ "実験室", "図書室", "放送室" ],
@@ -265,6 +395,71 @@
   ],
   "fr": [
     {
+      "fid": 1,
+      "anameLst": [ "bureau","chambre exécutive","hall d'entrée" ],
+      "lux": 700
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "salle de réunion","salle de contrôle" ],
+      "lux": 500
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "réception","vestiaire","EVホール" ],
+      "lux": 300
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "トイレ","salle d'eau","書庫" ],
+      "lux": 200
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "休憩室","vestiaire","玄関車寄せ" ],
+      "lux": 100
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "屋内非常階段" ],
+      "lux": 50
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "travail très précis" ],
+      "lux": 1500
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "travail assez précis" ],
+      "lux": 700
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "travail ordinaire" ],
+      "lux": 500
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "travail de bureau dans l'entrepôt" ],
+      "lux": 300
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "gros travaux","salle électrique","salle des machines de climatisation" ],
+      "lux": 200
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "chargement","déchargement" ],
+      "lux": 150
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "entrepôt" ],
+      "lux": 100
+    },
+    {
       "fid": 3,
       "anameLst": [ "laboratoire", "bibliothèque", "studio" ],
       "lux": 500
@@ -397,6 +592,71 @@
   ],
   "es": [
     {
+      "fid": 1,
+      "anameLst": [ "oficina","habitación ejecutiva","hall de entrada" ],
+      "lux": 700
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "sala de reuniones","sala de control" ],
+      "lux": 500
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "recepción","sala de polvo","EVホール" ],
+      "lux": 300
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "トイレ","vestidor","書庫" ],
+      "lux": 200
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "休憩室","玄関車寄せ" ],
+      "lux": 100
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "屋内非常階段" ],
+      "lux": 50
+    },
+    {
+    "fid": 2,
+    "anameLst": [ "trabajo muy preciso" ],
+    "lux": 1500
+    },
+    {
+    "fid": 2,
+    "anameLst": [ "trabajo algo preciso" ],
+    "lux": 700
+    },
+    {
+    "fid": 2,
+    "anameLst": [ "trabajo ordinario" ],
+    "lux": 500
+    },
+    {
+    "fid": 2,
+    "anameLst": [ "trabajo de oficina en el almacén" ],
+    "lux": 300
+    },
+    {
+    "fid": 2,
+    "anameLst": [ "trabajo duro","cuarto electrico","sala de maquinas de aire acondicionado" ],
+    "lux": 200
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "cargando","descargando" ],
+      "lux": 150
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "almacén" ],
+      "lux": 100
+    },
+    {
       "fid": 3,
       "anameLst": [ "laboratorio", "biblioteca", "estudio" ],
       "lux": 500
@@ -528,6 +788,71 @@
     }
   ],
   "zh": [
+    {
+      "fid": 1,
+      "anameLst": [ "办公室","行政房","入口大厅" ],
+      "lux": 700
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "会议室","控制室" ],
+      "lux": 500
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "前台","化妆间","EVホール" ],
+      "lux": 300
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "トイレ","更衣室","書庫" ],
+      "lux": 200
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "休憩室","玄関車寄せ" ],
+      "lux": 100
+    },
+    {
+      "fid": 1,
+      "anameLst": [ "屋内非常階段" ],
+      "lux": 50
+    },
+    {
+    "fid": 2,
+    "anameLst": [ "非常精确的工作" ],
+    "lux": 1500
+    },
+    {
+    "fid": 2,
+    "anameLst": [ "有点精确的工作" ],
+    "lux": 700
+    },
+    {
+    "fid": 2,
+    "anameLst": [ "普通的工作" ],
+    "lux": 500
+    },
+    {
+    "fid": 2,
+    "anameLst": [ "仓库的文书工作" ],
+    "lux": 300
+    },
+    {
+    "fid": 2,
+    "anameLst": [ "粗糙的工作","电气室","空调机房" ],
+    "lux": 200
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "装货","卸货" ],
+      "lux": 150
+    },
+    {
+      "fid": 2,
+      "anameLst": [ "仓库" ],
+      "lux": 100
+    },
     {
       "fid": 3,
       "anameLst": [ "实验室", "图书馆", "广播室" ],
