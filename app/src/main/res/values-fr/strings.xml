@@ -9,6 +9,7 @@
     <string name="label_facility">Établissement</string>
     <string name="action_default">Défaut</string>
     <string name="action_cancel">Annuler</string>
-    <string name="action_resume">reprendre</string>
-    <string name="action_pause">pause</string>
+    <string name="action_resume">Reprendre</string>
+    <string name="action_pause">Pause</string>
+    <string name="action_upload">télécharger des données</string>
 </resources>

@@ -1,12 +1,14 @@
 package milu.kiriu2010.milux.gui.list
 
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.*
 import milu.kiriu2010.milux.LuxApplication
 
@@ -15,6 +17,8 @@ import milu.kiriu2010.milux.entity.LuxData
 import milu.kiriu2010.milux.gui.NewVal01Listener
 import milu.kiriu2010.milux.gui.ResetListener
 import milu.kiriu2010.util.LimitedArrayList
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -124,6 +128,7 @@ class Lux03HistoryViewFragment : Fragment()
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
+            // 自動更新の挙動を変更する
             R.id.action_update -> {
                 // 自動更新: 可 => 不可
                 if ( autoUpdate ) {
@@ -147,6 +152,28 @@ class Lux03HistoryViewFragment : Fragment()
                     // メニュータイトル変更: resume => pause
                     item.title = resources.getString(R.string.action_pause)
                 }
+                true
+            }
+            // データをアップロード
+            R.id.action_upload -> {
+                val dateFmt = SimpleDateFormat("yyyy-MM-dd HH:mm:ssz")
+                // タイムゾーンをローカルに変更
+                dateFmt.timeZone = TimeZone.getDefault()
+                // アダプタに格納されたデータをCSV形式に変換する
+                val strCSV = adapter.luxDataLst.joinToString(separator="\n",postfix = "\n") {
+                    dateFmt.format(it.t) + "," + it.lux
+                }
+                Log.d(javaClass.simpleName, "strCSV[$strCSV]")
+
+                val intent = Intent().apply{
+                    action = Intent.ACTION_SEND
+                    type = "text/csv"
+                    putExtra(Intent.EXTRA_TEXT,strCSV)
+                }
+
+                // アップロードを実行するアプリを呼び出す
+                startActivity(Intent.createChooser(intent, resources.getText(R.string.action_upload)))
+
                 true
             }
             else -> super.onOptionsItemSelected(item)
