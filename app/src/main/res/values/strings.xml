@@ -19,6 +19,8 @@
     <string name="label_facility" >Facility</string>
     <string name="action_default">Default</string>
     <string name="action_cancel">Cancel</string>
+    <string name="action_resume">resume</string>
+    <string name="action_pause">pause</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

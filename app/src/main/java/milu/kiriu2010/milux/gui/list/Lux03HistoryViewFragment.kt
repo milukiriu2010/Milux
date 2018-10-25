@@ -1,13 +1,13 @@
 package milu.kiriu2010.milux.gui.list
 
 
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import milu.kiriu2010.milux.LuxApplication
 
 import milu.kiriu2010.milux.R
@@ -32,6 +32,9 @@ class Lux03HistoryViewFragment : Fragment()
     // 照度値を表示するためのアダプタ
     private lateinit var adapter: LuxRecyclerAdapter
 
+    // 表示するリストを自動更新するかどうか
+    private var autoUpdate = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -55,6 +58,9 @@ class Lux03HistoryViewFragment : Fragment()
         adapter = LuxRecyclerAdapter(context!!)
         recyclerViewLux.adapter = adapter
 
+        // オプションメニューを表示
+        setHasOptionsMenu(true)
+
         return view
     }
 
@@ -64,6 +70,9 @@ class Lux03HistoryViewFragment : Fragment()
 
     // NewVal01Listener
     override fun onUpdate(luxLst: LimitedArrayList<LuxData>) {
+        // 自動更新"不可"の場合は、すぐ終了
+        if ( autoUpdate == false ) return
+        // リストがない場合は、すぐ終了
         if ( luxLst.size <= 0 ) return
         // 照度値を表示するアダプタにデータを追加し、更新を通知する
         if (this::adapter.isInitialized) {
@@ -106,14 +115,45 @@ class Lux03HistoryViewFragment : Fragment()
         }
     }
 
+    // このフラグメント用のメニューを作成
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        //super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.menu_list,menu)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.action_update -> {
+                // 自動更新: 可 => 不可
+                if ( autoUpdate ) {
+                    // 自動更新: 可 => 不可
+                    autoUpdate = false
+                    // アイコン変更: pause => resume
+                    item.icon = resources.getDrawable(R.drawable.svg_resume,null)
+                    // メニュータイトル変更: pause => resume
+                    item.title = resources.getString(R.string.action_resume)
+                }
+                // 自動更新: 不可 => 可
+                else {
+                    // リストを一旦クリアする
+                    OnReset()
+
+
+                    // 自動更新: 不可 => 可
+                    autoUpdate = true
+                    // アイコン変更: resume => pause
+                    item.icon = resources.getDrawable(R.drawable.svg_pause,null)
+                    // メニュータイトル変更: resume => pause
+                    item.title = resources.getString(R.string.action_pause)
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment Lux03HistoryViewFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
                 Lux03HistoryViewFragment().apply {

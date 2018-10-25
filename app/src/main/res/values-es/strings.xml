@@ -9,4 +9,6 @@
     <string name="label_facility">Instalaciones</string>
     <string name="action_default">Defecto</string>
     <string name="action_cancel">Cancelar</string>
+    <string name="action_resume">reanudar</string>
+    <string name="action_pause">pausa</string>
 </resources>

@@ -9,4 +9,6 @@
     <string name="label_facility">施設</string>
     <string name="action_default">デフォルト</string>
     <string name="action_cancel">キャンセル</string>
+    <string name="action_resume">再開</string>
+    <string name="action_pause">一時停止</string>
 </resources>

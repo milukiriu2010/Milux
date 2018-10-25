@@ -9,4 +9,6 @@
     <string name="label_facility">设施</string>
     <string name="action_default">默认</string>
     <string name="action_cancel">取消</string>
+    <string name="action_resume">"重新开始 "</string>
+    <string name="action_pause">暂停</string>
 </resources>

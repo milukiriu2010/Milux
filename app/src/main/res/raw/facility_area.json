@@ -12,22 +12,22 @@
     },
     {
       "fid": 1,
-      "anameLst": [ "reception","powder room","EVホール" ],
+      "anameLst": [ "reception","powder room","elevator hall" ],
       "lux": 300
     },
     {
       "fid": 1,
-      "anameLst": [ "トイレ","dressing room","書庫" ],
+      "anameLst": [ "toilet","dressing room","book room" ],
       "lux": 200
     },
     {
       "fid": 1,
-      "anameLst": [ "休憩室","玄関車寄せ" ],
+      "anameLst": [ "break room","carriage porch" ],
       "lux": 100
     },
     {
       "fid": 1,
-      "anameLst": [ "屋内非常階段" ],
+      "anameLst": [ "fire escape stair" ],
       "lux": 50
     },
     {
@@ -104,6 +104,31 @@
       "fid": 4,
       "anameLst": [ "ophthalmology dark room" ],
       "lux": 75
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "department store:display window", "department store:important display zone" ],
+      "lux": 2000
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "department store:general display zone" ],
+      "lux": 1000
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "cash register", "apparel shop:fitting room", "supermarket:store shelves" ],
+      "lux": 700
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "department store:overall inside the shop", "restaurant:kitchen" ],
+      "lux": 500
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "restaurant:guest room" ],
+      "lux": 200
     },
     {
       "fid": 6,
@@ -194,6 +219,66 @@
       "fid": 8,
       "anameLst": [ "bedroom" ],
       "lux": 20
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "class A station:entrance gate" ],
+      "lux": 1000
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "class A station:concourse", "class A station:waiting room", "class B station:entrance gate" ],
+      "lux": 500
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "class B station:concourse", "class B station:waiting room" ],
+      "lux": 300
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "class A station:platform", "class C station:entrance gate" ],
+      "lux": 200
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "class B station:platform", "class C station:waiting room" ],
+      "lux": 100
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "class C station:platform" ],
+      "lux": 75
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "indoor(traffic volume:high)" ],
+      "lux": 150
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "indoor(traffic volume:medium)" ],
+      "lux": 75
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "indoor(traffic volume:low)" ],
+      "lux": 30
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "outdoor(traffic volume:high)" ],
+      "lux": 20
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "outdoor(traffic volume:medium)" ],
+      "lux": 10
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "outdoor(traffic volume:low)" ],
+      "lux": 5
     }
   ],
   "ja": [
@@ -303,6 +388,31 @@
       "lux": 75
     },
     {
+      "fid": 5,
+      "anameLst": [ "大型店:ショーウィンドウ", "大型店:重要陳列部" ],
+      "lux": 2000
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "大型店:一般陳列部" ],
+      "lux": 1000
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "レジスター", "ファッション店:試着室", "スーパーマーケット:店頭" ],
+      "lux": 700
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "大型店:店内全般", "レストラン:厨房" ],
+      "lux": 500
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "レストラン:客室" ],
+      "lux": 200
+    },
+    {
       "fid": 6,
       "anameLst": [ "造形物" ],
       "lux": 1000
@@ -391,6 +501,66 @@
       "fid": 8,
       "anameLst": [ "寝室" ],
       "lux": 20
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "A級駅:改札口" ],
+      "lux": 1000
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "A級駅:コンコース", "A級駅:待合室", "B級駅:改札口" ],
+      "lux": 500
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "B級駅:コンコース", "B級駅:待合室" ],
+      "lux": 300
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "A級駅:ホーム", "C級駅:改札口" ],
+      "lux": 200
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "B級駅:ホーム", "C級駅:待合室" ],
+      "lux": 100
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "C級駅:ホーム" ],
+      "lux": 75
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "屋内車路(交通量:多)" ],
+      "lux": 150
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "屋内車路(交通量:中)", "屋内駐車(出入り:多)" ],
+      "lux": 75
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "屋内車路(交通量:少)", "屋内駐車(出入り:少)" ],
+      "lux": 30
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "屋外(交通量:多)" ],
+      "lux": 20
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "屋外(交通量:中)" ],
+      "lux": 10
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "屋外(交通量:少)" ],
+      "lux": 5
     }
   ],
   "fr": [
@@ -406,22 +576,22 @@
     },
     {
       "fid": 1,
-      "anameLst": [ "réception","vestiaire","EVホール" ],
+      "anameLst": [ "réception","vestiaire","hall d'ascenseur" ],
       "lux": 300
     },
     {
       "fid": 1,
-      "anameLst": [ "トイレ","salle d'eau","書庫" ],
+      "anameLst": [ "toilette","salle d'eau","salle de livre" ],
       "lux": 200
     },
     {
       "fid": 1,
-      "anameLst": [ "休憩室","vestiaire","玄関車寄せ" ],
+      "anameLst": [ "salle de pause","vestiaire","porche de transport" ],
       "lux": 100
     },
     {
       "fid": 1,
-      "anameLst": [ "屋内非常階段" ],
+      "anameLst": [ "escalier de secours" ],
       "lux": 50
     },
     {
@@ -498,6 +668,31 @@
       "fid": 4,
       "anameLst": [ "chambre noire d'ophtalmologie" ],
       "lux": 75
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "grand magasin:fenêtre d'affichage", "grand magasin:zone d'affichage importante" ],
+      "lux": 2000
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "grand magasin:zone d'affichage général" ],
+      "lux": 1000
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "caisse enregistreuse", "magasin de vêtements:cabine d'essayage", "supermarché:étagères de magasin" ],
+      "lux": 700
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "grand magasin:ensemble à l'intérieur du magasin", "restaurant:cuisine" ],
+      "lux": 500
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "restaurant:chambre d'amis" ],
+      "lux": 200
     },
     {
       "fid": 6,
@@ -588,6 +783,66 @@
       "fid": 8,
       "anameLst": [ "chambre à coucher" ],
       "lux": 20
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "classe A gare:porte d'entrée" ],
+      "lux": 1000
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "classe A gare:foule", "classe A gare:salle d'attente", "classe B gare:porte d'entrée" ],
+      "lux": 500
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "classe B gare:foule", "classe B gare:salle d'attente" ],
+      "lux": 300
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "classe A gare:quai", "classe C gare:porte d'entrée" ],
+      "lux": 200
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "classe B gare:quai", "classe C gare:salle d'attente" ],
+      "lux": 100
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "classe C gare:quai" ],
+      "lux": 75
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "intérieur(volume de circulation:haute)" ],
+      "lux": 150
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "intérieur(volume de circulation:moyenne)" ],
+      "lux": 75
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "intérieur(volume de circulation:basse)" ],
+      "lux": 30
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "extérieur(volume de circulation:haute)" ],
+      "lux": 20
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "extérieur(volume de circulation:moyenne)" ],
+      "lux": 10
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "extérieur(volume de circulation:basse)" ],
+      "lux": 5
     }
   ],
   "es": [
@@ -603,22 +858,22 @@
     },
     {
       "fid": 1,
-      "anameLst": [ "recepción","sala de polvo","EVホール" ],
+      "anameLst": [ "recepción","sala de polvo","sala de ascensor" ],
       "lux": 300
     },
     {
       "fid": 1,
-      "anameLst": [ "トイレ","vestidor","書庫" ],
+      "anameLst": [ "baño","vestidor","sala de libros" ],
       "lux": 200
     },
     {
       "fid": 1,
-      "anameLst": [ "休憩室","玄関車寄せ" ],
+      "anameLst": [ "sala de descanso","porche de carro" ],
       "lux": 100
     },
     {
       "fid": 1,
-      "anameLst": [ "屋内非常階段" ],
+      "anameLst": [ "escalera de incendios" ],
       "lux": 50
     },
     {
@@ -695,6 +950,31 @@
       "fid": 4,
       "anameLst": [ "oftalmología sala oscura" ],
       "lux": 75
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "grandes almacenes:ventana de visualización", "grandes almacenes:zona de visualización importante" ],
+      "lux": 2000
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "grandes almacenes:zona de visualización general" ],
+      "lux": 1000
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "caja registradora", "tienda de ropa:probador", "supermercado:estantes de tiendas" ],
+      "lux": 700
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "grandes almacenes:en general dentro de la tienda", "restaurante:cocina" ],
+      "lux": 500
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "restaurante:habitación de huéspedes" ],
+      "lux": 200
     },
     {
       "fid": 6,
@@ -785,6 +1065,66 @@
       "fid": 8,
       "anameLst": [ "cuarto" ],
       "lux": 20
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "clase A estación:portón de entrada" ],
+      "lux": 1000
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "clase A estación:concurso", "clase A estación:sala de espera", "clase B estación:portón de entrada" ],
+      "lux": 500
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "clase B estación:concurso", "clase B estación:sala de espera" ],
+      "lux": 300
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "clase A estación:andén", "clase C estación:portón de entrada" ],
+      "lux": 200
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "clase B estación:andén", "clase C estación:sala de espera" ],
+      "lux": 100
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "clase C estación:andén" ],
+      "lux": 75
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "interior(volumen de tráfico:alto)" ],
+      "lux": 150
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "interior(volumen de tráfico:medio)" ],
+      "lux": 75
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "interior(volumen de tráfico:bajo)" ],
+      "lux": 30
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "fuera(volumen de tráfico:alto)" ],
+      "lux": 20
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "fuera(volumen de tráfico:medio)" ],
+      "lux": 10
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "fuera(volumen de tráfico:bajo)" ],
+      "lux": 5
     }
   ],
   "zh": [
@@ -800,22 +1140,22 @@
     },
     {
       "fid": 1,
-      "anameLst": [ "前台","化妆间","EVホール" ],
+      "anameLst": [ "前台","化妆间","电梯厅" ],
       "lux": 300
     },
     {
       "fid": 1,
-      "anameLst": [ "トイレ","更衣室","書庫" ],
+      "anameLst": [ "厕所","更衣室","书房" ],
       "lux": 200
     },
     {
       "fid": 1,
-      "anameLst": [ "休憩室","玄関車寄せ" ],
+      "anameLst": [ "休息室","马车门廊" ],
       "lux": 100
     },
     {
       "fid": 1,
-      "anameLst": [ "屋内非常階段" ],
+      "anameLst": [ "防火梯" ],
       "lux": 50
     },
     {
@@ -892,6 +1232,31 @@
       "fid": 4,
       "anameLst": [ "眼科黑暗的房间" ],
       "lux": 75
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "百货商店:展示窗", "百货商店:重要的展示区" ],
+      "lux": 2000
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "百货商店:一般展示区" ],
+      "lux": 1000
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "收款台", "服装店:试衣间", "超级市场:商店货架" ],
+      "lux": 700
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "百货商店:整体店内", "餐厅:厨房" ],
+      "lux": 500
+    },
+    {
+      "fid": 5,
+      "anameLst": [ "餐厅:客房" ],
+      "lux": 200
     },
     {
       "fid": 6,
@@ -982,6 +1347,66 @@
       "fid": 8,
       "anameLst": [ "卧室" ],
       "lux": 20
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "A级站:入口门" ],
+      "lux": 1000
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "A级站:中央大厅", "A级站:候车室", "B级站:入口门" ],
+      "lux": 500
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "B级站:中央大厅", "B级站:候车室" ],
+      "lux": 300
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "A级站:站台", "C级站:入口门" ],
+      "lux": 200
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "B级站:站台", "C级站:候车室" ],
+      "lux": 100
+    },
+    {
+      "fid": 9,
+      "anameLst": [ "C级站:站台" ],
+      "lux": 75
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "室内(交通量:多)" ],
+      "lux": 150
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "室内(交通量:中)" ],
+      "lux": 75
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "室内(交通量:少)" ],
+      "lux": 30
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "户外(交通量:高)" ],
+      "lux": 20
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "户外(交通量:中)" ],
+      "lux": 10
+    },
+    {
+      "fid": 10,
+      "anameLst": [ "户外(交通量:少)" ],
+      "lux": 5
     }
   ]
 }
