@@ -169,6 +169,9 @@ class MainActivity : AppCompatActivity()
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
         Log.d( javaClass.simpleName, "onRestoreInstanceState")
+        // アプリ設定をロードする
+        val appl = application as LuxApplication
+        appl.loadAppConf()
     }
 
     // 言語が変わったとき呼ばれるかどうか

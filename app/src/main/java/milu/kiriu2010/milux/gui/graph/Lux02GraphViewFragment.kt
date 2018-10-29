@@ -111,7 +111,9 @@ class Lux02GraphViewFragment : Fragment()
 
     override fun onDestroy() {
         super.onDestroy()
-        handler.removeCallbacks(runnable)
+        if (this::runnable.isInitialized) {
+            handler.removeCallbacks(runnable)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
