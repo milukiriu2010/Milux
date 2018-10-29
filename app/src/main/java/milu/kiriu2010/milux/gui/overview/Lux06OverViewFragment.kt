@@ -352,7 +352,6 @@ class Lux06OverViewFragment : Fragment()
         // 座標を下に移動する
         // "4:太陽セグメント"以外は、座標を移動する
         if ( seg != 4 )  canvas.translate(0f, fh)
-        val src = Rect(0,0, bmp.width, bmp.height)
 
         val luxSeg = luxSegMover[seg]
         //Log.d(javaClass.simpleName, "seg[$seg]il.x[${luxSeg.il.x}]rl.x[${luxSeg.rl.x}]rs.x[${luxSeg.rs.x}]")

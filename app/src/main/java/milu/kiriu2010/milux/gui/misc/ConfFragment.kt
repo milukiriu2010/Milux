@@ -148,7 +148,7 @@ class ConfFragment : DialogFragment() {
         super.onActivityCreated(savedInstanceState)
 
         // WindowManager.LayoutParams
-        val lp = dialog.window.attributes
+        val lp = dialog?.window?.attributes ?: return
 
         // DisplayMetrics
         val metrics = resources.displayMetrics

@@ -82,7 +82,6 @@ class Lux05FacilityFragment : Fragment()
         spinFacility = view.findViewById<Spinner>(R.id.spinFacility)
 
         // 施設リストのテンプレートを構築
-        //val facLst = createFacLst()
         val facLst = appConf.createFacLst()
 
         // 施設を選択するスピンにアダプタを設定する
@@ -107,7 +106,12 @@ class Lux05FacilityFragment : Fragment()
                 createFacAreaLst(selectedFac.fid).forEach {
                     adapterFacArea.facAreaLst.add(it)
                 }
+                // 更新をアダプタに通知
                 adapterFacArea.notifyDataSetChanged()
+                // 選択施設を設定へ反映する
+                appConf.fid = selectedFac.fid
+                // 共有設定へアプリ設定を保存する
+                appl?.saveSharedPreferences()
             }
         }
 
@@ -127,24 +131,6 @@ class Lux05FacilityFragment : Fragment()
         return view
     }
 
-    /*
-    // 施設リストのテンプレートを構築
-    private fun createFacLst(): List<Facility> {
-        Log.d( javaClass.simpleName, "createFacLst")
-        // 施設エリアのリストからfidを抽出する。
-        // fidは重複しているため、重複を除く
-        val fidLst = appConf.facilityAreaLst.map { it -> it.fid }.distinct()
-
-        // 上で取得されたfidのリストから
-        // 施設リストを抽出する
-        val facLst = appConf.facilityLst.filter {
-            fidLst.contains(it.fid)
-        }
-
-        return facLst
-    }
-    */
-
     // 施設エリアリストのテンプレートを構築
     //   fid: 施設ID
     private fun createFacAreaLst( fid: Int ): MutableList<FacilityArea> {
@@ -155,7 +141,9 @@ class Lux05FacilityFragment : Fragment()
             // 2:factory
             2 ->  resources.getIntArray(R.array.FacilityLuxPattern03).toTypedArray()
             // 10:parking lot
-            10 ->  resources.getIntArray(R.array.FacilityLuxPattern04).toTypedArray()
+            10 -> resources.getIntArray(R.array.FacilityLuxPattern04).toTypedArray()
+            // 11:sports(international match)
+            11 -> resources.getIntArray(R.array.FacilityLuxPattern05).toTypedArray()
             else -> resources.getIntArray(R.array.FacilityLuxPattern01).toTypedArray()
         }
 

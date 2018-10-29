@@ -30,37 +30,39 @@ class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
                 if ( !this::lux06OverViewFragment.isInitialized ) {
                     lux06OverViewFragment = Lux06OverViewFragment.newInstance()
                 }
-                return lux06OverViewFragment
+                lux06OverViewFragment
             }
             1 -> {
                 if ( !this::lux05FacilityFragment.isInitialized ) {
                     lux05FacilityFragment = Lux05FacilityFragment.newInstance()
                 }
-                return lux05FacilityFragment
+                lux05FacilityFragment
             }
             2 -> {
                 if ( !this::lux04GraphViewFragment.isInitialized ) {
                     lux04GraphViewFragment = Lux04GraphViewFragment.newInstance()
                 }
-                return lux04GraphViewFragment
+                lux04GraphViewFragment
             }
             3 -> {
                 if ( !this::lux03HistoryViewFragment.isInitialized ) {
                     lux03HistoryViewFragment = Lux03HistoryViewFragment.newInstance()
                 }
-                return lux03HistoryViewFragment
+                lux03HistoryViewFragment
             }
+            /*
             4 -> {
                 if ( !this::lux01OverViewFragment.isInitialized ) {
                     lux01OverViewFragment = Lux01OverViewFragment.newInstance()
                 }
-                return lux01OverViewFragment
+                lux01OverViewFragment
             }
+            */
             else -> {
                 if ( !this::lux06OverViewFragment.isInitialized ) {
                     lux06OverViewFragment = Lux06OverViewFragment.newInstance()
                 }
-                return lux06OverViewFragment
+                lux06OverViewFragment
             }
         }
     }

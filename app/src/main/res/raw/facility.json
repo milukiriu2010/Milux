@@ -39,6 +39,10 @@
     {
       "fid": 10,
       "fname": "parking lot"
+    },
+    {
+      "fid": 11,
+      "fname": "sports(international match)"
     }
   ],
   "ja": [
@@ -81,6 +85,10 @@
     {
       "fid": 10,
       "fname": "駐車場"
+    },
+    {
+      "fid": 11,
+      "fname": "スポーツ(国際試合)"
     }
   ],
   "fr": [
@@ -123,6 +131,10 @@
     {
       "fid": 10,
       "fname": "stationnement"
+    },
+    {
+      "fid": 11,
+      "fname": "sports(match international)"
     }
   ],
   "es": [
@@ -165,6 +177,10 @@
     {
       "fid": 10,
       "fname": "estacionamiento"
+    },
+    {
+      "fid": 11,
+      "fname": "deportes(partido internacional)"
     }
   ],
   "zh": [
@@ -207,6 +223,10 @@
     {
       "fid": 10,
       "fname": "停车场"
+    },
+    {
+      "fid": 11,
+      "fname": "体育(国际比赛)"
     }
   ]
 }

@@ -279,6 +279,21 @@
       "fid": 10,
       "anameLst": [ "outdoor(traffic volume:low)" ],
       "lux": 5
+    },
+    {
+      "fid": 11,
+      "anameLst": [ "baseball(infield)" ],
+      "lux": 1000
+    },
+    {
+      "fid": 11,
+      "anameLst": [ "baseball(outfield)", "softball(infield)", "tennis(indoor)", "volleyball","basketball", "badminton", "table tennis" ],
+      "lux": 750
+    },
+    {
+      "fid": 11,
+      "anameLst": [ "softball(outfield)", "soccer", "rugby", "tennis(outdoors)" ],
+      "lux": 500
     }
   ],
   "ja": [
@@ -561,6 +576,21 @@
       "fid": 10,
       "anameLst": [ "屋外(交通量:少)" ],
       "lux": 5
+    },
+    {
+      "fid": 11,
+      "anameLst": [ "野球(内野)" ],
+      "lux": 1000
+    },
+    {
+      "fid": 11,
+      "anameLst": [ "野球(外野)", "ソフトボール(内野)", "テニス(屋内)", "バレーボール","バスケットボール", "バドミントン", "卓球" ],
+      "lux": 750
+    },
+    {
+      "fid": 11,
+      "anameLst": [ "ソフトボール(外野)", "サッカー", "ラグビー", "テニス(屋外)" ],
+      "lux": 500
     }
   ],
   "fr": [
@@ -843,6 +873,21 @@
       "fid": 10,
       "anameLst": [ "extérieur(volume de circulation:basse)" ],
       "lux": 5
+    },
+    {
+      "fid": 11,
+      "anameLst": [ "base-ball(intérieur)" ],
+      "lux": 1000
+    },
+    {
+      "fid": 11,
+      "anameLst": [ "base-ball(extérieur)", "balle molle(intérieur)", "tennis(intérieur)", "volley-ball","basketball", "badminton", "tennis de table" ],
+      "lux": 750
+    },
+    {
+      "fid": 11,
+      "anameLst": [ "balle molle(extérieur)", "football", "rugby", "tennis(dehors)" ],
+      "lux": 500
     }
   ],
   "es": [
@@ -1125,6 +1170,21 @@
       "fid": 10,
       "anameLst": [ "fuera(volumen de tráfico:bajo)" ],
       "lux": 5
+    },
+    {
+      "fid": 11,
+      "anameLst": [ "béisbol(infield)" ],
+      "lux": 1000
+    },
+    {
+      "fid": 11,
+      "anameLst": [ "béisbol(jardineros)", "sofbol(infield)", "tenis(interior)", "voleibol","baloncesto", "bádminton", "mesa de tennis" ],
+      "lux": 750
+    },
+    {
+      "fid": 11,
+      "anameLst": [ "sofbol(jardineros)", "fútbol", "rugby", "tenis(fuera)" ],
+      "lux": 500
     }
   ],
   "zh": [
@@ -1407,6 +1467,21 @@
       "fid": 10,
       "anameLst": [ "户外(交通量:少)" ],
       "lux": 5
+    },
+    {
+      "fid": 11,
+      "anameLst": [ "棒球(内场)" ],
+      "lux": 1000
+    },
+    {
+      "fid": 11,
+      "anameLst": [ "棒球(外场)", "垒球(内场)", "网球(室内)", "排球","篮球", "羽毛球", "乒乓球" ],
+      "lux": 750
+    },
+    {
+      "fid": 11,
+      "anameLst": [ "垒球(外场)", "足球", "橄榄球", "网球(室外)" ],
+      "lux": 500
     }
   ]
 }

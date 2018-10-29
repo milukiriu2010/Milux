@@ -165,6 +165,18 @@ class MainActivity : AppCompatActivity()
         sensorManager.unregisterListener(this)
     }
 
+    // 言語が変わったとき呼ばれるかどうか
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        Log.d( javaClass.simpleName, "onRestoreInstanceState")
+    }
+
+    // 言語が変わったとき呼ばれるかどうか
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        Log.d( javaClass.simpleName, "onSaveInstanceState")
+    }
+
     // SensorEventListener
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
     }
@@ -273,7 +285,7 @@ class MainActivity : AppCompatActivity()
 
     private fun selectOnOff() {
         // ページが選択されたこと・選択から外れたことを通知する
-        for ( i in 0 until luxPagerAdapter!!.count!! ) {
+        for ( i in 0 until luxPagerAdapter!!.count ) {
             val fragment = luxPagerAdapter?.getItem(i) as? SelectedListener ?: continue
 
             Log.d(javaClass.simpleName, "selectOnOff[{$i}{$currentPagePos}]")

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    11:sport(international match)
+    -->
+    <integer-array name="FacilityLuxPattern05">
+        <item>1000</item>
+        <item>750</item>
+        <item>500</item>
+        <item>300</item>
+        <item>200</item>
+        <item>100</item>
+        <item>0</item>
+    </integer-array>
+</resources>
