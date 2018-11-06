@@ -12,4 +12,5 @@
     <string name="action_resume">Reprendre</string>
     <string name="action_pause">Pause</string>
     <string name="action_upload">télécharger des données</string>
+    <string name="label_screen_on">Gardez l\'écran allumé</string>
 </resources>

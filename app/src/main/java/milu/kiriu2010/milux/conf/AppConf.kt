@@ -14,7 +14,9 @@ class AppConf(
         // 施設リスト
         val facilityLst: MutableList<Facility> = mutableListOf(),
         // 施設エリアリスト
-        val facilityAreaLst: MutableList<FacilityArea> = mutableListOf()
+        val facilityAreaLst: MutableList<FacilityArea> = mutableListOf(),
+        // スクリーンを常にON(true:ON/false:OFF)
+        var screenOn: Boolean = false
 ) {
     // デフォルト設定にする
     fun goDefault() {
@@ -23,6 +25,8 @@ class AppConf(
         limit = appConfDef.limit
         // 施設ビューで表示対象の施設
         fid = appConfDef.fid
+        // スクリーンを常にON(true:ON/false:OFF)
+        screenOn = appConfDef.screenOn
     }
 
     // 施設リストのテンプレートを構築

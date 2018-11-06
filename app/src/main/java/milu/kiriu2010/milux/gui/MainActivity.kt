@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 
 import kotlinx.android.synthetic.main.activity_main.*
 import milu.kiriu2010.milux.LuxApplication
@@ -71,6 +72,9 @@ class MainActivity : AppCompatActivity()
 
         // Set up the ViewPager with the sections adapter.
         container.adapter = luxPagerAdapter
+
+        // スクリーンを常にON
+        //window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         // アクティブなフラグメントが切り替わったら呼び出される
         container.addOnPageChangeListener( object : ViewPager.OnPageChangeListener {

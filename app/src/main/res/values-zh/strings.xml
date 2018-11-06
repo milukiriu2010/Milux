@@ -12,4 +12,5 @@
     <string name="action_resume">"重新开始 "</string>
     <string name="action_pause">暂停</string>
     <string name="action_upload">上传数据</string>
+    <string name="label_screen_on">保持屏幕</string>
 </resources>

@@ -8,9 +8,11 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
+import android.widget.Switch
 import milu.kiriu2010.milux.LuxApplication
 
 import milu.kiriu2010.milux.R
@@ -31,6 +33,9 @@ class ConfFragment : DialogFragment() {
 
     // 施設を選択するスピン
     private lateinit var spinFacility: Spinner
+
+    // スクリーンONスイッチ
+    private lateinit var switchScreenOn: Switch
 
     // デフォルトボタン
     private lateinit var btnDefault: Button
@@ -86,6 +91,9 @@ class ConfFragment : DialogFragment() {
         // 施設を選択するスピン
         spinFacility = view.findViewById(R.id.spinFacility)
 
+        // スクリーンONスイッチ
+        switchScreenOn = view.findViewById(R.id.switchScreenOn)
+
         // アプリ設定をビューへ反映
         appConf2View(ctx,appConf)
 
@@ -106,6 +114,18 @@ class ConfFragment : DialogFragment() {
 
             // 表示対象の施設を更新
             appConf.fid = (spinFacility.selectedItem as Facility).fid
+
+            // "スクリーンON"に対応する更新を実施
+            appConf.screenOn = switchScreenOn.isChecked
+            // ON
+            if ( appConf.screenOn ) {
+                activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            }
+            // OFF
+            else {
+                activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            }
+
 
             // 共有設定へアプリ設定を保存する
             appl.saveSharedPreferences()
@@ -142,6 +162,10 @@ class ConfFragment : DialogFragment() {
         // 施設を選択するスピンのデフォルト選択を設定する
         val fac = facLst.filter { it.fid == appConf.fid }.first()
         spinFacility.setSelection(facLst.indexOf(fac))
+
+        // スクリーンONスイッチを設定する
+        switchScreenOn.isChecked = appConf.screenOn
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -118,6 +118,7 @@ class Lux06OverViewFragment : Fragment()
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d(javaClass.simpleName,"onDestroy")
         if (this::runnable.isInitialized) {
             handler.removeCallbacks(runnable)
         }
@@ -125,7 +126,7 @@ class Lux06OverViewFragment : Fragment()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
+        Log.d(javaClass.simpleName,"onCreateView")
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_lux01_over_view, container, false)
 
@@ -184,7 +185,7 @@ class Lux06OverViewFragment : Fragment()
     // NewVal01Listener
     // 新しい照度を設定
     override fun onUpdate(lux: Float) {
-        //Log.d( javaClass.simpleName, "lux[$lux]")
+        //Log.d( javaClass.simpleName, "onUpdate:lux[$lux]")
         //if ( lux == this.lux ) return
         this.lux = lux
 

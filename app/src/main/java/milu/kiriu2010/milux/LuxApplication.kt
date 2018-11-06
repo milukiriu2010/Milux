@@ -22,7 +22,8 @@ class LuxApplication: Application() {
     private enum class SpKey(val id: String) {
         NAME_APP_CONF("appConf"),
         KEY_LIMIT("limit"),
-        KEY_FID("fid")
+        KEY_FID("fid"),
+        KEY_SCREEN_ON("screenOn")
     }
 
     // -------------------------------------
@@ -63,6 +64,8 @@ class LuxApplication: Application() {
                 .putInt(SpKey.KEY_LIMIT.id,appConf.limit)
                 // 共有設定へ"施設ビューで表示対象の施設"を保存
                 .putInt(SpKey.KEY_FID.id,appConf.fid)
+                // 共有設定へ"スクリーンを常にON"を保存
+                .putBoolean(SpKey.KEY_SCREEN_ON.id,appConf.screenOn)
                 .commit()
     }
 
@@ -77,6 +80,8 @@ class LuxApplication: Application() {
         appConf.limit = sp.getInt(SpKey.KEY_LIMIT.id,appConfDef.limit)
         // 共有設定から"施設ビューで表示対象の施設"を取得
         appConf.fid = sp.getInt(SpKey.KEY_FID.id,appConfDef.fid)
+        // 共有設定から"スクリーンを常にON"を取得
+        appConf.screenOn = sp.getBoolean(SpKey.KEY_SCREEN_ON.id,appConfDef.screenOn)
     }
 
     // 施設リストをロードする
