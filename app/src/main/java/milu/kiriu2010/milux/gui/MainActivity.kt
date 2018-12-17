@@ -46,17 +46,11 @@ class MainActivity : AppCompatActivity()
     private var luxData = LuxData()
 
     // 時刻ごとの照度値リスト
-    //private val luxLst = LimitedArrayList<LuxData>(appConf.limit, appConf.limit)
     private lateinit var luxLst: LimitedArrayList<LuxData>
-
-    // タイマーで呼び出されるハンドラー
-    //private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //setSupportActionBar(toolbar)
 
         // アプリ設定
         val appl = application as LuxApplication
@@ -260,7 +254,6 @@ class MainActivity : AppCompatActivity()
             fragment.updateConf()
         }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

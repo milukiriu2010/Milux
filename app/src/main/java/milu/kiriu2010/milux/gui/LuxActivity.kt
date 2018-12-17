@@ -8,60 +8,51 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.view.ViewPager
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import milu.kiriu2010.milux.LuxApplication
 import milu.kiriu2010.milux.R
 import milu.kiriu2010.milux.conf.AppConf
 import milu.kiriu2010.milux.entity.LuxData
+import milu.kiriu2010.milux.gui.misc.AboutFragment
+import milu.kiriu2010.milux.gui.misc.ConfFragment
 import milu.kiriu2010.milux.gui.misc.MenuFragment
 import milu.kiriu2010.milux.id.FragmentID
 import milu.kiriu2010.util.LimitedArrayList
 import java.util.*
 
+// DrawLayoutにすると横向きにしたとき表示されない
+// RecyclerViewをつけると"02スクリーン"の上に"01スクリーン"がなぜか表示される
 class LuxActivity : AppCompatActivity()
         , SensorEventListener
-        , ResetListener {
+        , ResetListener
+        , ConfFragment.OnUpdateConfListener {
+
 
     // アプリ設定
     private lateinit var appConf: AppConf
 
-    // ナビゲーションドロワーの状態操作用オブジェクト
-    private var drawerToggle: ActionBarDrawerToggle? = null
-
-    /**
-     * The [android.support.v4.view.PagerAdapter] that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * [android.support.v4.app.FragmentStatePagerAdapter].
-     */
+    // スワイプする表示されるページを格納したアダプタ
     private var luxPagerAdapter: LuxPagerAdapter? = null
+
+    // 現在表示対象としているページ番号
+    private var currentPagePos = 0
 
     // 照度センサの値
     private var luxData = LuxData()
 
     // 時刻ごとの照度値リスト
-    // 1分間データを保持
-    //private val luxLst = LimitedArrayList<LuxData>(appConf.limit, appConf.limit)
     private lateinit var luxLst: LimitedArrayList<LuxData>
-
-    // タイマーで呼び出されるハンドラー
-    //private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lux)
-
-        /*
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.frameLux, fragment)
-                .commit()
-                */
 
         // アプリ設定
         val appl = application as LuxApplication
@@ -78,25 +69,53 @@ class LuxActivity : AppCompatActivity()
         // Set up the ViewPager with the sections adapter.
         container.adapter = luxPagerAdapter
 
+        // スクリーンを常にON
+        //window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
         // アクティブなフラグメントが切り替わったら呼び出される
-        /*
         container.addOnPageChangeListener( object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(p0: Int) {
+            override fun onPageScrollStateChanged(state: Int) {
+                // スクロールが完了したら
+                // ページが選択されたこと・選択から外れたことを通知する
+                if ( state == ViewPager.SCROLL_STATE_IDLE ) {
+                    selectOnOff()
+                }
             }
 
             override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
             }
 
             override fun onPageSelected(pos: Int) {
+                Log.d(javaClass.simpleName, "onPageSelected[{$pos}]")
+
+                // 現在表示中のページ番号を取得
+                currentPagePos = pos
+
+                // ページが選択されたこと・選択から外れたことを通知する
+                //selectOnOff()
+                /*
+                for ( i in 0..luxPagerAdapter!!.count!! ) {
+                    val fragment = luxPagerAdapter?.getItem(i) as? SelectedListener ?: continue
+
+                    if ( i == pos ) {
+                        fragment.onSelected(true)
+                    }
+                    else {
+                        fragment.onSelected(false)
+                    }
+                }
+                */
+
+                /*
                 val fragment = luxPagerAdapter?.getItem(pos) ?: return
                 // 画面の方向を表示する内容によって変更する
                 if ( fragment is OrientationListener ) {
                     requestedOrientation = fragment.onActivityOrientation()
                 }
+                */
             }
 
         })
-        */
 
 
         // 1秒ごとに照度値をバッファに蓄える
@@ -109,25 +128,6 @@ class LuxActivity : AppCompatActivity()
             }
         }
         */
-
-        if ( savedInstanceState == null ) {
-            // メニューを表示するフラグメントを追加
-            if ( supportFragmentManager.findFragmentByTag(FragmentID.ID_MENU.id) == null ) {
-                supportFragmentManager.beginTransaction()
-                        .replace(R.id.frameMenu, MenuFragment.newInstance(), FragmentID.ID_MENU.id)
-                        .commit()
-            }
-        }
-
-        // レイアウトからドロワーを探す
-        //   Portrait  => ドロワーあり
-        //   Landscape => ドロワーなし
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
-
-        // レイアウト中にドロワーがある場合設定を行う
-        if ( drawerLayout != null ) {
-            setupDrawer(drawerLayout)
-        }
     }
 
     // センサーの監視を開始する
@@ -144,7 +144,18 @@ class LuxActivity : AppCompatActivity()
         // 照度センサなし
         else {
             // アラート画面
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.frameErrMsg, NoSensorFragment.newInstance())
+                    .commit()
+            container.visibility = View.GONE
         }
+        /*
+        // アラート画面
+        supportFragmentManager.beginTransaction()
+                .add(R.id.frameErrMsg, NoSensorFragment.newInstance())
+                .commit()
+        container.visibility = View.GONE
+        */
     }
 
     // センサーの監視を終了する
@@ -152,6 +163,21 @@ class LuxActivity : AppCompatActivity()
         super.onPause()
         val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensorManager.unregisterListener(this)
+    }
+
+    // 言語が変わったとき呼ばれるかどうか
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        Log.d( javaClass.simpleName, "onRestoreInstanceState")
+        // アプリ設定をロードする
+        val appl = application as LuxApplication
+        appl.loadAppConf()
+    }
+
+    // 言語が変わったとき呼ばれるかどうか
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        Log.d( javaClass.simpleName, "onSaveInstanceState")
     }
 
     // SensorEventListener
@@ -180,6 +206,11 @@ class LuxActivity : AppCompatActivity()
             val fragment = luxPagerAdapter?.getItem(i) as? NewVal01Listener
                     ?: continue
 
+            /* 現在選択しているページだけ更新
+            if ( i == currentPagePos ) {
+                fragment.onUpdate(lux)
+            }
+            */
             fragment.onUpdate(lux)
             if ( tick == true ) {
                 fragment.onUpdate(luxLst)
@@ -208,20 +239,22 @@ class LuxActivity : AppCompatActivity()
         }
     }
 
-    // アクティビティの生成が終わった後に呼ばれる
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-        // ドロワーのトグルの状態を同期する
-        // これを実施しないと、
-        // メニューが表示されてなくても"←"マークが左上に表示されつづける
-        drawerToggle?.syncState()
-    }
+    // ConfFragment.OnUpdateConfListener
+    // 設定が更新されると呼び出される
+    override fun updateConf() {
+        val appl = application as? LuxApplication ?: return
+        val appConf = appl.appConf
 
-    // 画面が回転するなど、状態が変化したときに呼ばれる
-    override fun onConfigurationChanged(newConfig: Configuration?) {
-        super.onConfigurationChanged(newConfig)
-        // 状態の変化をドロワーに伝える
-        drawerToggle?.onConfigurationChanged(newConfig)
+        // 照度値リストのリミットを更新
+        luxLst.limit = appConf.limit
+
+        // 登録されている表示ビュー全てをリセット
+        for ( i in 0 until luxPagerAdapter!!.count ) {
+            val fragment = luxPagerAdapter?.getItem(i) as? ConfFragment.OnUpdateConfListener
+                    ?: continue
+
+            fragment.updateConf()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -236,36 +269,35 @@ class LuxActivity : AppCompatActivity()
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             // リセットボタン
-            R.id.action_reset -> {
-                OnReset()
-                return true
+            R.id.action_reset -> OnReset()
+            // "設定"フラグメントを表示
+            R.id.action_settings -> {
+                val dialog = ConfFragment.newInstance()
+                dialog.show(supportFragmentManager, FragmentID.ID_SETTINGS.id)
+            }
+            // "About Me"フラグメントを表示
+            R.id.action_about -> {
+                val dialog = AboutFragment.newInstance()
+                dialog.show(supportFragmentManager, FragmentID.ID_ABOUT.id)
             }
         }
 
-        // ドロワーに伝える
-        if ( drawerToggle?.onOptionsItemSelected(item) == true ) {
-            return true
-        }
-        else {
-            return super.onOptionsItemSelected(item)
-        }
+        return super.onOptionsItemSelected(item)
     }
 
-    // ナビゲーションドロワーを開閉するためのアイコンをアクションバーに配置する
-    private fun setupDrawer( drawer: DrawerLayout ) {
-        val toggle = ActionBarDrawerToggle( this, drawer, R.string.app_name, R.string.app_name )
-        // ドロワーのトグルを有効にする
-        toggle.isDrawerIndicatorEnabled = true
-        // 開いたり閉じたりのコールバックを設定する
-        drawer.addDrawerListener(toggle)
+    private fun selectOnOff() {
+        // ページが選択されたこと・選択から外れたことを通知する
+        for ( i in 0 until luxPagerAdapter!!.count ) {
+            val fragment = luxPagerAdapter?.getItem(i) as? SelectedListener ?: continue
 
-        drawerToggle = toggle
+            Log.d(javaClass.simpleName, "selectOnOff[{$i}{$currentPagePos}]")
 
-        // アクションバーの設定を行う
-        supportActionBar?.apply {
-            // ドロワー用のアイコンを表示
-            setDisplayHomeAsUpEnabled(true)
-            setHomeButtonEnabled(true)
+            if ( i == currentPagePos ) {
+                fragment.onSelected(true)
+            }
+            else {
+                fragment.onSelected(false)
+            }
         }
     }
 }

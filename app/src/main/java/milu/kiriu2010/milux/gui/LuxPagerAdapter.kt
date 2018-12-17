@@ -9,6 +9,7 @@ import milu.kiriu2010.milux.gui.list.Lux03HistoryViewFragment
 import milu.kiriu2010.milux.gui.facility.Lux05FacilityFragment
 import milu.kiriu2010.milux.gui.overview.Lux01OverViewFragment
 import milu.kiriu2010.milux.gui.overview.Lux06OverViewFragment
+import milu.kiriu2010.milux.gui.sun.Lux07SunViewFragment
 
 //class LuxPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
 class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
@@ -19,9 +20,10 @@ class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
     private lateinit var lux02GraphViewFragment: Lux02GraphViewFragment
     private lateinit var lux04GraphViewFragment: Lux04GraphViewFragment
     private lateinit var lux03HistoryViewFragment: Lux03HistoryViewFragment
+    private lateinit var lux07SunViewFragment: Lux07SunViewFragment
 
     // ページ数
-    private val pageCnt = 4
+    private val pageCnt = 5
 
     override fun getItem(pos: Int): Fragment {
         //return when (pos%pageCnt) {
@@ -50,14 +52,12 @@ class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
                 }
                 lux03HistoryViewFragment
             }
-            /*
             4 -> {
-                if ( !this::lux01OverViewFragment.isInitialized ) {
-                    lux01OverViewFragment = Lux01OverViewFragment.newInstance()
+                if ( !this::lux07SunViewFragment.isInitialized ) {
+                    lux07SunViewFragment = Lux07SunViewFragment.newInstance()
                 }
-                lux01OverViewFragment
+                lux07SunViewFragment
             }
-            */
             else -> {
                 if ( !this::lux06OverViewFragment.isInitialized ) {
                     lux06OverViewFragment = Lux06OverViewFragment.newInstance()

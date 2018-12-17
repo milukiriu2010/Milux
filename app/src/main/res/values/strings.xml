@@ -16,13 +16,18 @@
     <string name="action_ok" translatable="false">OK</string>
     <string name="action_rate_me">Rate Me</string>
     <string name="label_sampling_number">Sampling Number</string>
-    <string name="label_facility" >Facility</string>
+    <string name="label_facility">Facility</string>
     <string name="action_default">Default</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_resume">Resume</string>
     <string name="action_pause">Pause</string>
     <string name="action_upload">Upload data</string>
     <string name="label_screen_on">Keep screen on</string>
+    <string name="label_azimuth">Azimuth</string>
+    <string name="label_light_intensity_max">Value(Lux is max)</string>
+    <string name="label_light_intesity_now">Value(Now)</string>
+    <string name="label_pitch">Pitch</string>
+    <string name="labelRoll">Roll</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

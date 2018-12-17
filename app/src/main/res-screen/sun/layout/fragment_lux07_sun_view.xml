@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutLux07"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".gui.sun.Lux07SunViewFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/labelAzimuth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/label_azimuth"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelMax" />
+
+    <TextView
+        android:id="@+id/labelMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/label_light_intensity_max"
+        app:layout_constraintStart_toEndOf="@+id/labelAzimuth"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/labelNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/label_light_intesity_now"
+        app:layout_constraintBottom_toBottomOf="@+id/labelMax"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/labelMax"
+        app:layout_constraintTop_toTopOf="@+id/labelMax" />
+
+    <TextView
+        android:id="@+id/dataAzimuthMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/labelAzimuth"
+        app:layout_constraintStart_toStartOf="@+id/labelMax"
+        app:layout_constraintTop_toTopOf="@+id/labelAzimuth"
+        tools:text="180.0" />
+
+    <TextView
+        android:id="@+id/dataAzimuthNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/dataAzimuthMax"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/labelNow"
+        app:layout_constraintTop_toTopOf="@+id/dataAzimuthMax"
+        tools:text="180.0" />
+
+    <TextView
+        android:id="@+id/labelPitch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/label_pitch"
+        app:layout_constraintEnd_toEndOf="@+id/labelAzimuth"
+        app:layout_constraintStart_toStartOf="@+id/labelAzimuth"
+        app:layout_constraintTop_toBottomOf="@+id/labelAzimuth" />
+
+    <TextView
+        android:id="@+id/dataPitchMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/labelPitch"
+        app:layout_constraintStart_toStartOf="@+id/labelMax"
+        app:layout_constraintTop_toTopOf="@+id/labelPitch"
+        tools:text="180.0" />
+
+    <TextView
+        android:id="@+id/dataPitchNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/dataPitchMax"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/labelNow"
+        app:layout_constraintTop_toTopOf="@+id/dataPitchMax"
+        tools:text="180.0" />
+
+    <TextView
+        android:id="@+id/labelRoll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/labelRoll"
+        app:layout_constraintEnd_toEndOf="@+id/labelPitch"
+        app:layout_constraintStart_toStartOf="@+id/labelPitch"
+        app:layout_constraintTop_toBottomOf="@+id/labelPitch" />
+
+    <TextView
+        android:id="@+id/dataRollMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/labelRoll"
+        app:layout_constraintStart_toStartOf="@+id/labelMax"
+        app:layout_constraintTop_toTopOf="@+id/labelRoll"
+        tools:text="180.0" />
+
+    <TextView
+        android:id="@+id/dataRollNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/dataRollMax"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/labelNow"
+        app:layout_constraintTop_toTopOf="@+id/dataRollMax"
+        tools:text="180.0" />
+
+</android.support.constraint.ConstraintLayout>
