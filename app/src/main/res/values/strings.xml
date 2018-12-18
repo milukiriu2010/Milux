@@ -28,6 +28,7 @@
     <string name="label_light_intesity_now">Value(Now)</string>
     <string name="label_pitch">Pitch</string>
     <string name="labelRoll">Roll</string>
+    <string name="label_lux">Lux</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
