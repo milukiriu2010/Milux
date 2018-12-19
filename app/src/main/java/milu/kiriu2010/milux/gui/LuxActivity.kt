@@ -67,6 +67,7 @@ class LuxActivity : AppCompatActivity()
     // The inclination angle in radians can be computed with getInclination(float[]).
     // ------------------------------------------------------------------------------------------
     private val ix = FloatArray(MATRIX_SIZE)
+    private val mR = FloatArray(9)
 
     // センサー値
     private val AXIS_NUM = 3
@@ -76,8 +77,10 @@ class LuxActivity : AppCompatActivity()
     private var magnetic = FloatArray(AXIS_NUM)
     // 照度センサの値
     private var light = FloatArray(1)
-    // 端末の姿勢
+    // 端末の姿勢の値
     private var attitude = FloatArray(AXIS_NUM)
+    // 方向の値
+    private var orientation = FloatArray(AXIS_NUM)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +89,9 @@ class LuxActivity : AppCompatActivity()
         // アプリ設定
         val appl = application as LuxApplication
         appConf = appl.appConf
+
+        // スクリーン制御
+        appConf.screenControl(this)
 
         // 時刻ごとの照度値リスト
         luxLst = LimitedArrayList<LuxData>(appConf.limit, appConf.limit)
@@ -261,10 +267,12 @@ class LuxActivity : AppCompatActivity()
             if ( (accel != null) and (magnetic != null) ) {
                 // 回転行列を計算
                 SensorManager.getRotationMatrix(inR,ix,accel,magnetic)
+                SensorManager.getRotationMatrix(mR,null,accel,magnetic)
                 // 端末の画面設定に合わせる(以下は, 縦表示で画面を上にした場合)
                 SensorManager.remapCoordinateSystem(inR,SensorManager.AXIS_X,SensorManager.AXIS_Y,outR)
                 // 方位角/傾きを取得
                 SensorManager.getOrientation(outR,attitude)
+                SensorManager.getOrientation(mR,orientation)
             }
 
             // 計測時刻
@@ -298,7 +306,7 @@ class LuxActivity : AppCompatActivity()
                 // フラグメントが、それを受け取り可能な場合、値を通知する
                 // ----------------------------------------------------------
                 if ( (fragment is NewVal02Listener) and (attitude != null) ) {
-                    (fragment as? NewVal02Listener)?.onUpdate(luxData,attitude)
+                    (fragment as? NewVal02Listener)?.onUpdate(luxData,attitude,orientation)
                 }
                 // ----------------------------------------------------------
                 // 照度値のリストは、1秒ごとに各フラグメントへ通知

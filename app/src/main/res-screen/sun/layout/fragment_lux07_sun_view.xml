@@ -9,12 +9,28 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/labelValue"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+    <TextView
         android:id="@+id/labelAzimuth"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+        android:textSize="18sp"
         android:text="@string/label_azimuth"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelMax" />
@@ -23,34 +39,33 @@
         android:id="@+id/labelMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="256dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
         android:text="@string/label_light_intensity_max"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toEndOf="@+id/labelAzimuth"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/labelNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:text="@string/label_light_intesity_now"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/labelMax"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/labelMax"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="@+id/labelMax" />
 
     <TextView
         android:id="@+id/dataAzimuthMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/labelAzimuth"
+        app:layout_constraintEnd_toEndOf="@+id/labelMax"
         app:layout_constraintStart_toStartOf="@+id/labelMax"
         app:layout_constraintTop_toTopOf="@+id/labelAzimuth"
         tools:text="180.0" />
@@ -59,12 +74,9 @@
         android:id="@+id/dataAzimuthNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/dataAzimuthMax"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/labelNow"
         app:layout_constraintStart_toStartOf="@+id/labelNow"
         app:layout_constraintTop_toTopOf="@+id/dataAzimuthMax"
         tools:text="180.0" />
@@ -74,6 +86,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textSize="18sp"
         android:text="@string/label_pitch"
         app:layout_constraintEnd_toEndOf="@+id/labelAzimuth"
         app:layout_constraintStart_toStartOf="@+id/labelAzimuth"
@@ -83,10 +96,10 @@
         android:id="@+id/dataPitchMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/labelPitch"
-        app:layout_constraintStart_toStartOf="@+id/labelMax"
+        app:layout_constraintEnd_toEndOf="@+id/dataAzimuthMax"
+        app:layout_constraintStart_toStartOf="@+id/dataAzimuthMax"
         app:layout_constraintTop_toTopOf="@+id/labelPitch"
         tools:text="180.0" />
 
@@ -94,12 +107,9 @@
         android:id="@+id/dataPitchNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/dataPitchMax"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/dataAzimuthNow"
         app:layout_constraintStart_toStartOf="@+id/labelNow"
         app:layout_constraintTop_toTopOf="@+id/dataPitchMax"
         tools:text="180.0" />
@@ -109,6 +119,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textSize="18sp"
         android:text="@string/labelRoll"
         app:layout_constraintEnd_toEndOf="@+id/labelPitch"
         app:layout_constraintStart_toStartOf="@+id/labelPitch"
@@ -118,10 +129,10 @@
         android:id="@+id/dataRollMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/labelRoll"
-        app:layout_constraintStart_toStartOf="@+id/labelMax"
+        app:layout_constraintEnd_toEndOf="@+id/dataPitchMax"
+        app:layout_constraintStart_toStartOf="@+id/dataPitchMax"
         app:layout_constraintTop_toTopOf="@+id/labelRoll"
         tools:text="180.0" />
 
@@ -129,12 +140,9 @@
         android:id="@+id/dataRollNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/dataRollMax"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/dataPitchNow"
         app:layout_constraintStart_toStartOf="@+id/labelNow"
         app:layout_constraintTop_toTopOf="@+id/dataRollMax"
         tools:text="180.0" />
@@ -144,6 +152,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textSize="18sp"
         android:text="@string/label_lux"
         app:layout_constraintEnd_toEndOf="@+id/labelRoll"
         app:layout_constraintStart_toStartOf="@+id/labelRoll"
@@ -153,7 +162,9 @@
         android:id="@+id/dataLuxMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/labelLux"
+        app:layout_constraintEnd_toEndOf="@+id/dataRollMax"
         app:layout_constraintStart_toStartOf="@+id/dataRollMax"
         app:layout_constraintTop_toTopOf="@+id/labelLux"
         tools:text="100.0" />
@@ -162,14 +173,33 @@
         android:id="@+id/dataLuxNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/dataLuxMax"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/dataRollNow"
         app:layout_constraintStart_toStartOf="@+id/labelNow"
         app:layout_constraintTop_toTopOf="@+id/dataLuxMax"
         tools:text="100.0" />
+
+    <ImageView
+        android:id="@+id/imageViewFlight"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/svn_flight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/labelValue"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/labelAzimuth"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewFlight" />
 
 </android.support.constraint.ConstraintLayout>

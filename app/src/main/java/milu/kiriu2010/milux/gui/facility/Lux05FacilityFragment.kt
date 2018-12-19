@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -245,6 +246,10 @@ class Lux05FacilityFragment : Fragment()
         // 施設リストのテンプレートを構築
         //val facLst = createFacLst()
         val facLst = appConf.createFacLst()
+
+        Log.d( javaClass.simpleName, "facLst.size[${facLst.size}]appConf.fid[${appConf.fid}]")
+
+        if (facLst.size == 0) return
 
         if (this::spinFacility.isInitialized == false) return
 

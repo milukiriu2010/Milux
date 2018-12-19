@@ -1,6 +1,8 @@
 package milu.kiriu2010.milux.conf
 
+import android.app.Activity
 import android.util.Log
+import android.view.WindowManager
 import milu.kiriu2010.milux.entity.Facility
 import milu.kiriu2010.milux.entity.FacilityArea
 
@@ -42,7 +44,20 @@ class AppConf(
             fidLst.contains(it.fid)
         }
 
+        Log.d( javaClass.simpleName, "createFacLst:facLst.size[${facLst.size}]")
+
         return facLst
     }
 
+    // スクリーン制御
+    fun screenControl(activity: Activity) {
+        // ON
+        if ( screenOn ) {
+            activity.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
+        // OFF
+        else {
+            activity.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
+    }
 }

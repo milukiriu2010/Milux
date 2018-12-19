@@ -208,7 +208,7 @@ class Lux04GraphViewFragment : Fragment()
         //Log.d( javaClass.simpleName, "drawCanvas:w[$ow]h[$oh]")
         val canvas = overView.holder.lockCanvas()
         if (canvas == null) {
-            Log.d( javaClass.simpleName, "canvas is null")
+            //Log.d( javaClass.simpleName, "canvas is null")
             //overView.holder.unlockCanvasAndPost(canvas)
             return
         }

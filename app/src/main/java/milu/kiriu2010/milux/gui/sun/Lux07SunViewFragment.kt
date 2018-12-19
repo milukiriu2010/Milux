@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
+import android.widget.ImageView
 import android.widget.TextView
 
 import milu.kiriu2010.milux.R
@@ -72,6 +75,12 @@ class Lux07SunViewFragment : Fragment()
     // 照度現在を表示するビュー
     private lateinit var dataLuxNow: TextView
 
+    // 方位を示すビュー
+    private lateinit var imageViewFlight: ImageView
+
+    // 現在の方向
+    private var currentDegree = 0f
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -109,6 +118,9 @@ class Lux07SunViewFragment : Fragment()
         dataLuxNow = view.findViewById(R.id.dataLuxNow)
         dataLuxNow.text = luxNow.toString()
 
+        // 方位を示すビュー
+        imageViewFlight = view.findViewById(R.id.imageViewFlight)
+
         return view
     }
 
@@ -126,20 +138,27 @@ class Lux07SunViewFragment : Fragment()
 
     // ------------------------------------
     // NewVal02Listener
-    // 新しい"照度値"と"端末の姿勢値"を渡す
+    // 新しい"照度値"
+    // "端末の姿勢値"
+    // "方位"
+    // を渡す
     // ------------------------------------
-    override fun onUpdate(luxData: LuxData, attitude: FloatArray) {
+    override fun onUpdate(luxData: LuxData, attitude: FloatArray, orientation: FloatArray) {
         // 照度現在
         luxNow = luxData.lux
 
-        // 方位角(照度現在)
+        // 方位角(照度現在)：ラジアン⇒度
         azimuthNow = Math.toDegrees(attitude[0].toDouble()).toFloat()
 
-        // 傾斜角(照度現在)
+        // 傾斜角(照度現在)：ラジアン⇒度
         pitchNow = Math.toDegrees(attitude[1].toDouble()).toFloat()
 
-        // 回転角(照度現在)
+        // 回転角(照度現在)：ラジアン⇒度
         rollNow = Math.toDegrees(attitude[2].toDouble()).toFloat()
+
+        // 方位
+        //val nextDegree = (Math.toDegrees(orientation[0].toDouble())+360.0).toFloat()%360
+        val nextDegree = Math.toDegrees(orientation[0].toDouble()).toFloat()
 
         if ( luxNow > luxMax ) {
             // 照度最大
@@ -183,6 +202,29 @@ class Lux07SunViewFragment : Fragment()
         // 回転角(照度現在)を表示
         if (this::dataRollNow.isInitialized) {
             dataRollNow.text = "%3.1f".format(rollNow)
+        }
+
+        // 方位を表示
+        if (this::imageViewFlight.isInitialized) {
+            val animation = RotateAnimation(currentDegree,
+                    -nextDegree,
+                    // 自分のサイズの割合、0.5fが画像の中心
+                    Animation.RELATIVE_TO_SELF,
+                    // 回転軸のX座標
+            0.5f,
+                    Animation.RELATIVE_TO_SELF,
+                    // 回転軸のY座標
+            0.5f
+                    )
+
+            animation.duration = 250
+            // アニメーション終了時にviewをそのまま残す
+            animation.fillAfter = true
+
+            // アニメーション開始
+            imageViewFlight.startAnimation(animation)
+            // 現在の方位を設定
+            currentDegree = -nextDegree
         }
     }
 

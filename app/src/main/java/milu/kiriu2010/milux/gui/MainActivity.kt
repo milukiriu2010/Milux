@@ -56,6 +56,9 @@ class MainActivity : AppCompatActivity()
         val appl = application as LuxApplication
         appConf = appl.appConf
 
+        // スクリーン制御
+        appConf.screenControl(this)
+
         // 時刻ごとの照度値リスト
         luxLst = LimitedArrayList<LuxData>(appConf.limit, appConf.limit)
         //luxLst.limit = appConf.limit

@@ -16,7 +16,8 @@
             android:configChanges="orientation|keyboardHidden"
             >
         </activity>
-        <activity android:name=".gui.LuxActivity">
+        <activity android:name=".gui.LuxActivity"
+            android:screenOrientation="portrait">
             //  android:screenOrientation="portrait"
             //  android:theme="@style/AppTheme.NoActionBar"
             <intent-filter>
