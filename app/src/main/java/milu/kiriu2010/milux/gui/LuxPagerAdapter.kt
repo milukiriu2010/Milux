@@ -41,11 +41,19 @@ class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
                 lux05FacilityFragment
             }
             2 -> {
+                if ( !this::lux02GraphViewFragment.isInitialized ) {
+                    lux02GraphViewFragment = Lux02GraphViewFragment.newInstance()
+                }
+                lux02GraphViewFragment
+            }
+            /*
+            2 -> {
                 if ( !this::lux04GraphViewFragment.isInitialized ) {
                     lux04GraphViewFragment = Lux04GraphViewFragment.newInstance()
                 }
                 lux04GraphViewFragment
             }
+            */
             3 -> {
                 if ( !this::lux03HistoryViewFragment.isInitialized ) {
                     lux03HistoryViewFragment = Lux03HistoryViewFragment.newInstance()
