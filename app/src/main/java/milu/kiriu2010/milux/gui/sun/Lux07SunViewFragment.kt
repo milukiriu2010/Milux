@@ -112,16 +112,68 @@ class Lux07SunViewFragment : Fragment()
 
         // 照度最大を表示するビュー
         dataLuxMax = view.findViewById(R.id.dataLuxMax)
-        dataLuxMax.text = luxMax.toString()
 
         // 照度現在を表示するビュー
         dataLuxNow = view.findViewById(R.id.dataLuxNow)
-        dataLuxNow.text = luxNow.toString()
 
         // 方位を示すビュー
         imageViewFlight = view.findViewById(R.id.imageViewFlight)
 
+        // 初期値をビューに設定
+        setInitVal()
+
         return view
+    }
+
+    // 初期値をビューに設定
+    private fun setInitVal() {
+        // 方位角(照度最大)を表示するビュー
+        if (this::dataLuxMax.isInitialized) {
+            azimuthMax = 0f
+            dataAzimuthMax.text = azimuthMax.toString()
+        }
+
+        // 方位角(照度現在)を表示するビュー
+        if (this::dataLuxNow.isInitialized) {
+            azimuthNow = 0f
+            dataAzimuthNow.text = azimuthNow.toString()
+        }
+
+        // 傾斜角(照度最大)を表示するビュー
+        if (this::dataPitchMax.isInitialized) {
+            pitchMax = 0f
+            dataPitchMax.text = pitchMax.toString()
+        }
+
+        // 傾斜角(照度現在)を表示するビュー
+        if (this::dataPitchNow.isInitialized) {
+            pitchNow = 0f
+            dataPitchNow.text = pitchNow.toString()
+        }
+
+        // 回転角(照度最大)を表示するビュー
+        if (this::dataRollMax.isInitialized) {
+            rollMax = 0f
+            dataRollMax.text = rollMax.toString()
+        }
+
+        // 回転角(照度現在)を表示するビュー
+        if (this::dataRollNow.isInitialized) {
+            rollNow = 0f
+            dataRollNow.text = rollNow.toString()
+        }
+
+        // 照度最大を表示するビュー
+        if (this::dataLuxMax.isInitialized) {
+            luxMax = 0f
+            dataLuxMax.text = luxMax.toString()
+        }
+
+        // 照度現在を表示するビュー
+        if (this::dataLuxNow.isInitialized) {
+            luxNow = 0f
+            dataLuxNow.text = luxNow.toString()
+        }
     }
 
     // NewVal01Listener
@@ -159,6 +211,7 @@ class Lux07SunViewFragment : Fragment()
         // 方位
         //val nextDegree = (Math.toDegrees(orientation[0].toDouble())+360.0).toFloat()%360
         val nextDegree = Math.toDegrees(orientation[0].toDouble()).toFloat()
+        //val nextDegree = Math.toDegrees(azimuthNow.toDouble()).toFloat()
 
         if ( luxNow > luxMax ) {
             // 照度最大
@@ -204,6 +257,7 @@ class Lux07SunViewFragment : Fragment()
             dataRollNow.text = "%3.1f".format(rollNow)
         }
 
+
         // 方位を表示
         if (this::imageViewFlight.isInitialized) {
             val animation = RotateAnimation(currentDegree,
@@ -236,6 +290,8 @@ class Lux07SunViewFragment : Fragment()
     // ResetListener
     // メンバ変数を初期化する
     override fun OnReset() {
+        // 初期値をビューに設定
+        setInitVal()
     }
 
     // SelectedListener

@@ -128,10 +128,11 @@ class Lux02GraphViewFragment : Fragment()
         val appConf = appl?.appConf
 
         // 照度の強さを表示するビュー
-        overView = view.findViewById(R.id.imageView02)
+        overView = view.findViewById(R.id.imageViewGraph)
         drawable = LuxGraphViewDrawable(appConf!!)
         overView.setImageDrawable(drawable)
 
+        // 描画
         drawable.invalidateSelf()
 
         // 照度の数値を表示するビュー

@@ -109,11 +109,13 @@ class LuxActivity : AppCompatActivity()
         // アクティブなフラグメントが切り替わったら呼び出される
         container.addOnPageChangeListener( object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
+                /*
                 // スクロールが完了したら
                 // ページが選択されたこと・選択から外れたことを通知する
                 if ( state == ViewPager.SCROLL_STATE_IDLE ) {
                     selectOnOff()
                 }
+                */
             }
 
             override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {

@@ -125,7 +125,7 @@ class Deco03ConstraintLayout
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        Log.d( javaClass.simpleName, "onSizeChanged")
+        //Log.d( javaClass.simpleName, "onSizeChanged")
         kickRunnable(animated)
     }
 

@@ -13,4 +13,11 @@
     <string name="action_pause">Pausa</string>
     <string name="action_upload">Subir datos</string>
     <string name="label_screen_on">Mantener la pantalla en</string>
+    <string name="label_azimuth">Azimut</string>
+    <string name="label_light_intensity_max">(Lux es max)</string>
+    <string name="label_light_intesity_now">(Ahora)</string>
+    <string name="label_pitch">Pitch</string>
+    <string name="labelRoll">Roll</string>
+    <string name="label_lux">Lux</string>
+    <string name="labelValue">Valor</string>
 </resources>

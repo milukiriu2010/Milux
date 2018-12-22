@@ -63,6 +63,7 @@ class LuxGraphViewDrawable(val appConf: AppConf): Drawable()
     private val mw = 100f
     private val mh = 100f
 
+    // グラフを描画するビットマップ
     private val imageBitmap = Bitmap.createBitmap(intrinsicWidth,intrinsicHeight, Bitmap.Config.ARGB_8888)
 
     // 時刻フォーマット

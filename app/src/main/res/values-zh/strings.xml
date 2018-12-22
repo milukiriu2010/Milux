@@ -13,4 +13,11 @@
     <string name="action_pause">暂停</string>
     <string name="action_upload">上传数据</string>
     <string name="label_screen_on">保持屏幕</string>
+    <string name="label_azimuth">方位</string>
+    <string name="label_light_intensity_max">(勒克斯是最大的)</string>
+    <string name="label_light_intesity_now">(现在)</string>
+    <string name="label_pitch">倾斜角</string>
+    <string name="labelRoll">回転角</string>
+    <string name="label_lux">勒克司</string>
+    <string name="labelValue">值</string>
 </resources>

@@ -13,4 +13,11 @@
     <string name="action_pause">一時停止</string>
     <string name="action_upload">データをアップロード</string>
     <string name="label_screen_on">スクリーンを常にON</string>
+    <string name="label_azimuth">方位角</string>
+    <string name="label_light_intensity_max">(照度最大)</string>
+    <string name="label_light_intesity_now">(現在)</string>
+    <string name="label_pitch">傾斜角</string>
+    <string name="labelRoll">回転角</string>
+    <string name="label_lux">照度</string>
+    <string name="labelValue">値</string>
 </resources>

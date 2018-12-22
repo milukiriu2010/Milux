@@ -19,12 +19,6 @@ import milu.kiriu2010.milux.gui.SelectedListener
 import milu.kiriu2010.util.LimitedArrayList
 import kotlin.math.log
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Lux06OverViewFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class Lux06OverViewFragment : Fragment()
         , SurfaceHolder.Callback
         , NewVal01Listener
@@ -128,7 +122,7 @@ class Lux06OverViewFragment : Fragment()
                               savedInstanceState: Bundle?): View? {
         Log.d(javaClass.simpleName,"onCreateView")
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_lux01_over_view, container, false)
+        val view = inflater.inflate(R.layout.fragment_lux06_over_view, container, false)
 
         // 照度の強さを表示するサーフェスビュー
         overView = view.findViewById(R.id.overView01)
