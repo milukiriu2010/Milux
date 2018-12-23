@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import milu.kiriu2010.milux.conf.AppConf
 import milu.kiriu2010.milux.entity.LuxData
 import milu.kiriu2010.milux.gui.NewVal01Listener
+import milu.kiriu2010.milux.gui.ResetListener
 import milu.kiriu2010.util.LimitedArrayList
 import java.text.SimpleDateFormat
 import java.util.*
@@ -12,7 +13,8 @@ import kotlin.math.log10
 import kotlin.math.pow
 
 class LuxGraphViewDrawable(val appConf: AppConf): Drawable()
-        , NewVal01Listener {
+        , NewVal01Listener
+        , ResetListener {
 
     // 照度MAX値
     private var luxMax = 10f
@@ -290,5 +292,20 @@ class LuxGraphViewDrawable(val appConf: AppConf): Drawable()
         // closeすると、始点と結ばれるらしい
         //luxPath.close()
         canvas.drawPath(luxPath,paintLineLux)
+
+        // 再描画
+        invalidateSelf()
+    }
+
+    override fun OnReset() {
+        // 照度MAX値
+        luxMax = 10f
+        // 照度MIN値
+        luxMin = 0f
+        // 照度差分(MAX-MIN)値
+        luxDif = 10f
+
+        // 再描画
+        onUpdate(LimitedArrayList(0))
     }
 }

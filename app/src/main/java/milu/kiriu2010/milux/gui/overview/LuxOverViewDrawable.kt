@@ -51,6 +51,9 @@ class LuxOverViewDrawable(val appConf: AppConf, val resources: Resources): Drawa
     // 概要を描画するビットマップ
     private val imageBitmap = Bitmap.createBitmap(intrinsicWidth,intrinsicHeight, Bitmap.Config.ARGB_8888)
 
+    // 描画中
+    private var isDrawing = false
+
     // バックグラウンドに使うペイント
     private val paintBackground = Paint().apply {
         color = Color.WHITE
@@ -136,11 +139,13 @@ class LuxOverViewDrawable(val appConf: AppConf, val resources: Resources): Drawa
 
         // 照度の強さを描画
         drawCanvas()
+
+        // 再描画
+        invalidateSelf()
     }
 
     override fun onUpdate(luxLst: LimitedArrayList<LuxData>) {
     }
-
 
     // 照度値に対応するセグメントの象徴画像を右へ移動
     private fun move() {
@@ -197,6 +202,12 @@ class LuxOverViewDrawable(val appConf: AppConf, val resources: Resources): Drawa
 
     // 照度の強さを描画
     private fun drawCanvas() {
+        // 描画中であればSKIP
+        if ( isDrawing ) return
+
+        // 描画中
+        isDrawing = true
+
         val canvas = Canvas(imageBitmap)
         // バックグラウンドを塗りつぶす
         val background = Rect( 0, 0, ow.toInt(), oh.toInt())
@@ -243,6 +254,9 @@ class LuxOverViewDrawable(val appConf: AppConf, val resources: Resources): Drawa
         // 照度の位置を描画
         val luxH = wh.y * (luxLog10Max-luxC)/luxLog10Max
         canvas.drawLine(0f, luxH, wh.x, luxH, paintLineLux )
+
+        // 描画完了
+        isDrawing = false
     }
 
     // ---------------------------------------------------
@@ -262,7 +276,7 @@ class LuxOverViewDrawable(val appConf: AppConf, val resources: Resources): Drawa
         if ( seg != 4 )  canvas.translate(0f, fh)
 
         val luxSeg = luxSegMover[seg]
-        Log.d(javaClass.simpleName, "seg[$seg]il.x[${luxSeg.il.x}]rl.x[${luxSeg.rl.x}]rs.x[${luxSeg.rs.x}]")
+        //Log.d(javaClass.simpleName, "seg[$seg]il.x[${luxSeg.il.x}]rl.x[${luxSeg.rl.x}]rs.x[${luxSeg.rs.x}]")
 
         val matrix = Matrix()
         // 左右反転
@@ -304,6 +318,17 @@ class LuxOverViewDrawable(val appConf: AppConf, val resources: Resources): Drawa
             it.il = AVector()
             // 回転角度(位置)
             it.al = AAngle(x=180f,y=180f)
+            // 回転角度(速度)
+            it.av = AAngle(y=av)
+            // 回転による射影位置を更新
+            it.updateByReflect()
         }
+
+        // 初期位置を描画
+        isDrawing = false
+        drawCanvas()
+
+        // 再描画
+        invalidateSelf()
     }
 }

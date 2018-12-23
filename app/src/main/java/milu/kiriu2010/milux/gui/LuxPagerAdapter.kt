@@ -28,20 +28,20 @@ class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
     override fun getItem(pos: Int): Fragment {
         //return when (pos%pageCnt) {
         return when (pos) {
-            /*
             0 -> {
                 if ( !this::lux01OverViewFragment.isInitialized ) {
                     lux01OverViewFragment = Lux01OverViewFragment.newInstance()
                 }
                 lux01OverViewFragment
             }
-            */
+            /*
             0 -> {
                 if ( !this::lux06OverViewFragment.isInitialized ) {
                     lux06OverViewFragment = Lux06OverViewFragment.newInstance()
                 }
                 lux06OverViewFragment
             }
+            */
             1 -> {
                 if ( !this::lux05FacilityFragment.isInitialized ) {
                     lux05FacilityFragment = Lux05FacilityFragment.newInstance()

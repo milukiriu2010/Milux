@@ -23,12 +23,6 @@ import java.util.*
 import kotlin.math.log10
 import kotlin.math.pow
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Lux02GraphViewFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class Lux02GraphViewFragment : Fragment()
         , NewVal01Listener
         , OrientationListener
@@ -37,11 +31,6 @@ class Lux02GraphViewFragment : Fragment()
 
     // 現在の照度
     private var lux: Float = 0f
-
-    // 照度MAX値
-    private var luxMax = 10f
-    // 照度MIN値
-    private var luxMin = 0f
 
     // 照度の数値を表示するビュー
     private lateinit var dataLux: TextView
@@ -176,10 +165,10 @@ class Lux02GraphViewFragment : Fragment()
         // 現在の照度
         lux = 0f
 
-        // 照度MAX値
-        luxMax = 10f
-        // 照度MIN値
-        luxMin = 0f
+        // 照度の強さ⇔時刻をグラフを初期化
+        if (this::drawable.isInitialized) {
+            drawable.OnReset()
+        }
     }
 
     // SelectedListener
@@ -196,21 +185,10 @@ class Lux02GraphViewFragment : Fragment()
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment Lux02GraphViewFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
                 Lux02GraphViewFragment().apply {
                     arguments = Bundle().apply {
-                        /*
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                        */
                     }
                 }
     }
