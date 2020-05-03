@@ -5,10 +5,10 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -74,11 +74,11 @@ class MainActivity : AppCompatActivity()
         //window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         // アクティブなフラグメントが切り替わったら呼び出される
-        container.addOnPageChangeListener( object : ViewPager.OnPageChangeListener {
+        container.addOnPageChangeListener( object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 // スクロールが完了したら
                 // ページが選択されたこと・選択から外れたことを通知する
-                if ( state == ViewPager.SCROLL_STATE_IDLE ) {
+                if ( state == androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE ) {
                     selectOnOff()
                 }
             }
@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity()
     }
 
     // 言語が変わったとき呼ばれるかどうか
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         Log.d( javaClass.simpleName, "onRestoreInstanceState")
         // アプリ設定をロードする
@@ -176,7 +176,7 @@ class MainActivity : AppCompatActivity()
     }
 
     // 言語が変わったとき呼ばれるかどうか
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         Log.d( javaClass.simpleName, "onSaveInstanceState")
     }

@@ -2,7 +2,7 @@ package milu.kiriu2010.milux.gui.misc
 
 
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import androidx.fragment.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +20,7 @@ import android.net.Uri
  * create an instance of this fragment.
  *
  */
-class AboutFragment : DialogFragment() {
+class AboutFragment : androidx.fragment.app.DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -49,7 +49,7 @@ class AboutFragment : DialogFragment() {
 
         // バージョンを表示
         val textViewVer = view.findViewById<TextView>(R.id.textViewVer)
-        val packageInfo = ctx.packageManager?.getPackageInfo(context?.packageName, 0)
+        val packageInfo = ctx.packageManager?.getPackageInfo(context?.packageName!!, 0)
         textViewVer.text = "ver %s".format(packageInfo?.versionName)
 
         // "Rate Me"ボタン

@@ -6,11 +6,11 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.view.ViewPager
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBarDrawerToggle
+import androidx.viewpager.widget.ViewPager
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.appcompat.app.ActionBarDrawerToggle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -107,7 +107,7 @@ class LuxActivity : AppCompatActivity()
         //window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         // アクティブなフラグメントが切り替わったら呼び出される
-        container.addOnPageChangeListener( object : ViewPager.OnPageChangeListener {
+        container.addOnPageChangeListener( object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 /*
                 // スクロールが完了したら
@@ -216,7 +216,7 @@ class LuxActivity : AppCompatActivity()
     }
 
     // 言語が変わったとき呼ばれるかどうか
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         Log.d( javaClass.simpleName, "onRestoreInstanceState")
         // アプリ設定をロードする
@@ -225,7 +225,7 @@ class LuxActivity : AppCompatActivity()
     }
 
     // 言語が変わったとき呼ばれるかどうか
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         Log.d( javaClass.simpleName, "onSaveInstanceState")
     }

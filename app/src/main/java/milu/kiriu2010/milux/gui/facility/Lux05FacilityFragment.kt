@@ -2,9 +2,9 @@ package milu.kiriu2010.milux.gui.facility
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +30,7 @@ import milu.kiriu2010.util.LimitedArrayList
  * create an instance of this fragment.
  *
  */
-class Lux05FacilityFragment : Fragment()
+class Lux05FacilityFragment : androidx.fragment.app.Fragment()
         , NewVal01Listener
         , ResetListener
         , ConfFragment.OnUpdateConfListener {
@@ -45,7 +45,7 @@ class Lux05FacilityFragment : Fragment()
     private lateinit var spinFacility: Spinner
 
     // 施設エリアのリストを表示するビュー
-    private lateinit var recyclerViewFacArea: RecyclerView
+    private lateinit var recyclerViewFacArea: androidx.recyclerview.widget.RecyclerView
 
     // 施設エリアを表示するためのアダプタ
     private lateinit var adapterFacArea: FacAreaRecyclerAdapter
@@ -123,7 +123,7 @@ class Lux05FacilityFragment : Fragment()
         recyclerViewFacArea = view.findViewById(R.id.recyclerViewFacArea)
 
         // 施設エリアのリストを縦に並べる
-        recyclerViewFacArea.layoutManager = LinearLayoutManager( ctx, LinearLayoutManager.VERTICAL, false)
+        recyclerViewFacArea.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(ctx, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
 
         // 施設エリアを表示するためのアダプタ
         adapterFacArea = FacAreaRecyclerAdapter(ctx, facilityAreaLst)

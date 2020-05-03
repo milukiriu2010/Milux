@@ -121,9 +121,9 @@ class LuxGraphViewDrawable(val appConf: AppConf): Drawable()
 
         // 照度値サンプリング数の上限数-1
         // 見つからない場合10としている
-        var limit = appConf?.limit?.let {
+        var limit = appConf.limit.let {
             it - 1
-        } ?: 10
+        }
 
         // 照度DIFF値からグラフ表示に使うDIFF値を計算
         //   luxMin      luxMax     luxDif

@@ -4,10 +4,10 @@ package milu.kiriu2010.milux.gui.list
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.*
 import milu.kiriu2010.milux.LuxApplication
@@ -26,12 +26,12 @@ import java.util.*
  * create an instance of this fragment.
  *
  */
-class Lux03HistoryViewFragment : Fragment()
+class Lux03HistoryViewFragment : androidx.fragment.app.Fragment()
         , NewVal01Listener
         , ResetListener {
 
     // 照度値の履歴を表示するビュー
-    private lateinit var recyclerViewLux: RecyclerView
+    private lateinit var recyclerViewLux: androidx.recyclerview.widget.RecyclerView
 
     // 照度値を表示するためのアダプタ
     private lateinit var adapter: LuxRecyclerAdapter
@@ -56,7 +56,7 @@ class Lux03HistoryViewFragment : Fragment()
         recyclerViewLux = view.findViewById(R.id.recyclerViewLux)
 
         // 照度値の履歴を縦に並べる
-        recyclerViewLux.layoutManager = LinearLayoutManager( context, LinearLayoutManager.VERTICAL, false )
+        recyclerViewLux.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
 
         // 照度値を表示するためのアダプタ
         adapter = LuxRecyclerAdapter(context!!)
@@ -120,14 +120,14 @@ class Lux03HistoryViewFragment : Fragment()
     }
 
     // このフラグメント用のメニューを作成
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         //super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.menu_list,menu)
+        inflater.inflate(R.menu.menu_list,menu)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             // 自動更新の挙動を変更する
             R.id.action_update -> {
                 // 自動更新: 可 => 不可

@@ -9,6 +9,7 @@ import milu.kiriu2010.milux.entity.Facility
 import milu.kiriu2010.milux.entity.FacilityArea
 import milu.kiriu2010.util.MyTool
 import org.json.JSONObject
+import java.lang.Exception
 import java.util.*
 
 class LuxApplication: Application() {
@@ -92,7 +93,12 @@ class LuxApplication: Application() {
         // JSONの内容を解析し施設リストを作成する
         val objJSON = JSONObject(str)
         // 現在の言語設定でJSONファイルを解析
-        var facilities = objJSON.getJSONArray(locale.language)
+        var facilities = try {
+            objJSON.getJSONArray(locale.language)
+        } catch ( e: Exception ) {
+            objJSON.getJSONArray(Locale.ENGLISH.language)
+        }
+
         // 現在の言語設定でのデータがなければ英語を採用する
         if ( facilities.length() == 0 ) {
             facilities = objJSON.getJSONArray("en")
@@ -114,7 +120,6 @@ class LuxApplication: Application() {
         Log.d(javaClass.simpleName, "facilityLst:[${appConf.facilityLst.size}]")
     }
 
-
     // 施設エリアリストをロードする
     private fun loadJSONFacilityArea() {
         // JSONファイルをロードする
@@ -123,7 +128,11 @@ class LuxApplication: Application() {
         // JSONの内容を解析し施設リストを作成する
         val objJSON = JSONObject(str)
         // 現在の言語設定でJSONファイルを解析
-        var facilitieAreas = objJSON.getJSONArray(locale.language)
+        var facilitieAreas = try {
+            objJSON.getJSONArray(locale.language)
+        } catch ( e: Exception ) {
+            objJSON.getJSONArray(Locale.ENGLISH.language)
+        }
         // 現在の言語設定でのデータがなければ英語を採用する
         if ( facilitieAreas.length() == 0 ) {
             facilitieAreas = objJSON.getJSONArray("en")

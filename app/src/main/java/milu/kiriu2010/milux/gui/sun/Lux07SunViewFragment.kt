@@ -3,7 +3,7 @@ package milu.kiriu2010.milux.gui.sun
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +17,7 @@ import milu.kiriu2010.milux.entity.LuxData
 import milu.kiriu2010.milux.gui.*
 import milu.kiriu2010.util.LimitedArrayList
 
-class Lux07SunViewFragment : Fragment()
+class Lux07SunViewFragment : androidx.fragment.app.Fragment()
     , NewVal01Listener
     , NewVal02Listener
     , OrientationListener

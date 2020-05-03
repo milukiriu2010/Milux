@@ -3,8 +3,8 @@ package milu.kiriu2010.milux.gui.misc
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.Fragment
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +26,7 @@ import milu.kiriu2010.milux.gui.facility.FacSpinAdapter
  * create an instance of this fragment.
  *
  */
-class ConfFragment : DialogFragment() {
+class ConfFragment : androidx.fragment.app.DialogFragment() {
 
     // サンプリング数を選択するスピン
     private lateinit var spinSamplingNum: Spinner
@@ -60,7 +60,7 @@ class ConfFragment : DialogFragment() {
         }
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnUpdateConfListener) {
             listener = context

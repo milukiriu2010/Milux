@@ -3,7 +3,7 @@ package milu.kiriu2010.gui.decorate
 import android.content.Context
 import android.graphics.*
 import android.os.Handler
-import android.support.constraint.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import android.util.AttributeSet
 import android.util.Log
 

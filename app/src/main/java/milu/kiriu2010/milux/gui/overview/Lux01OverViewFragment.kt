@@ -5,7 +5,7 @@ import android.content.pm.ActivityInfo
 import android.graphics.*
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
@@ -26,7 +26,7 @@ import kotlin.math.log
  * create an instance of this fragment.
  *
  */
-class Lux01OverViewFragment : Fragment()
+class Lux01OverViewFragment : androidx.fragment.app.Fragment()
         , NewVal01Listener
         , OrientationListener
         , ResetListener

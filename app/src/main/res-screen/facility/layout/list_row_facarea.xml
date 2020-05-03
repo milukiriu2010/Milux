@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="@+id/dataLux"
         tools:text="休憩室" />
 
-    <android.support.constraint.Guideline
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

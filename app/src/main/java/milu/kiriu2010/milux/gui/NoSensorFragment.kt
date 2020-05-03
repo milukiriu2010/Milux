@@ -2,7 +2,7 @@ package milu.kiriu2010.milux.gui
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +15,7 @@ import milu.kiriu2010.milux.R
  * create an instance of this fragment.
  *
  */
-class NoSensorFragment : Fragment() {
+class NoSensorFragment : androidx.fragment.app.Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

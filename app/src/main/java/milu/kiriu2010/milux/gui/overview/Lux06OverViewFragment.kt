@@ -5,7 +5,7 @@ import android.content.pm.ActivityInfo
 import android.graphics.*
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.*
 import android.widget.TextView
@@ -19,7 +19,7 @@ import milu.kiriu2010.milux.gui.SelectedListener
 import milu.kiriu2010.util.LimitedArrayList
 import kotlin.math.log
 
-class Lux06OverViewFragment : Fragment()
+class Lux06OverViewFragment : androidx.fragment.app.Fragment()
         , SurfaceHolder.Callback
         , NewVal01Listener
         , OrientationListener

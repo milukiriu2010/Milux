@@ -1,8 +1,8 @@
 package milu.kiriu2010.milux.gui
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
 import milu.kiriu2010.milux.gui.graph.Lux02GraphViewFragment
 import milu.kiriu2010.milux.gui.graph.Lux04GraphViewFragment
 import milu.kiriu2010.milux.gui.list.Lux03HistoryViewFragment
@@ -12,7 +12,7 @@ import milu.kiriu2010.milux.gui.overview.Lux06OverViewFragment
 import milu.kiriu2010.milux.gui.sun.Lux07SunViewFragment
 
 //class LuxPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
-class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
+class LuxPagerAdapter(fm: androidx.fragment.app.FragmentManager): androidx.fragment.app.FragmentStatePagerAdapter(fm) {
 
     private lateinit var lux01OverViewFragment: Lux01OverViewFragment
     private lateinit var lux06OverViewFragment: Lux06OverViewFragment
@@ -25,7 +25,7 @@ class LuxPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
     // ページ数
     private val pageCnt = 5
 
-    override fun getItem(pos: Int): Fragment {
+    override fun getItem(pos: Int): androidx.fragment.app.Fragment {
         //return when (pos%pageCnt) {
         return when (pos) {
             0 -> {

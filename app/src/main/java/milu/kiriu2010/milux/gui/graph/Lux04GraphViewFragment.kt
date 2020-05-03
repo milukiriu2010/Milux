@@ -5,7 +5,7 @@ import android.content.pm.ActivityInfo
 import android.graphics.*
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.*
 import android.widget.TextView
@@ -28,7 +28,7 @@ import kotlin.math.pow
  * create an instance of this fragment.
  *
  */
-class Lux04GraphViewFragment : Fragment()
+class Lux04GraphViewFragment : androidx.fragment.app.Fragment()
         , SurfaceHolder.Callback
         , NewVal01Listener
         , OrientationListener

@@ -1,7 +1,7 @@
 package milu.kiriu2010.milux.gui.facility
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +18,7 @@ class FacAreaRecyclerAdapter(
         var luxMin: Float = 100000f,
         // 施設エリア名をアニメーションするための照度MAX値
         var luxMax: Float = 100000f
-    ): RecyclerView.Adapter<FacAreaRecyclerAdapter.FacAreaViewHolder>() {
+    ): androidx.recyclerview.widget.RecyclerView.Adapter<FacAreaRecyclerAdapter.FacAreaViewHolder>() {
 
     private val inflater = LayoutInflater.from(context)
 
@@ -72,7 +72,7 @@ class FacAreaRecyclerAdapter(
         }
     }
 
-    class FacAreaViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class FacAreaViewHolder(view: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         // 親レイアウト
         val decoLayout = view.findViewById<Deco03ConstraintLayout>(R.id.decoLayout)
         // 照度
