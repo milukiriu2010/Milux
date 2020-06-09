@@ -121,7 +121,7 @@ class LuxGraphViewDrawable(val appConf: AppConf): Drawable()
 
         // 照度値サンプリング数の上限数-1
         // 見つからない場合10としている
-        var limit = appConf.limit.let {
+        val limit = appConf.limit.let {
             it - 1
         }
 

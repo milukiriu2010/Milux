@@ -1,6 +1,7 @@
 package milu.kiriu2010.milux.gui.overview
 
 
+import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.graphics.*
 import android.os.Bundle
@@ -20,12 +21,12 @@ import milu.kiriu2010.milux.gui.SelectedListener
 import milu.kiriu2010.util.LimitedArrayList
 import kotlin.math.log
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Lux01OverViewFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
+// ------------------------------------------
+// 以下、２つを表示するフラグメント
+// (1) 照度の強さ
+// (2) 照度を５つのセグメントに分け、
+//     照度に対応するセグメントの画像を回転させる
+// ------------------------------------------
 class Lux01OverViewFragment : androidx.fragment.app.Fragment()
         , NewVal01Listener
         , OrientationListener
@@ -78,6 +79,7 @@ class Lux01OverViewFragment : androidx.fragment.app.Fragment()
 
     // NewVal01Listener
     // 新しい照度を設定
+    @SuppressLint("SetTextI18n")
     override fun onUpdate(lux: Float) {
         //Log.d( javaClass.simpleName, "lux[$lux]")
         //if ( lux == this.lux ) return
@@ -115,6 +117,7 @@ class Lux01OverViewFragment : androidx.fragment.app.Fragment()
     }
 
     // SelectedListener
+    // ページが選択されたこと・選択から外れたことが通知される
     override fun onSelected(selected: Boolean) {
         this.selected = selected
         if (this::overView.isInitialized) {

@@ -1,6 +1,7 @@
 package milu.kiriu2010.milux.gui.graph
 
 
+import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.graphics.*
 import android.os.Bundle
@@ -23,7 +24,8 @@ import java.util.*
 import kotlin.math.log10
 import kotlin.math.pow
 
-class Lux02GraphViewFragment : androidx.fragment.app.Fragment()
+// 照度をグラフ表示する
+class Lux02GraphViewFragment : Fragment()
         , NewVal01Listener
         , OrientationListener
         , ResetListener
@@ -81,7 +83,7 @@ class Lux02GraphViewFragment : androidx.fragment.app.Fragment()
     private val mh = 100f
 
     // 時刻フォーマット
-    private val timeFmt = SimpleDateFormat("HH:mm:ss").apply {
+    private val timeFmt = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).apply {
         // タイムゾーンを自端末に合わせる
         timeZone = TimeZone.getDefault()
     }
@@ -132,6 +134,7 @@ class Lux02GraphViewFragment : androidx.fragment.app.Fragment()
 
     // NewVal01Listener
     // 新しい照度を設定
+    @SuppressLint("SetTextI18n")
     override fun onUpdate(lux: Float) {
         //Log.d( javaClass.simpleName, "lux[$lux]")
         //if ( lux == this.lux ) return

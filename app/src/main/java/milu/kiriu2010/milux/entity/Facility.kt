@@ -8,8 +8,7 @@ data class Facility(
         val fid: Int,
         // 施設名
         val fname: String
-) {
-}
+)
 
 // 施設内のエリア
 // ------------------------------------
@@ -23,6 +22,4 @@ data class FacilityArea(
     val anameLst: MutableList<String>,
     // エリアの適正照度
     val lux: Int
-) {
-
-}
+)

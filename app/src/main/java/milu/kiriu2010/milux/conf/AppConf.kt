@@ -36,7 +36,7 @@ class AppConf(
         Log.d( javaClass.simpleName, "createFacLst")
         // 施設エリアのリストからfidを抽出する。
         // fidは重複しているため、重複を除く
-        val fidLst = facilityAreaLst.map { it -> it.fid }.distinct()
+        val fidLst = facilityAreaLst.map { it.fid }.distinct()
 
         // 上で取得されたfidのリストから
         // 施設リストを抽出する

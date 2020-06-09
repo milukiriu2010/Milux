@@ -13,7 +13,12 @@ import milu.kiriu2010.milux.gui.ResetListener
 import milu.kiriu2010.util.LimitedArrayList
 import kotlin.math.log
 
-class LuxOverViewDrawable(val appConf: AppConf, val resources: Resources): Drawable()
+// ------------------------------------------
+// 照度を５つのセグメントに分け、
+// 照度に対応するセグメントの画像を回転させる
+// ------------------------------------------
+class LuxOverViewDrawable(val appConf: AppConf, val resources: Resources)
+    : Drawable()
         , NewVal01Listener
         , ResetListener {
 

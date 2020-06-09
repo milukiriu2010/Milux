@@ -67,7 +67,7 @@ class LuxApplication: Application() {
                 .putInt(SpKey.KEY_FID.id,appConf.fid)
                 // 共有設定へ"スクリーンを常にON"を保存
                 .putBoolean(SpKey.KEY_SCREEN_ON.id,appConf.screenOn)
-                .commit()
+                .apply()
     }
 
     // 共有設定からアプリ設定をロードする

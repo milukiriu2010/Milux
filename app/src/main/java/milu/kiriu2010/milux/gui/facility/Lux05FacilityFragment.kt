@@ -1,6 +1,7 @@
 package milu.kiriu2010.milux.gui.facility
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,13 +25,8 @@ import milu.kiriu2010.milux.gui.NewVal01Listener
 import milu.kiriu2010.milux.gui.ResetListener
 import milu.kiriu2010.util.LimitedArrayList
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Lux05FacilityFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
-class Lux05FacilityFragment : androidx.fragment.app.Fragment()
+// 現在の照度に適した作業にハイライトをあてるフラグメント
+class Lux05FacilityFragment : Fragment()
         , NewVal01Listener
         , ResetListener
         , ConfFragment.OnUpdateConfListener {
@@ -123,7 +119,7 @@ class Lux05FacilityFragment : androidx.fragment.app.Fragment()
         recyclerViewFacArea = view.findViewById(R.id.recyclerViewFacArea)
 
         // 施設エリアのリストを縦に並べる
-        recyclerViewFacArea.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(ctx, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
+        recyclerViewFacArea.layoutManager = LinearLayoutManager(ctx, LinearLayoutManager.VERTICAL, false)
 
         // 施設エリアを表示するためのアダプタ
         adapterFacArea = FacAreaRecyclerAdapter(ctx, facilityAreaLst)
@@ -166,7 +162,7 @@ class Lux05FacilityFragment : androidx.fragment.app.Fragment()
     private fun updateAdapterHighlight() {
         if (this::adapterFacArea.isInitialized == false) return
 
-        var luxMin = adapterFacArea.luxMin
+        val luxMin = adapterFacArea.luxMin
 
         var highLightPos = -1
         for ( i in 0 until luxArray.size ) {
@@ -212,6 +208,7 @@ class Lux05FacilityFragment : androidx.fragment.app.Fragment()
     }
 
     // NewVal01Listener
+    @SuppressLint("SetTextI18n")
     override fun onUpdate(lux: Float) {
         //Log.d( javaClass.simpleName, "onUpdate[$lux]")
         this.lux = lux
@@ -259,13 +256,6 @@ class Lux05FacilityFragment : androidx.fragment.app.Fragment()
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment Lux05FacilityFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
                 Lux05FacilityFragment().apply {

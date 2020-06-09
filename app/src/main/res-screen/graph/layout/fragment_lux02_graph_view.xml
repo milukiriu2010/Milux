@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".gui.graph.Lux02GraphViewFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/dataLux"
         android:layout_width="match_parent"
@@ -40,6 +39,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dataLux" />
+        app:layout_constraintTop_toBottomOf="@+id/dataLux"
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

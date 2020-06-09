@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity()
         appConf.screenControl(this)
 
         // 時刻ごとの照度値リスト
-        luxLst = LimitedArrayList<LuxData>(appConf.limit, appConf.limit)
+        luxLst = LimitedArrayList(appConf.limit, appConf.limit)
         //luxLst.limit = appConf.limit
 
         // Create the adapter that will return a fragment for each of the three
@@ -68,23 +68,23 @@ class MainActivity : AppCompatActivity()
         luxPagerAdapter = LuxPagerAdapter(supportFragmentManager)
 
         // Set up the ViewPager with the sections adapter.
+        // containerは、androidx.viewpager.widget.ViewPagerのID
         container.adapter = luxPagerAdapter
 
         // スクリーンを常にON
         //window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         // アクティブなフラグメントが切り替わったら呼び出される
-        container.addOnPageChangeListener( object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+        container.addOnPageChangeListener( object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 // スクロールが完了したら
                 // ページが選択されたこと・選択から外れたことを通知する
-                if ( state == androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE ) {
+                if ( state == ViewPager.SCROLL_STATE_IDLE ) {
                     selectOnOff()
                 }
             }
 
-            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
-            }
+            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
 
             override fun onPageSelected(pos: Int) {
                 Log.d(javaClass.simpleName, "onPageSelected[{$pos}]")
@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity()
         val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         // 照度センサ
-        var sensorLight: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
+        val sensorLight: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
         // 照度センサあり
         if ( sensorLight != null ) {
             sensorManager.registerListener(this, sensorLight, SensorManager.SENSOR_DELAY_NORMAL)
@@ -150,13 +150,6 @@ class MainActivity : AppCompatActivity()
                     .commit()
             container.visibility = View.GONE
         }
-        /*
-        // アラート画面
-        supportFragmentManager.beginTransaction()
-                .add(R.id.frameErrMsg, NoSensorFragment.newInstance())
-                .commit()
-        container.visibility = View.GONE
-        */
     }
 
     // センサーの監視を終了する
@@ -212,7 +205,9 @@ class MainActivity : AppCompatActivity()
                 fragment.onUpdate(lux)
             }
             */
+            // 新しい値をフラグメントに渡す
             fragment.onUpdate(lux)
+            // 照度リストは1秒ごとに新しいリストをフラグメントに渡す
             if ( tick == true ) {
                 fragment.onUpdate(luxLst)
             }
@@ -286,8 +281,8 @@ class MainActivity : AppCompatActivity()
         return super.onOptionsItemSelected(item)
     }
 
+    // ページが選択されたこと・選択から外れたことを通知する
     private fun selectOnOff() {
-        // ページが選択されたこと・選択から外れたことを通知する
         for ( i in 0 until luxPagerAdapter!!.count ) {
             val fragment = luxPagerAdapter?.getItem(i) as? SelectedListener ?: continue
 

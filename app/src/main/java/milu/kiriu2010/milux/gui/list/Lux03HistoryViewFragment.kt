@@ -20,18 +20,12 @@ import milu.kiriu2010.util.LimitedArrayList
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Lux03HistoryViewFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
-class Lux03HistoryViewFragment : androidx.fragment.app.Fragment()
+class Lux03HistoryViewFragment : Fragment()
         , NewVal01Listener
         , ResetListener {
 
     // 照度値の履歴を表示するビュー
-    private lateinit var recyclerViewLux: androidx.recyclerview.widget.RecyclerView
+    private lateinit var recyclerViewLux: RecyclerView
 
     // 照度値を表示するためのアダプタ
     private lateinit var adapter: LuxRecyclerAdapter
@@ -56,7 +50,7 @@ class Lux03HistoryViewFragment : androidx.fragment.app.Fragment()
         recyclerViewLux = view.findViewById(R.id.recyclerViewLux)
 
         // 照度値の履歴を縦に並べる
-        recyclerViewLux.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
+        recyclerViewLux.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         // 照度値を表示するためのアダプタ
         adapter = LuxRecyclerAdapter(context!!)
@@ -156,7 +150,7 @@ class Lux03HistoryViewFragment : androidx.fragment.app.Fragment()
             }
             // データをアップロード
             R.id.action_upload -> {
-                val dateFmt = SimpleDateFormat("yyyy-MM-dd HH:mm:ssz")
+                val dateFmt = SimpleDateFormat("yyyy-MM-dd HH:mm:ssz",Locale.getDefault())
                 // タイムゾーンをローカルに変更
                 dateFmt.timeZone = TimeZone.getDefault()
                 // アダプタに格納されたデータをCSV形式に変換する
@@ -185,10 +179,6 @@ class Lux03HistoryViewFragment : androidx.fragment.app.Fragment()
         fun newInstance() =
                 Lux03HistoryViewFragment().apply {
                     arguments = Bundle().apply {
-                        /*
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                        */
                     }
                 }
     }

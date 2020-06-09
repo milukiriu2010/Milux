@@ -8,5 +8,4 @@ data class LuxData(
         val t: Date = Date(),
         // 照度
         val lux: Float = 0f
-) {
-}
+)
