@@ -11,3 +11,5 @@
 .externalNativeBuild
 .idea/assetWizardSettings.xml
 .idea/misc.xml
+.idea/encodings.xml
+.idea/jarRepositories.xml
